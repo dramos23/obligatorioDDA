@@ -16,11 +16,11 @@ public class Partida {
     
     public Partida(ArrayList<Jugador> jug){
         for (Jugador j:jug){
-            jugadores.add(new JugadorApostando(jug));
+            jugadores.add(new JugadorApostando(j));
         }
     }
     
-    
+ /*
     jugadorApuesta(int 50peso){
         //Poner 50 pesos en el pozo, se resta de jugador
         //Le pregunto a todos si se suman o no
@@ -30,5 +30,5 @@ public class Partida {
         //Se reinicia mano, jugadores se pueden ir, resetear booleanos
         
     }
-    
+    */
 }

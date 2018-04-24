@@ -9,6 +9,25 @@ package logica;
  *
  * @author Ninja
  */
-public class Jugador {
+public class Jugador extends Usuario {
+    
+    private int saldo;
+    
+    public Jugador(String nombre, String pass, String nombreCompleto, int dineroInicial) {
+            super(nombre, pass, nombreCompleto);
+            saldo = dineroInicial;
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
+    }
+    
+    
+    
+    
     
 }
