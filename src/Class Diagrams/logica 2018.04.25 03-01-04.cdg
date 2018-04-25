@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="logica">
+  <ClassDiagramComponents>
+    <Class name="Carta" package="logica" visibility="public" xPosition="45.0" yPosition="226.0">
+      <Fields>
+        <Field name="palo" type="palos" visibility="private"/>
+        <Field name="valor" type="int" visibility="private"/>
+        <Field name="codImagen" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="palos" name="unPalo"/>
+          <Argument type="int" name="unValor"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getPalo" returnType="palos" visibility="public"/>
+        <Method name="getValor" returnType="int" visibility="public"/>
+        <Method name="getCodImagen" returnType="String" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="compareTo" returnType="int" visibility="public">
+          <Argument type="Carta" name="c"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Jugador" package="logica" visibility="public" xPosition="878.0" yPosition="575.0">
+      <Fields>
+        <Field name="saldo" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="pass"/>
+          <Argument type="String" name="nombreCompleto"/>
+          <Argument type="int" name="dineroInicial"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getSaldo" returnType="int" visibility="public"/>
+        <Method name="setSaldo" returnType="void" visibility="public">
+          <Argument type="int" name="saldo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="JugadorApostando" package="logica" visibility="public" xPosition="482.0" yPosition="518.0">
+      <Fields>
+        <Field name="jugador" type="Jugador" visibility="private"/>
+        <Field name="mano" type="ArrayList&lt;Carta&gt;" visibility="private"/>
+        <Field name="juegaMano" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Jugador" name="jugador"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getMano" returnType="ArrayList&lt;Carta&gt;" visibility="public"/>
+        <Method name="setMano" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;Carta&gt;" name="mano"/>
+        </Method>
+        <Method name="isJuegaMano" returnType="boolean" visibility="public"/>
+        <Method name="setJuegaMano" returnType="void" visibility="public">
+          <Argument type="boolean" name="juegaMano"/>
+        </Method>
+        <Method name="apostar" returnType="boolean" visibility="public">
+          <Argument type="int" name="dinero"/>
+        </Method>
+        <Method name="devolverMasAlta" returnType="Carta" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Mazo" package="logica" visibility="public" xPosition="482.0" yPosition="77.0">
+      <Fields>
+        <Field name="CANTPALOS" type="int" visibility="private" isStatic="true"/>
+        <Field name="CANTCARTASPALO" type="int" visibility="private" isStatic="true"/>
+        <Field name="cartas" type="ArrayList&lt;Carta&gt;" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="cargarMazo" returnType="void" visibility="public"/>
+        <Method name="imprimirCarta" returnType="void" visibility="public"/>
+        <Method name="darCarta" returnType="Carta" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Partida" package="logica" visibility="public" xPosition="481.0" yPosition="340.0">
+      <Fields>
+        <Field name="jugadores" type="ArrayList&lt;JugadorApostando&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ArrayList&lt;Jugador&gt;" name="jug"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Usuario" package="logica" visibility="public" xPosition="923.0" yPosition="226.0">
+      <Fields>
+        <Field name="nombre" type="String" visibility="public"/>
+        <Field name="pass" type="String" visibility="public"/>
+        <Field name="nombreCompleto" type="String" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="pass"/>
+          <Argument type="String" name="nombreCompleto"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="getPass" returnType="String" visibility="public"/>
+        <Method name="getNombreCompleto" returnType="String" visibility="public"/>
+        <Method name="equals" returnType="boolean" visibility="public">
+          <Argument type="Object" name="obj"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="jugadores" source="logica.Partida" target="logica.JugadorApostando" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;JugadorApostando&gt;"/>
+    <UseRelation source="logica.Mazo" target="logica.Carta" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="logica.JugadorApostando" target="logica.Carta" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mano" source="logica.JugadorApostando" target="logica.Carta" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Carta&gt;"/>
+    <HasRelation name="jugador" source="logica.JugadorApostando" target="logica.Jugador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="logica.Jugador" target="logica.Usuario"/>
+    <HasRelation name="cartas" source="logica.Mazo" target="logica.Carta" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Carta&gt;"/>
+    <UseRelation source="logica.Carta" target="logica.Carta" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
