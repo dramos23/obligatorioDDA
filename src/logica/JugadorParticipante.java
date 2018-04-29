@@ -11,12 +11,12 @@ import java.util.ArrayList;
  *
  * @author Ninja
  */
-public class JugadorApostando {
+public class JugadorParticipante {
     private Jugador jugador;
     private ArrayList<Carta> mano = new ArrayList();
     private boolean juegaMano = true;
 
-    public JugadorApostando(Jugador jugador) {
+    public JugadorParticipante(Jugador jugador) {
         this.jugador = jugador;
     }
 
@@ -36,10 +36,23 @@ public class JugadorApostando {
         this.juegaMano = juegaMano;
     }
     
+    /* Metodo apostar viejo
     public boolean apostar(int dinero){
         if(this.jugador.getSaldo() < dinero) return false;
         this.jugador.setSaldo(this.jugador.getSaldo() - dinero);
         return true;
+    }
+    */ 
+    
+    //Metodo apostar nuevo
+    
+    public boolean apostar(int dinero){
+        return jugador.apostar(dinero);
+    }
+    
+    
+    public void darLuz(int dinero){
+        
     }
    
    

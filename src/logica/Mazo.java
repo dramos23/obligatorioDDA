@@ -12,7 +12,7 @@ public class Mazo {
         private static int CANTCARTASPALO = 13;
         
         ArrayList<Carta> cartas = new ArrayList();
-        
+
          public enum palos{
              Corazon, Diamante, Trebol, Pique;
          }
@@ -73,5 +73,10 @@ public class Mazo {
             return c;
         }
         
-        
+        //Metodo que devuelve una arraylist de 5 cartas usando el método darCarta() y una repetitiva.
+        public ArrayList<Carta> dar5(){
+            ArrayList<Carta> mano = new ArrayList();
+            for(int i = 0; i < 5; i++) mano.add(darCarta());
+            return mano;
+        }
 }

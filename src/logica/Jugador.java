@@ -26,8 +26,11 @@ public class Jugador extends Usuario {
         this.saldo = saldo;
     }
     
-    
-    
+    public boolean apostar(int dinero){
+        if(this.getSaldo() < dinero) return false;
+        this.setSaldo(this.getSaldo() - dinero);
+        return true;
+    }
     
     
 }
