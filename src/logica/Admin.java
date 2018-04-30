@@ -5,16 +5,10 @@
  */
 package logica;
 
-import java.util.ArrayList;
-
 /**
  *
- * @author FAT
+ * @author Diego
  */
-public class SistemaUsuarios {
-    
-    public ArrayList<Jugador> jugadores = new ArrayList();
-    public ArrayList<Admin> admins = new ArrayList();
-    
+public class Admin {
     
 }

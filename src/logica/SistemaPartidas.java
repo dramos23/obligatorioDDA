@@ -14,7 +14,20 @@ import java.util.ArrayList;
 public class SistemaPartidas {
     
     private ArrayList<Partida> partidas = new ArrayList();
+    private Partida proximaPartida;
     private int valorLuz;
     private int cantJugadoresPorPartida;
+     
+    public SistemaPartidas(){
         
+    }
+
+    public void ingresar(Jugador j){
+        if(proximaPartida.ingresar(j)){
+            
+        }
+    }
+    
+    
+    
 }

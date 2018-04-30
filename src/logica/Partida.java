@@ -12,15 +12,18 @@ import java.util.ArrayList;
  * @author Ninja
  */
 public class Partida {
-    private ArrayList<JugadorParticipante> jugadores;
     
-    private Mazo mazo = new Mazo();
-    
+//    private DateTime FechaInicio;
+    private ArrayList<JugadorParticipante> jugadores;    
+    private Mazo mazo = new Mazo();    
     private int pozo;
+    private int luz;
+    private int cantJugadores;
+    private int totalApostado = 0;
     
     public Partida(ArrayList<Jugador> jug){
         for (Jugador j:jug){
-            jugadores.add(new JugadorParticipante(j));
+            jugadores.add(new JugadorParticipante(j, this));
         }
     }
     
@@ -53,7 +56,8 @@ public class Partida {
         }
     }
     
-    //Se asigna la mano de cada jugador recorriendo el array de jugadores y revisando los que van a jugar esta ronda.
+    //Se asigna la mano de cada jugador recorriendo el array de jugadores y revisando 
+    //los que van a jugar esta ronda.
     public void repartirCartas(){
         for(JugadorParticipante j:jugadores){
             if(j.isJuegaMano()) j.setMano(mazo.dar5());
@@ -62,12 +66,26 @@ public class Partida {
         
          //Queda a definir este método
     public int obtenerValorLuz()
-        {
-                return 0;
-        }  
+    {
+         return 0;
+    }  
      
+    //Validar que el jugador no esté ya en la proxima partida a iniciarse
+    //Tambien que la partida no esté empezada
+    public void ingresar(Jugador j){
+    }
+    
+    public void setLuz(int luz){
+        if(this.jugadores.isEmpty()) this.luz = luz;
+    }
+    
+    public boolean seInicio(){
+        return this.cantJugadores == jugadores.size();
+    }
     
     
+    
+    //Falta el setCantidadJugadores, revisar letra.
     
  /*
     jugadorApuesta(int 50peso){

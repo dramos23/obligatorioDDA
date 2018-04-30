@@ -14,16 +14,14 @@ public class Mazo {
         ArrayList<Carta> cartas = new ArrayList();
 
          public enum palos{
-             Corazon, Diamante, Trebol, Pique;
+             CORAZON, DIAMANTE, TREBOL, PIQUE;
          }
         
         
         //String[] palos;
         
-        public Mazo(){
-                
-            cargarMazo();
-           
+        public Mazo(){                
+            cargarMazo();           
         }
         
         
@@ -45,8 +43,7 @@ public class Mazo {
    public void cargarMazo()
    {
         for (int s = 0; s < CANTPALOS; s++)
-        {                        
-         
+        {                                 
             for (int d = 2; d < CANTCARTASPALO + 2; d++)
             {           
                 palos p = palos.values()[s];

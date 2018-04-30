@@ -12,12 +12,18 @@ import java.util.ArrayList;
  * @author Ninja
  */
 public class JugadorParticipante {
+    
+    private Partida miPartida;
     private Jugador jugador;
     private ArrayList<Carta> mano = new ArrayList();
+    int saldoInicial;
+    int totalGanado = 0;
     private boolean juegaMano = true;
 
-    public JugadorParticipante(Jugador jugador) {
+    public JugadorParticipante(Jugador jugador, Partida par) {
         this.jugador = jugador;
+        this.miPartida = par;
+        this.saldoInicial = jugador.getSaldo();
     }
 
     public ArrayList<Carta> getMano() {
@@ -60,8 +66,7 @@ public class JugadorParticipante {
         Carta mejor = new Carta();
         for(Carta c:mano){
             if(mejor.compareTo(c) == -1) mejor = c;
-        }
-   
+        }   
         return mejor;
    }
     
