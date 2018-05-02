@@ -22,6 +22,7 @@ public class SistemaPartidas {
         
     }
 
+    
     public void ingresar(Jugador j){
         if(proximaPartida.ingresar(j)){
             if(proximaPartida.completa()){
@@ -32,6 +33,7 @@ public class SistemaPartidas {
             }
         }
     }
+    
     
     
     

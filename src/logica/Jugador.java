@@ -40,4 +40,8 @@ public class Jugador extends Usuario {
     public void aceptarApuesta(int dinero){
         this.setSaldo(this.getSaldo() - dinero);
     }
+
+    void ganarDinero(int dinero) {
+        this.saldo += dinero;
+    }
 }

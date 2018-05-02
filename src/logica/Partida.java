@@ -35,27 +35,16 @@ public class Partida {
     }
     */
     
-    //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.
-    
+    //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.    
     public void comenzarRonda(){
         mazo = new Mazo();
         agregarLuzAPozo();
         repartirCartas();        
     }
-
     
       //Se quita el valor de la luz a los jugadores. Si no quieren poner la luz, no juegan la mano o se van de la partida. (cual?)
       //
     public void agregarLuzAPozo(){
-        //Como obtenemos el valor de la luz? Estarìa en SistemaPartidas, pero como hacer para que llegue a clase Partida?
-        
-        //Resp. DANIEL:
-        //Creo que seria bueno que cuando damos de alta un objeto partida tenga como constante el valor luz o base.
-        //El motivo, sería que la luz se puede modificar en cualquier momento por el administrador, por lo que si vamos a sistemaPartida desde cualquier partida
-        //podriamos estar tomando el valor actual(nuevo) y no el viejo..
-        //De está forma teniendo un attrib en partida no tendriamos problema.
-        
-        int luz = obtenerValorLuz(); // Sería this.base
         for(JugadorParticipante j:jugadores){
             //Se llama al metodo que quita la el valor de la luz a cada jugador. El metodo esta en el jugador, no en partida, 
             //porque es el jugador el que tiene que entregar su dinero. Si devuelve true, el jugador decidio jugar.
@@ -71,13 +60,7 @@ public class Partida {
             if(j.isJuegaMano()) j.setMano(mazo.dar5());
         }              
     }
-        
-         //Queda a definir este método
-    public int obtenerValorLuz()
-    {
-         return 0;
-    }  
-     
+             
     //Validar que el jugador no esté ya en la proxima partida a iniciarse
     //Tambien que la partida no  empezada
     public boolean ingresar(Jugador j){
@@ -97,12 +80,35 @@ public class Partida {
     public boolean completa(){
         return this.cantJugadores == jugadores.size();
     }
+    
+    public JugadorParticipante darGanador(){
+       
+        ArrayList<JugadorParticipante> juegan = devolverListaParticipantesRonda();
+        JugadorParticipante ganador = juegan.get(0);
+        for(int i = 1; i < jugadores.size(); i++){
+            //Tomo la carta mas alta del ganador actual y de la posicion i
+            //de la lista. Comparo con compareTo y reviso el valor. Si el get(i)
+            //tiene mejor carta, este se vuelve el nuevo ganador.
+            if(ganador.devolverMasAlta().compareTo
+              (jugadores.get(i).devolverMasAlta()) == -1)
+            {
+                ganador = jugadores.get(i);
+            }
+        }        
+        ganador.ganarDinero(pozo);
+        this.pozo = 0;    
+        return ganador;
+    }
+
+    public ArrayList<JugadorParticipante> devolverListaParticipantesRonda(){
+        ArrayList<JugadorParticipante> juegan = new ArrayList();
+        for(JugadorParticipante jug : jugadores){
+            if(jug.isJuegaMano()) juegan.add(jug);
+        }
+        return juegan;
+    }
         
-    
-    
-    //Falta el setCantidadJugadores, revisar letra.
-    
- /*
+             /*
     jugadorApuesta(int 50peso){
         //Poner 50 pesos en el pozo, se resta de jugador
         //Le pregunto a todos si se suman o no

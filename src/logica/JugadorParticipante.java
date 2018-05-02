@@ -56,12 +56,15 @@ public class JugadorParticipante {
         return jugador.apostar(dinero);
     }
     
-    
     public void darLuz(int dinero){
         
     }
-   
-   
+
+    public void ganarDinero(int dinero){
+        this.totalGanado += dinero;
+        this.jugador.ganarDinero(dinero);
+    }
+    
    public Carta devolverMasAlta(){
         Carta mejor = new Carta();
         for(Carta c:mano){
