@@ -21,11 +21,19 @@ public class Partida {
     private int cantJugadores;
     private int totalApostado = 0;
     
+    
+    
+    public Partida(int cantJug, int luz){
+        this.luz = luz;
+        this.cantJugadores = cantJug;
+    }
+    /*  
     public Partida(ArrayList<Jugador> jug){
         for (Jugador j:jug){
             jugadores.add(new JugadorParticipante(j, this));
         }
     }
+    */
     
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.
     
@@ -71,18 +79,25 @@ public class Partida {
     }  
      
     //Validar que el jugador no esté ya en la proxima partida a iniciarse
-    //Tambien que la partida no esté empezada
-    public void ingresar(Jugador j){
+    //Tambien que la partida no  empezada
+    public boolean ingresar(Jugador j){
+        
+        JugadorParticipante p = new JugadorParticipante(j, this);
+        if(jugadores.size() >= cantJugadores ||
+                jugadores.contains(p)) return false;
+       
+        jugadores.add(p);
+        return true;
     }
     
     public void setLuz(int luz){
         if(this.jugadores.isEmpty()) this.luz = luz;
     }
     
-    public boolean seInicio(){
+    public boolean completa(){
         return this.cantJugadores == jugadores.size();
     }
-    
+        
     
     
     //Falta el setCantidadJugadores, revisar letra.
