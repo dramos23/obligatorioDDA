@@ -6,12 +6,13 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author Ninja
  */
-public class Partida {
+public class Partida extends Observable {
     
 //    private DateTime FechaInicio;
     private ArrayList<JugadorParticipante> jugadores;    
@@ -21,7 +22,9 @@ public class Partida {
     private int cantJugadores;
     private int totalApostado = 0;
     
-    
+    public enum Eventos{
+        jAbandonaPartida, jApuesta, jPasa
+    }
     
     public Partida(int cantJug, int luz){
         this.luz = luz;
@@ -55,7 +58,7 @@ public class Partida {
         //podriamos estar tomando el valor actual(nuevo) y no el viejo..
         //De está forma teniendo un attrib en partida no tendriamos problema.
         
-        int luz = obtenerValorLuz(); // Sería this.base
+        
         for(JugadorParticipante j:jugadores){
             //Se llama al metodo que quita la el valor de la luz a cada jugador. El metodo esta en el jugador, no en partida, 
             //porque es el jugador el que tiene que entregar su dinero. Si devuelve true, el jugador decidio jugar.
@@ -71,12 +74,6 @@ public class Partida {
             if(j.isJuegaMano()) j.setMano(mazo.dar5());
         }              
     }
-        
-         //Queda a definir este método
-    public int obtenerValorLuz()
-    {
-         return 0;
-    }  
      
     //Validar que el jugador no esté ya en la proxima partida a iniciarse
     //Tambien que la partida no  empezada
@@ -98,7 +95,14 @@ public class Partida {
         return this.cantJugadores == jugadores.size();
     }
         
-    
+    public boolean apuesta(JugadorParticipante j, int dinero){
+        
+        for (JugadorParticipante h: jugadores){
+            if (h.getSaldoJugador() < dinero ) return false;
+        }
+        j.apostar(dinero);
+        return true;
+    } 
     
     //Falta el setCantidadJugadores, revisar letra.
     
@@ -113,4 +117,17 @@ public class Partida {
         
     }
     */
+    
+    public ArrayList<JugadorParticipante> getJugadoresParticipantes(){
+        return this.jugadores;
+    }
+    
+    public ArrayList<JugadorParticipante> getJugadoresSinMi(JugadorParticipante jugador){
+     
+        ArrayList<JugadorParticipante> jugadoresSM = new ArrayList();
+        for (JugadorParticipante j:jugadores){
+            if (!j.equals(jugador)) jugadoresSM.add(j);
+        }
+        return jugadoresSM;
+    }
 }

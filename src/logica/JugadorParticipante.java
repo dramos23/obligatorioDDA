@@ -69,5 +69,15 @@ public class JugadorParticipante {
         }   
         return mejor;
    }
+   
+   public int getSaldoJugador(){
+       return this.jugador.getSaldo();
+   }
+   
+   public Partida getPartida(){
+       return this.miPartida;
+   }
+   
+   
     
 }
