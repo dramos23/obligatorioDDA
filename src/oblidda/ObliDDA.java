@@ -5,8 +5,11 @@
  */
 package oblidda;
 
+import controlador.VistaPartida;
+import iu.PartidaDialogo;
 import logica.Carta;
 import logica.Jugador;
+import logica.JugadorParticipante;
 import logica.Mazo;
 import logica.Mazo.palos;
 import logica.Partida;
@@ -24,16 +27,25 @@ public class ObliDDA {
      */
     public static void main(String[] args) {
    
-        Partida p = new Partida(5, 50);
-        p.ingresar(new Jugador("Pepe123", "123", "Pepe", 500));
-        p.ingresar(new Jugador("Juan123", "123", "Juan", 500));
-        p.ingresar(new Jugador("Maria123", "123", "Mari", 500));
-        p.ingresar(new Jugador("Joaquina123", "123", "Joaqui", 500));
-        p.ingresar(new Jugador("Nicolas123", "123", "Nico", 500));
-        
-        p.repartirCartas();
-        p.darGanador();
+        Jugador pepe = new Jugador("Pepe123", "123", "Pepe", 500);
+        Jugador juan = new Jugador("Juan123", "123", "Juan", 500);
+        Jugador maria = new Jugador("Maria123", "123", "Mari", 500);
+        Jugador joaqui = new Jugador("Joaquina123", "123", "Joaqui", 500);
+        Jugador nico = new Jugador("Nicolas123", "123", "Nico", 500);
 
+        Partida p = new Partida(5, 50);
+        p.ingresar(pepe);
+        p.ingresar(juan);
+        p.ingresar(maria);
+        p.ingresar(joaqui);
+        p.ingresar(nico);
+
+        for(JugadorParticipante j : p.getJugadoresParticipantes()){
+            new PartidaDialogo(null, false, j).setVisible(true);            
+        }
+        
+
+       
         /*
         // TODO code application logic here
         Mazo m = new Mazo();
@@ -42,6 +54,9 @@ public class ObliDDA {
         }
         Carta c1 = new Carta(palos.CORAZON, 2);
         Carta c2 = new Carta(palos.TREBOL, 2);
+        }*/
+        /*Carta c1 = new Carta(palos.Corazon, 2);
+        Carta c2 = new Carta(palos.Trebol, 2);
         if (c1.compareTo(c2) == 1) System.out.println("gana corazón"); else System.out.println("gana Trebol"); 
         Carta c3 = new Carta(palos.CORAZON, 2);
         Carta c4 = new Carta(palos.TREBOL, 10);

@@ -6,40 +6,39 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author Ninja
  */
-public class Partida {
+public class Partida extends Observable {
     
 //    private DateTime FechaInicio;
-    private ArrayList<JugadorParticipante> jugadores;    
-    private Mazo mazo = new Mazo();    
+    private ArrayList<JugadorParticipante> jugadores = new ArrayList();    
+    private Mazo mazo = new Mazo();
+    private Apuesta apuesta = new Apuesta();
     private int pozo;
     private int luz;
     private int cantJugadores;
     private int totalApostado = 0;
+
     
-    
+    public enum Eventos{
+        jAbandonaPartida, jApuesta, jPasa
+    }
     
     public Partida(int cantJug, int luz){
         this.luz = luz;
         this.cantJugadores = cantJug;
     }
-    /*  
-    public Partida(ArrayList<Jugador> jug){
-        for (Jugador j:jug){
-            jugadores.add(new JugadorParticipante(j, this));
-        }
-    }
-    */
-    
+
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.    
     public void comenzarRonda(){
         mazo = new Mazo();
+        apuesta = new Apuesta();
         agregarLuzAPozo();
-        repartirCartas();        
+        repartirCartas();
     }
     
       //Se quita el valor de la luz a los jugadores. Si no quieren poner la luz, no juegan la mano o se van de la partida. (cual?)
@@ -60,9 +59,6 @@ public class Partida {
             if(j.isJuegaMano()) j.setMano(mazo.dar5());
         }              
     }
-             
-    //Validar que el jugador no esté ya en la proxima partida a iniciarse
-    //Tambien que la partida no  empezada
     public boolean ingresar(Jugador j){
         
         JugadorParticipante p = new JugadorParticipante(j, this);
@@ -108,7 +104,18 @@ public class Partida {
         return juegan;
     }
         
-             /*
+    //Esto iria con manejador de eventos.
+    public boolean apuesta(JugadorParticipante j, int dinero){
+        
+        for (JugadorParticipante h: jugadores){
+            if (h.getSaldoJugador() < dinero ) return false;
+        }
+        j.apostar(dinero);
+        apuesta = new Apuesta(j, dinero);
+        return true;
+    } 
+    
+/*
     jugadorApuesta(int 50peso){
         //Poner 50 pesos en el pozo, se resta de jugador
         //Le pregunto a todos si se suman o no
@@ -119,4 +126,34 @@ public class Partida {
         
     }
     */
+    
+    public ArrayList<JugadorParticipante> getJugadoresParticipantes(){
+        return this.jugadores;
+    }
+
+    public void removerJugador(JugadorParticipante jugador) {
+        this.jugadores.remove(jugador);
+        avisar(Eventos.jAbandonaPartida);
+    }
+
+    
+    public ArrayList<JugadorParticipante> getJugadoresSinMi(JugadorParticipante jugador){
+     
+        ArrayList<JugadorParticipante> jugadoresSM = new ArrayList();
+        for (JugadorParticipante j:jugadores){
+            if (!j.equals(jugador)) jugadoresSM.add(j);
+        }
+        return jugadoresSM;
+    }
+
+    public Apuesta getApuesta() {
+        return apuesta;
+    }
+    
+    private void avisar(Eventos evento) {
+        setChanged();
+        notifyObservers(evento);
+    }
+
+    
 }

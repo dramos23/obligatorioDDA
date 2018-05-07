@@ -6,12 +6,13 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author Ninja
  */
-public class JugadorParticipante {
+public class JugadorParticipante{
     
     private Partida miPartida;
     private Jugador jugador;
@@ -71,6 +72,22 @@ public class JugadorParticipante {
             if(mejor.compareTo(c) == -1) mejor = c;
         }   
         return mejor;
+   }
+   
+   public int getSaldoJugador(){
+       return this.jugador.getSaldo();
+   }
+   
+   public Partida getPartida(){
+       return this.miPartida;
+   }
+   
+   public String getNombre(){
+       return this.jugador.getNombre();
+   }
+   
+   public String toString(){
+       return this.jugador.getNombre();
    }
     
 }
