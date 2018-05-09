@@ -43,7 +43,6 @@ public class ObliDDA {
         for(JugadorParticipante j : p.getJugadoresParticipantes()){
             new PartidaDialogo(null, false, j).setVisible(true);            
         }
-        123
 
        
         /*
