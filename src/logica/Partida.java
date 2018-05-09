@@ -21,11 +21,12 @@ public class Partida extends Observable {
     private int pozo;
     private int luz;
     private int cantJugadores;
-    private int totalApostado = 0;
+    private int totalAposstado = 0;
 
     
     public enum Eventos{
-        jAbandonaPartida, jApuesta, jPasa
+        jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, empiezaPartida, 
+        entroJugador
     }
     
     public Partida(int cantJug, int luz){
@@ -40,15 +41,19 @@ public class Partida extends Observable {
         agregarLuzAPozo();
         repartirCartas();
     }
+
+    public int getPozo() {
+        return pozo;
+    }
+
+    public int getLuz() {
+        return luz;
+    }
     
-      //Se quita el valor de la luz a los jugadores. Si no quieren poner la luz, no juegan la mano o se van de la partida. (cual?)
-      //
+    
     public void agregarLuzAPozo(){
         for(JugadorParticipante j:jugadores){
-            //Se llama al metodo que quita la el valor de la luz a cada jugador. El metodo esta en el jugador, no en partida, 
-            //porque es el jugador el que tiene que entregar su dinero. Si devuelve true, el jugador decidio jugar.
-            if(j.apostar(luz)) pozo += luz;
-            else {}//El jugador no puso la luz, habría que sacarlo de la partida.
+            pozo += luz;
         }
     }
     
@@ -59,6 +64,8 @@ public class Partida extends Observable {
             if(j.isJuegaMano()) j.setMano(mazo.dar5());
         }              
     }
+
+    //Esto va a ser void.
     public boolean ingresar(Jugador j){
         
         JugadorParticipante p = new JugadorParticipante(j, this);
@@ -66,6 +73,15 @@ public class Partida extends Observable {
                 jugadores.contains(p)) return false;
        
         jugadores.add(p);
+
+        if(jugadores.size() == cantJugadores)
+        {
+            comenzarRonda();
+            avisar(Eventos.empiezaPartida);
+        }else
+        {
+            avisar(Eventos.entroJugador);
+        }
         return true;
     }
     
@@ -105,16 +121,18 @@ public class Partida extends Observable {
     }
         
     //Esto iria con manejador de eventos.
-    public boolean apuesta(JugadorParticipante j, int dinero){
-        
+    public void realizarApuesta(JugadorParticipante j, int dinero){        
+        j.apostar(dinero);
+        apuesta = new Apuesta(j, dinero);
+        avisar(Eventos.jApuesta);
+    } 
+    
+    public boolean verificarApuesta(int dinero){
         for (JugadorParticipante h: jugadores){
             if (h.getSaldoJugador() < dinero ) return false;
         }
-        j.apostar(dinero);
-        apuesta = new Apuesta(j, dinero);
-        return true;
-    } 
-    
+        return true;        
+    }
 /*
     jugadorApuesta(int 50peso){
         //Poner 50 pesos en el pozo, se resta de jugador

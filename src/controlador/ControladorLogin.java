@@ -24,7 +24,8 @@ public class ControladorLogin {
         Agenda a = modelo.login(u, p);
         if(a==null) vista.mostrarError("Login incorrecto");
         else vista.mostrarAgenda(a);
-
+        
+    else vista.pasarAPartida()
     }*/
     
 }

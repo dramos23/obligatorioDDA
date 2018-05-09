@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import logica.Apuesta;
 import logica.Carta;
 import logica.JugadorParticipante;
+import logica.Partida;
 
 /**
  *
@@ -22,12 +23,18 @@ public interface VistaPartida {
     
     public void mostrarJugadores(ArrayList<JugadorParticipante> jugadores);
     
-    public void mostrarValores(int luz, int pozo);
+    public void mostrarValores(int luz, int pozo, int dineroJugador);
     
     public void mostrarEstado(String estado);
     
     public void mostrarApuesta(Apuesta a);
     
-    public void responderApuesta(JugadorParticipante jugador);
-        
+    public void cambiaDinero(JugadorParticipante jugador);
+    
+    //public void cambiarPozo(int dinero);
+
+    public void esconderAndMostrarAlInicio();
+    
+    public void iniciarPartida(JugadorParticipante j);
+    
 }

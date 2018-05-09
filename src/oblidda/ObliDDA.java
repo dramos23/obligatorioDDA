@@ -41,9 +41,9 @@ public class ObliDDA {
         p.ingresar(joaqui);
         p.ingresar(nico);
 
-        //for(JugadorParticipante j : p.getJugadoresParticipantes()){
-        //    new PartidaDialogo(null, false, j).setVisible(true);            
-        //}
+        for(JugadorParticipante j : p.getJugadoresParticipantes()){
+            new PartidaDialogo(null, false, j).setVisible(true);            
+        }
 
        
         /*

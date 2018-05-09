@@ -11,7 +11,7 @@ import logica.JugadorParticipante;
 
 import logica.Partida;
 
-/**
+/**W
  *
  * @author Daniel
  */
@@ -26,9 +26,7 @@ public class ControladorPartida implements Observer {
         this.partida = jugador.getPartida();
         this.vista = vista;
         partida.addObserver(this);
-        vista.mostrarCartas(jugador.getMano());
-        vista.mostrarJugadores(partida.getJugadoresParticipantes());
-        //vista.mostrarEstado()        
+        vista.esconderAndMostrarAlInicio();
     }
 
     @Override
@@ -43,6 +41,20 @@ public class ControladorPartida implements Observer {
             if(!this.jugador.equals(partida.getApuesta().getApostador())) 
                 vista.mostrarApuesta(partida.getApuesta());
         }
+        
+        if(evento.equals(Partida.Eventos.jAceptaApuesta)){
+            vista.cambiaDinero(jugador);           
+        }
+        
+        if(evento.equals(Partida.Eventos.empiezaPartida))
+        {
+            vista.iniciarPartida(this.jugador);
+        }
+        
+        if(evento.equals(Partida.Eventos.entroJugador))
+        {
+            vista.mostrarJugadores(partida.getJugadoresParticipantes());
+        }
     }
 
     public void removerJugador() {
@@ -51,6 +63,15 @@ public class ControladorPartida implements Observer {
 
     public void aceptarApuesta() {
         //Codigo de aceptar apuesta.
+    }
+
+    public void realizarApuesta(JugadorParticipante jugador, int dinero) {
+        if(partida.verificarApuesta(dinero)){
+            partida.realizarApuesta(jugador, dinero);            
+        }else
+        {
+            //vista.darError("Uno de los jugadores no puede pagar esta apuesta.");
+        }
     }
     
 }
