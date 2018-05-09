@@ -34,15 +34,16 @@ public class ObliDDA {
         Jugador nico = new Jugador("Nicolas123", "123", "Nico", 500);
 
         Partida p = new Partida(5, 50);
+        
         p.ingresar(pepe);
         p.ingresar(juan);
         p.ingresar(maria);
         p.ingresar(joaqui);
         p.ingresar(nico);
 
-        for(JugadorParticipante j : p.getJugadoresParticipantes()){
-            new PartidaDialogo(null, false, j).setVisible(true);            
-        }
+        //for(JugadorParticipante j : p.getJugadoresParticipantes()){
+        //    new PartidaDialogo(null, false, j).setVisible(true);            
+        //}
 
        
         /*

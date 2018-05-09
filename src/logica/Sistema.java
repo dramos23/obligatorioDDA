@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 package logica;
+import java.util.Observable;
 
 /**
  *
  * @author Daniel
  */
-public class Sistema {
+public class Sistema extends Observable{
     
     private SistemaUsuarios su = new SistemaUsuarios();
     private SistemaPartidas sp = new SistemaPartidas();
@@ -20,6 +21,15 @@ public class Sistema {
     }
     
     private Sistema() {
+        
     }
     
+   
+    public Partida loginJugador(String u, String p) {
+        return su.login(u, p);
+    }
+    
+    public Partida agregarPartida(Jugador j){
+        return sp.ingresar(j);
+    }
 }

@@ -23,15 +23,17 @@ public class SistemaPartidas {
     }
 
     
-    public void ingresar(Jugador j){
+    public Partida ingresar(Jugador j){
         if(proximaPartida.ingresar(j)){
             if(proximaPartida.completa()){
                 //Empezar proxima partida y crear una nproximaPartida nueva.
                 Partida nuevaProx = new Partida(cantJugadoresPorPartida, valorLuz);
                 partidas.add(nuevaProx);
                 proximaPartida = nuevaProx;
+                return nuevaProx;
             }
         }
+        return null;  
     }
     
     
