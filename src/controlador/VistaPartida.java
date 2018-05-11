@@ -36,5 +36,9 @@ public interface VistaPartida {
     public void esconderAndMostrarAlInicio();
     
     public void iniciarPartida(JugadorParticipante j);
+
+    public void esconderPanelAceptarApuesta();
+
+    public void esconderPanelRealizarApuesta();
     
 }

@@ -14,7 +14,7 @@ public class Mazo {
         ArrayList<Carta> cartas = new ArrayList();
 
          public enum palos{
-             CORAZON, DIAMANTE, TREBOL, PIQUE;
+             H, D, C, S;
          }
         
         

@@ -6,6 +6,7 @@
 package logica;
 
 import java.util.ArrayList;
+import logica.Partida.Eventos;
 
 /**
  *
@@ -19,22 +20,51 @@ public class SistemaPartidas {
     private int cantJugadoresPorPartida;
      
     public SistemaPartidas(){
-        
+        proximaPartida = new Partida(valorLuz, cantJugadoresPorPartida);
     }
 
     
-    public Partida ingresar(Jugador j){
-        if(proximaPartida.ingresar(j)){
+    public JugadorParticipante ingresar(Jugador j){
+        JugadorParticipante jp = proximaPartida.ingresar(j);
+        
+        if(jp != null)
+        {
             if(proximaPartida.completa()){
                 //Empezar proxima partida y crear una nproximaPartida nueva.
                 Partida nuevaProx = new Partida(cantJugadoresPorPartida, valorLuz);
                 partidas.add(nuevaProx);
                 proximaPartida = nuevaProx;
-                return nuevaProx;
             }
         }
-        return null;  
+        return jp;
     }
+
+        //Throws exception
+
+    public void setLuz(int valorLuz) {
+        this.valorLuz = valorLuz;
+        if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setLuz(valorLuz);
+    }
+
+        //Throws exception
+    public void setCantJugadores(int cantJugadoresPorPartida) {
+        this.cantJugadoresPorPartida = cantJugadoresPorPartida;
+        if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setCantJugadores(cantJugadoresPorPartida);
+    }
+
+    
+    public ArrayList<Partida> getPartidas() {
+        return partidas;
+    }
+
+    public int getValorLuz() {
+        return valorLuz;
+    }
+
+    public int getCantJugadoresPorPartida() {
+        return cantJugadoresPorPartida;
+    }
+    
     
     
     

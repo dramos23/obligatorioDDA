@@ -27,6 +27,9 @@ public class ControladorPartida implements Observer {
         this.vista = vista;
         partida.addObserver(this);
         vista.esconderAndMostrarAlInicio();
+        vista.mostrarJugadores(partida.getJugadoresParticipantes());
+        //?????
+        if(comenzoPartida()) vista.iniciarPartida(jugador);
     }
 
     @Override
@@ -40,20 +43,23 @@ public class ControladorPartida implements Observer {
         {
             if(!this.jugador.equals(partida.getApuesta().getApostador())) 
                 vista.mostrarApuesta(partida.getApuesta());
+                vista.esconderPanelRealizarApuesta();
         }
         
         if(evento.equals(Partida.Eventos.jAceptaApuesta)){
             vista.cambiaDinero(jugador);           
         }
         
-        if(evento.equals(Partida.Eventos.empiezaPartida))
-        {
-            vista.iniciarPartida(this.jugador);
-        }
-        
         if(evento.equals(Partida.Eventos.entroJugador))
         {
             vista.mostrarJugadores(partida.getJugadoresParticipantes());
+        }
+        if(evento.equals(Partida.Eventos.comienzaPartida))
+        {
+            vista.iniciarPartida(jugador);
+        }
+        if(evento.equals(Partida.Eventos.comienzaTurno)){
+            vista.cambiaDinero(jugador);
         }
     }
 
@@ -62,16 +68,26 @@ public class ControladorPartida implements Observer {
     }
 
     public void aceptarApuesta() {
-        //Codigo de aceptar apuesta.
+        this.jugador.pagarDinero(partida.getApuesta().getMontoApostado());
+        vista.cambiaDinero(jugador);
+        vista.esconderPanelAceptarApuesta();
+    }
+    
+    public boolean comenzoPartida(){
+          return this.partida.revisarComienzoPartida();
     }
 
     public void realizarApuesta(JugadorParticipante jugador, int dinero) {
         if(partida.verificarApuesta(dinero)){
-            partida.realizarApuesta(jugador, dinero);            
+            partida.realizarApuesta(jugador, dinero);         
+            vista.cambiaDinero(jugador);
+            vista.esconderPanelRealizarApuesta();
         }else
         {
             //vista.darError("Uno de los jugadores no puede pagar esta apuesta.");
         }
     }
+    
+    
     
 }

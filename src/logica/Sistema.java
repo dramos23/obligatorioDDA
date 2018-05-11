@@ -29,11 +29,21 @@ public class Sistema extends Observable{
     }
     
     
-    public boolean login(String u, String p) {
+    public JugadorParticipante login(String u, String p) {
         return su.login(u, p);
     }
     
-    public Partida agregarPartida(Jugador j){
+    public JugadorParticipante agregarJugadorAPartida(Jugador j){
         return sp.ingresar(j);
     }
+    
+    //Throws exception
+    public void modificarLuz(int valor){
+        this.sp.setLuz(valor);
+    }
+    
+    public void modificarCantJugadores(int valor){
+        this.sp.setCantJugadores(valor);
+    }
+
 }

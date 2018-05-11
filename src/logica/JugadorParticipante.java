@@ -90,4 +90,13 @@ public class JugadorParticipante{
        return this.jugador.getNombre();
    }
     
+   public void pagarDinero(int dinero){
+       this.jugador.pagarDinero(dinero);
+   }
+   
+@Override
+    public boolean equals(Object o){
+        JugadorParticipante jp = (JugadorParticipante) o;
+        return jp.getNombre().equalsIgnoreCase(this.getNombre());
+    }   
 }

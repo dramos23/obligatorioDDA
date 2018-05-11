@@ -7,6 +7,8 @@ package iu;
 import controlador.ControladorLogin;
 import controlador.VistaLoginJugador;
 import javax.swing.JOptionPane;
+import logica.Jugador;
+import logica.JugadorParticipante;
 /**
  *
  * @author danie
@@ -48,8 +50,6 @@ public class LoginDialogo extends javax.swing.JDialog implements VistaLoginJugad
             }
         });
 
-        txtContraseña.setText("jPasswordField1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,9 +88,7 @@ public class LoginDialogo extends javax.swing.JDialog implements VistaLoginJugad
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-  //      login();
-        
+            login();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     
@@ -112,10 +110,11 @@ public class LoginDialogo extends javax.swing.JDialog implements VistaLoginJugad
     public void mostrarError(String msg) {
         JOptionPane.showMessageDialog(this, msg);
     }
+    
     @Override
-    public void mostrarPartida() {
+    public void mostrarPartida(JugadorParticipante jp) {
         dispose();
-        new PartidaDialogo(null,false,null).setVisible(true);
+        new PartidaDialogo(null,false,jp).setVisible(true);
     }
 
 }

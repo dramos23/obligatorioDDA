@@ -21,12 +21,12 @@ public class Partida extends Observable {
     private int pozo;
     private int luz;
     private int cantJugadores;
-    private int totalAposstado = 0;
+    private int totalApostado = 0;
 
     
     public enum Eventos{
-        jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, empiezaPartida, 
-        entroJugador
+        jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, entroJugador, comienzaPartida,
+        comienzaTurno
     }
     
     public Partida(int cantJug, int luz){
@@ -40,6 +40,7 @@ public class Partida extends Observable {
         apuesta = new Apuesta();
         agregarLuzAPozo();
         repartirCartas();
+        avisar(Eventos.comienzaTurno);
     }
 
     public int getPozo() {
@@ -54,6 +55,7 @@ public class Partida extends Observable {
     public void agregarLuzAPozo(){
         for(JugadorParticipante j:jugadores){
             pozo += luz;
+            j.pagarDinero(luz);
         }
     }
     
@@ -66,23 +68,23 @@ public class Partida extends Observable {
     }
 
     //Esto va a ser void.
-    public boolean ingresar(Jugador j){
+    public JugadorParticipante ingresar(Jugador j){
         
         JugadorParticipante p = new JugadorParticipante(j, this);
         if(jugadores.size() >= cantJugadores ||
-                jugadores.contains(p)) return false;
+                jugadores.contains(p)) return null;
        
         jugadores.add(p);
 
+        avisar(Eventos.entroJugador);
+        
         if(jugadores.size() == cantJugadores)
         {
             comenzarRonda();
-            avisar(Eventos.empiezaPartida);
-        }else
-        {
-            avisar(Eventos.entroJugador);
+            avisar(Eventos.comienzaPartida);
         }
-        return true;
+            
+        return p;
     }
     
     public void setLuz(int luz){
@@ -133,20 +135,18 @@ public class Partida extends Observable {
         }
         return true;        
     }
-/*
-    jugadorApuesta(int 50peso){
-        //Poner 50 pesos en el pozo, se resta de jugador
-        //Le pregunto a todos si se suman o no
-        //Si te sumas pones guita en el pozo, sino booleano = false y estas
-        //deshabilitado.
-        //Se juega y se determina ganador, se reparte pozo
-        //Se reinicia mano, jugadores se pueden ir, resetear booleanos
-        
+    
+    public boolean revisarComienzoPartida() {
+        return this.cantJugadores == this.jugadores.size();
     }
-    */
+
     
     public ArrayList<JugadorParticipante> getJugadoresParticipantes(){
         return this.jugadores;
+    }
+
+    public int getCantJugadores() {
+        return cantJugadores;
     }
 
     public void removerJugador(JugadorParticipante jugador) {
@@ -168,9 +168,13 @@ public class Partida extends Observable {
         return apuesta;
     }
     
-    private void avisar(Eventos evento) {
+    public void avisar(Eventos evento) {
         setChanged();
         notifyObservers(evento);
+    }
+
+    public void setCantJugadores(int cantJugadores) {
+        this.cantJugadores = cantJugadores;
     }
 
     

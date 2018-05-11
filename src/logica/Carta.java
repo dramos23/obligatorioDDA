@@ -14,7 +14,7 @@ public class Carta implements Comparable<Carta>{
     public Carta(palos unPalo, int unValor){
         this.palo = unPalo;
         this.valor = unValor;
-        this.codImagen = unPalo.toString() +  unValor;
+        this.codImagen = unValor + unPalo.toString();
     }
     
     public Carta(){

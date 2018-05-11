@@ -5,6 +5,9 @@
  */
 package controlador;
 
+import logica.Jugador;
+import logica.JugadorParticipante;
+
 /**
  *
  * @author danie
@@ -13,6 +16,6 @@ public interface VistaLoginJugador {
     
     public void mostrarError(String msg);
 
-    public void mostrarPartida();
+    public void mostrarPartida(JugadorParticipante jp);
     
 }

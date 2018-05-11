@@ -37,11 +37,12 @@ public class Jugador extends Usuario {
         return true;
     }
     
-    public void aceptarApuesta(int dinero){
+    public void pagarDinero(int dinero){
         this.setSaldo(this.getSaldo() - dinero);
     }
 
     void ganarDinero(int dinero) {
         this.saldo += dinero;
     }
+
 }
