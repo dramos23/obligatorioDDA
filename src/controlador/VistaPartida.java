@@ -40,5 +40,7 @@ public interface VistaPartida {
     public void esconderPanelAceptarApuesta();
 
     public void esconderPanelRealizarApuesta();
+
+    public void togglePanelJuegaMano();
     
 }

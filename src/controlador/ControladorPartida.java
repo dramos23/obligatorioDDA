@@ -26,10 +26,7 @@ public class ControladorPartida implements Observer {
         this.partida = jugador.getPartida();
         this.vista = vista;
         partida.addObserver(this);
-        vista.esconderAndMostrarAlInicio();
-        vista.mostrarJugadores(partida.getJugadoresParticipantes());
-        //?????
-        if(comenzoPartida()) vista.iniciarPartida(jugador);
+        iniciarVentana();
     }
 
     @Override
@@ -87,7 +84,18 @@ public class ControladorPartida implements Observer {
             //vista.darError("Uno de los jugadores no puede pagar esta apuesta.");
         }
     }
+
+    public void juegaMano() {
+        this.jugador.setJuegaMano(true);
+        this.vista.togglePanelJuegaMano();
+    }
     
-    
+    public void iniciarVentana()
+    {
+        vista.esconderAndMostrarAlInicio();
+        vista.mostrarJugadores(partida.getJugadoresParticipantes());
+        vista.togglePanelJuegaMano();
+        if(comenzoPartida()) vista.iniciarPartida(jugador);
+    }
     
 }

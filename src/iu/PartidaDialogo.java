@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import logica.Apuesta;
 import logica.Carta;
 import logica.JugadorParticipante;
@@ -60,6 +61,10 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
         btnCarta3 = new javax.swing.JButton();
         btnCarta4 = new javax.swing.JButton();
         btnCarta5 = new javax.swing.JButton();
+        pnlJuegaMano = new javax.swing.JPanel();
+        btnJuegoMano = new javax.swing.JButton();
+        btnNoJuegoMano = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -231,7 +236,49 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
                     .addComponent(btnCarta3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCarta4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCarta5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+
+        btnJuegoMano.setText("Si");
+        btnJuegoMano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJuegoManoActionPerformed(evt);
+            }
+        });
+
+        btnNoJuegoMano.setText("No");
+        btnNoJuegoMano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoJuegoManoActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("¿Desea jugar otra mano?");
+
+        javax.swing.GroupLayout pnlJuegaManoLayout = new javax.swing.GroupLayout(pnlJuegaMano);
+        pnlJuegaMano.setLayout(pnlJuegaManoLayout);
+        pnlJuegaManoLayout.setHorizontalGroup(
+            pnlJuegaManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlJuegaManoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlJuegaManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlJuegaManoLayout.createSequentialGroup()
+                        .addComponent(btnJuegoMano, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNoJuegoMano, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        pnlJuegaManoLayout.setVerticalGroup(
+            pnlJuegaManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlJuegaManoLayout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlJuegaManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnJuegoMano)
+                    .addComponent(btnNoJuegoMano))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -239,19 +286,21 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlApostar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(pnlMano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlApostar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(67, 67, 67)
                         .addComponent(pnlAceptarApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64)
-                        .addComponent(pnlValores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(pnlValores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(pnlMano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlJuegaMano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,13 +316,14 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(73, 73, 73)
                         .addComponent(pnlApostar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlJuegaMano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(52, 52, 52))))
+                        .addComponent(pnlMano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(106, Short.MAX_VALUE))))
         );
 
         pack();
@@ -301,6 +351,14 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
         controlador.aceptarApuesta();
     }//GEN-LAST:event_btnAceptarApuestaActionPerformed
 
+    private void btnNoJuegoManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoJuegoManoActionPerformed
+        controlador.removerJugador();
+        this.dispose();
+    }//GEN-LAST:event_btnNoJuegoManoActionPerformed
+
+    private void btnJuegoManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoManoActionPerformed
+    controlador.juegaMano();    }//GEN-LAST:event_btnJuegoManoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -313,10 +371,13 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
     private javax.swing.JButton btnCarta3;
     private javax.swing.JButton btnCarta4;
     private javax.swing.JButton btnCarta5;
+    private javax.swing.JButton btnJuegoMano;
+    private javax.swing.JButton btnNoJuegoMano;
     private javax.swing.JButton btnPasar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblInfoApuesta;
     private javax.swing.JLabel lblLuz;
@@ -325,6 +386,7 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
     private javax.swing.JList lstJugadores;
     private javax.swing.JPanel pnlAceptarApuesta;
     private javax.swing.JPanel pnlApostar;
+    private javax.swing.JPanel pnlJuegaMano;
     private javax.swing.JPanel pnlMano;
     private javax.swing.JPanel pnlValores;
     private javax.swing.JTextField txtApuesta;
@@ -332,17 +394,27 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
 
     @Override
     public void mostrarCartas(ArrayList<Carta> cartas) {
-        try {
-            Image img;
-            img = ImageIO.read(getClass().getResource("cartas/" +cartas.get(0).getCodImagen()));
-        } catch (IOException ex) {
-            
-        }
-        btnCarta1.setIcon(new ImageIcon(img));
-        btnCarta2
-        btnCarta3
-        btnCarta4
-        btnCarta5
+
+        String url1 = "src/cartas/" +cartas.get(0).getCodImagen() + ".png";
+        String url2 = "src/cartas/" +cartas.get(1).getCodImagen() + ".png";
+        String url3 = "src/cartas/" +cartas.get(2).getCodImagen() + ".png";
+        String url4 = "src/cartas/" +cartas.get(3).getCodImagen() + ".png";
+        String url5 = "src/cartas/" +cartas.get(4).getCodImagen() + ".png";
+        ImageIcon c = new ImageIcon((new ImageIcon(url1).getImage().getScaledInstance(btnCarta1.getWidth(), btnCarta1.getHeight(), 
+                java.awt.Image.SCALE_SMOOTH)));
+        btnCarta1.setIcon(c);
+        c = new ImageIcon((new ImageIcon(url2).getImage().getScaledInstance(btnCarta2.getWidth(), btnCarta2.getHeight(), 
+                java.awt.Image.SCALE_SMOOTH)));
+        btnCarta2.setIcon(c);
+        c = new ImageIcon((new ImageIcon(url3).getImage().getScaledInstance(btnCarta3.getWidth(), btnCarta3.getHeight(), 
+                java.awt.Image.SCALE_SMOOTH)));
+        btnCarta3.setIcon(c);
+        c = new ImageIcon((new ImageIcon(url4).getImage().getScaledInstance(btnCarta4.getWidth(), btnCarta4.getHeight(), 
+                java.awt.Image.SCALE_SMOOTH)));
+        btnCarta4.setIcon(c);
+        c = new ImageIcon((new ImageIcon(url5).getImage().getScaledInstance(btnCarta5.getWidth(), btnCarta5.getHeight(), 
+                java.awt.Image.SCALE_SMOOTH)));
+        btnCarta5.setIcon(c);        
     }
 
     @Override
@@ -402,9 +474,13 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
     public void esconderPanelRealizarApuesta() {
         pnlApostar.setVisible(false);
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public void togglePanelJuegaMano() {
+        if(!pnlJuegaMano.isVisible()) pnlJuegaMano.setVisible(true);
+        else{
+            pnlJuegaMano.setVisible(false);
+                };
+    }
+                    
 }

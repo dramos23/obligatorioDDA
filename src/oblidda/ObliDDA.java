@@ -8,6 +8,8 @@ package oblidda;
 import controlador.VistaPartida;
 import iu.InicioDialogo;
 import iu.PartidaDialogo;
+import java.io.File;
+import javax.swing.filechooser.FileSystemView;
 import logica.Carta;
 import logica.Jugador;
 import logica.JugadorParticipante;
