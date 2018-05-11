@@ -5,20 +5,25 @@
  */
 package iu;
 
-import logica.JugadorParticipante;
+import controlador.ControladorInicio;
+import controlador.VistaInicio;
+
 
 /**
  *
  * @author danie
  */
-public class InicioDialogo extends javax.swing.JDialog {
+public class InicioDialogo extends javax.swing.JDialog implements VistaInicio{
 
     /**
      * Creates new form InicioDialogo
      */
+    private ControladorInicio controlador;
+    
     public InicioDialogo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        controlador = new ControladorInicio(this);
     }
 
     /**

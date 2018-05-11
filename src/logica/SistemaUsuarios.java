@@ -16,17 +16,20 @@ public class SistemaUsuarios {
     public ArrayList<Jugador> jugadores = new ArrayList();
     public ArrayList<Admin> admins = new ArrayList();
     
-    public Partida login(String u,String p){
+    public boolean login(String u,String p){
         for(Jugador jug:jugadores){
             if(jug.getNombre().equalsIgnoreCase(u) && 
                     jug.getPass().equals(p)){
                 //LO ENCONTRE, RETORNO LA AGENDA
-                Partida a = Sistema.getInstancia().agregarPartida(jug);            
+                Sistema.getInstancia().agregarPartida(jug);            
                 //Sistema.getInstancia().avisar(Sistema.Eventos.listaJugadores);
-                return a;
+                return true;
             }
         }
-        return null;
+        return false;
     }
     
+    public void agregar(Jugador j){
+        jugadores.add(j);
+    }
 }

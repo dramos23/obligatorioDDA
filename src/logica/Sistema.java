@@ -24,8 +24,12 @@ public class Sistema extends Observable{
         
     }
     
-   
-    public Partida loginJugador(String u, String p) {
+    public void agregar(Jugador j) {
+        su.agregar(j);
+    }
+    
+    
+    public boolean login(String u, String p) {
         return su.login(u, p);
     }
     

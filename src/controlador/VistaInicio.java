@@ -9,10 +9,6 @@ package controlador;
  *
  * @author danie
  */
-public interface VistaLoginJugador {
-    
-    public void mostrarError(String msg);
-
-    public void mostrarPartida();
+public interface VistaInicio {
     
 }

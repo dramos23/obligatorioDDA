@@ -5,14 +5,17 @@
  */
 package controlador;
 
+import logica.Sistema;
+
 /**
  *
  * @author danie
  */
-public interface VistaLoginJugador {
+public class ControladorInicio {
     
-    public void mostrarError(String msg);
-
-    public void mostrarPartida();
+    private VistaInicio vista;
     
+    public ControladorInicio(VistaInicio vista) {
+        this.vista = vista;
+    }
 }

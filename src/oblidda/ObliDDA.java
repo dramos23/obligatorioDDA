@@ -6,6 +6,7 @@
 package oblidda;
 
 import controlador.VistaPartida;
+import iu.InicioDialogo;
 import iu.PartidaDialogo;
 import logica.Carta;
 import logica.Jugador;
@@ -13,8 +14,9 @@ import logica.JugadorParticipante;
 import logica.Mazo;
 import logica.Mazo.palos;
 import logica.Partida;
+import logica.Sistema;
 
-
+/*123*/
 
 /**
  *
@@ -27,13 +29,11 @@ public class ObliDDA {
      */
     public static void main(String[] args) {
    
-        Jugador pepe = new Jugador("Pepe123", "123", "Pepe", 500);
-        Jugador juan = new Jugador("Juan123", "123", "Juan", 500);
-        Jugador maria = new Jugador("Maria123", "123", "Mari", 500);
-        Jugador joaqui = new Jugador("Joaquina123", "123", "Joaqui", 500);
-        Jugador nico = new Jugador("Nicolas123", "123", "Nico", 500);
-
-        Partida p = new Partida(5, 50);
+        //Partida p = 
+        cargarDatos();
+        new InicioDialogo(null,false).setVisible(true); 
+        
+        /*
         
         p.ingresar(pepe);
         p.ingresar(juan);
@@ -41,9 +41,12 @@ public class ObliDDA {
         p.ingresar(joaqui);
         p.ingresar(nico);
 
-        for(JugadorParticipante j : p.getJugadoresParticipantes()){
-            new PartidaDialogo(null, false, j).setVisible(true);            
-        }
+        */
+        
+        
+        //for(JugadorParticipante j : p.getJugadoresParticipantes()){
+        //    new PartidaDialogo(null, false, j).setVisible(true);            
+        //}
 
        
         /*
@@ -65,6 +68,30 @@ public class ObliDDA {
         Carta c6 = new Carta(palos.TREBOL, 10);
         if (c5.compareTo(c6) == -1) System.out.println("gana trebol 10"); else System.out.println("gana trebol 2"); 
     */
+    }
+    
+    private static void cargarDatos() {
+    
+        Sistema logica = Sistema.getInstancia();
+        
+        new Partida(5, 50);
+        
+        logica.agregar(new Jugador("Pepe123", "123", "Pepe", 500));
+        logica.agregar(new Jugador("Juan123", "123", "Juan", 500));
+        logica.agregar(new Jugador("Maria123", "123", "Mari", 500));
+        logica.agregar(new Jugador("Joaquina123", "123", "Joaqui", 500));
+        logica.agregar(new Jugador("Nicolas123", "123", "Nico", 500));
+        
+        /*
+        
+        Jugador pepe = new Jugador("Pepe123", "123", "Pepe", 500);
+        Jugador juan = new Jugador("Juan123", "123", "Juan", 500);
+        Jugador maria = new Jugador("Maria123", "123", "Mari", 500);
+        Jugador joaqui = new Jugador("Joaquina123", "123", "Joaqui", 500);
+        Jugador nico = new Jugador("Nicolas123", "123", "Nico", 500);
+        
+        */
+        
     }
     
 }

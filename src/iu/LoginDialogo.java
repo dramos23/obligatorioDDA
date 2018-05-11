@@ -6,6 +6,7 @@
 package iu;
 import controlador.ControladorLogin;
 import controlador.VistaLoginJugador;
+import javax.swing.JOptionPane;
 /**
  *
  * @author danie
@@ -104,7 +105,17 @@ public class LoginDialogo extends javax.swing.JDialog implements VistaLoginJugad
 
     private void login() {
         String pwd = new String(txtContraseña.getPassword());
-//        controlador.login(nombre.getText(), pwd);
+        controlador.login(txtUsuario.getText(), pwd);
+    }
+
+    @Override
+    public void mostrarError(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
+    }
+    @Override
+    public void mostrarPartida() {
+        dispose();
+        new PartidaDialogo(null,false,null).setVisible(true);
     }
 
 }

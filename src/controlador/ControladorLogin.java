@@ -20,12 +20,11 @@ public class ControladorLogin {
         this.vista = vista;
     }
 
-    /*public void login(String u,String p){
-        Agenda a = modelo.login(u, p);
-        if(a==null) vista.mostrarError("Login incorrecto");
-        else vista.mostrarAgenda(a);
-        
-    else vista.pasarAPartida()
-    }*/
+        public void login(String u,String p){
+        boolean a = modelo.login(u, p);
+        if(a==false) vista.mostrarError("Login incorrecto");
+        else vista.mostrarPartida();
+
+    }
     
 }
