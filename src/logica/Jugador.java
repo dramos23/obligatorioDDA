@@ -27,9 +27,8 @@ public class Jugador extends Usuario {
     }
     
     public boolean apostar(int dinero){
-        if(this.getSaldo() < dinero) return false;
-        this.setSaldo(this.getSaldo() - dinero);
-        return true;
+        if(tengoSaldo(dinero)) this.setSaldo(this.getSaldo() - dinero);
+        return false;
     }
     
     public boolean tengoSaldo(int dinero){
@@ -37,9 +36,6 @@ public class Jugador extends Usuario {
         return true;
     }
     
-    public void pagarDinero(int dinero){
-        this.setSaldo(this.getSaldo() - dinero);
-    }
 
     void ganarDinero(int dinero) {
         this.saldo += dinero;

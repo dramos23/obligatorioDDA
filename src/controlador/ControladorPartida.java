@@ -7,6 +7,7 @@ package controlador;
 
 import java.util.Observable;
 import java.util.Observer;
+import logica.Apuesta;
 import logica.JugadorParticipante;
 
 import logica.Partida;
@@ -38,9 +39,9 @@ public class ControladorPartida implements Observer {
         
         if(evento.equals(Partida.Eventos.jApuesta))
         {
+            vista.cambiaDinero(jugador);
             if(!this.jugador.equals(partida.getApuesta().getApostador())) 
                 vista.mostrarApuesta(partida.getApuesta());
-                vista.esconderPanelRealizarApuesta();
         }
         
         if(evento.equals(Partida.Eventos.jAceptaApuesta)){
@@ -65,9 +66,10 @@ public class ControladorPartida implements Observer {
     }
 
     public void aceptarApuesta() {
-        this.jugador.pagarDinero(partida.getApuesta().getMontoApostado());
+        Apuesta a = partida.getApuesta();
+        this.jugador.pagarDinero(a.getMontoApostado());
         vista.cambiaDinero(jugador);
-        vista.esconderPanelAceptarApuesta();
+        vista.aceptarApuesta();
     }
     
     public boolean comenzoPartida(){
@@ -78,7 +80,6 @@ public class ControladorPartida implements Observer {
         if(partida.verificarApuesta(dinero)){
             partida.realizarApuesta(jugador, dinero);         
             vista.cambiaDinero(jugador);
-            vista.esconderPanelRealizarApuesta();
         }else
         {
             //vista.darError("Uno de los jugadores no puede pagar esta apuesta.");
@@ -87,14 +88,13 @@ public class ControladorPartida implements Observer {
 
     public void juegaMano() {
         this.jugador.setJuegaMano(true);
-        this.vista.togglePanelJuegaMano();
+        this.vista.mostrarMano(jugador.getMano());
     }
     
     public void iniciarVentana()
     {
         vista.esconderAndMostrarAlInicio();
         vista.mostrarJugadores(partida.getJugadoresParticipantes());
-        vista.togglePanelJuegaMano();
         if(comenzoPartida()) vista.iniciarPartida(jugador);
     }
     

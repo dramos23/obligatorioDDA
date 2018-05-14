@@ -53,9 +53,6 @@ public class JugadorParticipante{
     
     //Metodo apostar nuevo
     
-    public boolean apostar(int dinero){
-        return jugador.apostar(dinero);
-    }
     
     public void darLuz(int dinero){
         
@@ -91,10 +88,19 @@ public class JugadorParticipante{
    }
     
    public void pagarDinero(int dinero){
-       this.jugador.pagarDinero(dinero);
+       if(jugador.apostar(dinero)) miPartida.sumarAPozo(dinero);
    }
+
+    public boolean apostar(int dinero){
+        if(jugador.apostar(dinero))
+        {
+            miPartida.sumarAPozo(dinero);
+            return true;
+        }
+        return false;
+    }
    
-@Override
+    @Override
     public boolean equals(Object o){
         JugadorParticipante jp = (JugadorParticipante) o;
         return jp.getNombre().equalsIgnoreCase(this.getNombre());

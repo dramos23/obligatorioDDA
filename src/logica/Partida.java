@@ -54,7 +54,7 @@ public class Partida extends Observable {
     
     public void agregarLuzAPozo(){
         for(JugadorParticipante j:jugadores){
-            pozo += luz;
+            sumarAPozo(luz);
             j.pagarDinero(luz);
         }
     }
@@ -126,9 +126,10 @@ public class Partida extends Observable {
     public void realizarApuesta(JugadorParticipante j, int dinero){        
         j.apostar(dinero);
         apuesta = new Apuesta(j, dinero);
+        sumarAPozo(dinero);
         avisar(Eventos.jApuesta);
     } 
-    
+        
     public boolean verificarApuesta(int dinero){
         for (JugadorParticipante h: jugadores){
             if (h.getSaldoJugador() < dinero ) return false;
@@ -177,5 +178,8 @@ public class Partida extends Observable {
         this.cantJugadores = cantJugadores;
     }
 
+    public void sumarAPozo(int dinero) {
+        this.pozo += dinero;
+    }
     
 }

@@ -6,6 +6,7 @@
 package controlador;
 
 import java.util.ArrayList;
+import javax.swing.JButton;
 import logica.Apuesta;
 import logica.Carta;
 import logica.JugadorParticipante;
@@ -17,10 +18,8 @@ import logica.Partida;
  */
 public interface VistaPartida {
     
-    public void mostrarCartas(ArrayList<Carta> cartas);
-    
-    public void mostrarCartaGanadora(Carta carta);
-    
+    public void mostrarCarta(Carta carta, JButton btn);
+        
     public void mostrarJugadores(ArrayList<JugadorParticipante> jugadores);
     
     public void mostrarValores(int luz, int pozo, int dineroJugador);
@@ -29,6 +28,10 @@ public interface VistaPartida {
     
     public void mostrarApuesta(Apuesta a);
     
+    public void mostrarGanador(JugadorParticipante j);
+
+    public void mostrarMano(ArrayList<Carta> cartas);    
+
     public void cambiaDinero(JugadorParticipante jugador);
     
     //public void cambiarPozo(int dinero);
@@ -37,10 +40,10 @@ public interface VistaPartida {
     
     public void iniciarPartida(JugadorParticipante j);
 
-    public void esconderPanelAceptarApuesta();
+    public void finMano();
 
-    public void esconderPanelRealizarApuesta();
+    public void aceptarApuesta();
 
-    public void togglePanelJuegaMano();
+    public void actualizarPozo(int pozo);
     
 }
