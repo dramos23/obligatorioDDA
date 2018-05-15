@@ -105,4 +105,9 @@ public class JugadorParticipante{
         JugadorParticipante jp = (JugadorParticipante) o;
         return jp.getNombre().equalsIgnoreCase(this.getNombre());
     }   
+
+    public boolean puedeSeguir() {
+        if(getSaldoJugador() < miPartida.getLuz()) return false;
+        return true;
+    }
 }

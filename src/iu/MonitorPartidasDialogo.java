@@ -51,11 +51,11 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
         txtJugadores = new javax.swing.JTextField();
         btnModificarJugadores = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listPartidasAct = new javax.swing.JList<>();
+        listPartidasAct = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Valor de la apuesta base o luz:");
+        jLabel1.setText(" Valor de la apuesta base o luz:");
 
         lblLuz.setText("jLabel2");
 
@@ -74,7 +74,7 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
             }
         });
 
-        jLabel4.setText("Cant. jugadores por partida:");
+        jLabel4.setText(" Cant. jugadores por partida:");
 
         lblCantJugadores.setText("jLabel5");
 
@@ -170,7 +170,7 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCantJugadores;
     private javax.swing.JLabel lblLuz;
-    private javax.swing.JList<String> listPartidasAct;
+    private javax.swing.JList listPartidasAct;
     private javax.swing.JTextField txtJugadores;
     private javax.swing.JTextField txtLuz;
     // End of variables declaration//GEN-END:variables
