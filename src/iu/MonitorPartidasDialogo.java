@@ -7,6 +7,7 @@ package iu;
 
 import controlador.ControladorMonitorPartidas;
 import controlador.VistaMonitorPartidas;
+import java.util.ArrayList;
 import logica.Partida;
 
 /**
@@ -179,5 +180,13 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
         lblLuz.setText(luz + "");
         lblCantJugadores.setText(cantJugadores + "");
     }
+
+    @Override
+    public void mostrarPartidasAct(ArrayList<Partida> partidas) {
+        listPartidasAct.setListData(partidas.toArray());
+    }
+
+   
+    
 
 }

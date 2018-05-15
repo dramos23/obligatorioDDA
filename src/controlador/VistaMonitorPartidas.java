@@ -5,6 +5,9 @@
  */
 package controlador;
 
+import java.util.ArrayList;
+import logica.Partida;
+
 /**
  *
  * @author danie
@@ -12,5 +15,7 @@ package controlador;
 public interface VistaMonitorPartidas {
     
     public void mostrarValores(int luz, int cantJugadores);
+    
+    public void mostrarPartidasAct(ArrayList<Partida> partidas);
     
 }

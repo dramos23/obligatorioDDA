@@ -8,6 +8,7 @@ package controlador;
 import java.util.Observable;
 import java.util.Observer;
 import logica.Partida;
+import logica.Sistema;
 
 /**
  *
@@ -35,6 +36,7 @@ public class ControladorMonitorPartidas implements Observer{
     public void iniciarVentana()
     {
         vista.mostrarValores(partida.getLuz(), partida.getCantJugadores());
+        mostrarPartidasAct();
     }
     
     public void modificarLuz(Partida p, int luz) {
@@ -49,6 +51,10 @@ public class ControladorMonitorPartidas implements Observer{
             this.partida.setCantJugadores(cantJ);
             vista.mostrarValores(partida.getLuz(), partida.getCantJugadores());
         }
+    }
+    
+    public void mostrarPartidasAct(){
+        vista.mostrarPartidasAct(Sistema.getInstancia().obtenerPartidasAct());
     }
     
 }

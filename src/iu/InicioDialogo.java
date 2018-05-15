@@ -56,6 +56,11 @@ public class InicioDialogo extends javax.swing.JDialog implements VistaInicio{
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,6 +100,10 @@ public class InicioDialogo extends javax.swing.JDialog implements VistaInicio{
         new LoginAdminDialogo(null, false).setVisible(true); 
         
     }//GEN-LAST:event_btnLoginAActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        salir();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,4 +152,10 @@ public class InicioDialogo extends javax.swing.JDialog implements VistaInicio{
     private javax.swing.JButton btnLoginJ;
     private javax.swing.JButton btnSalir;
     // End of variables declaration//GEN-END:variables
+
+
+    private void salir() {
+        dispose();
+        new InicioDialogo(null, false).setVisible(true);
+    }
 }

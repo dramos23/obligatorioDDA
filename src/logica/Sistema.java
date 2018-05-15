@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package logica;
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -56,6 +57,10 @@ public class Sistema extends Observable{
     
     public Partida obtenerProximaPartida(){
         return this.sp.getProximaPartida();
+    }
+    
+    public ArrayList<Partida> obtenerPartidasAct(){
+        return this.sp.getPartidas();
     }
 
 }

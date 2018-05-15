@@ -5,7 +5,10 @@
  */
 package logica;
 
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 
 /**
@@ -22,7 +25,8 @@ public class Partida extends Observable {
     private int luz;
     private int cantJugadores;
     private int totalApostado = 0;
-
+    private String fecha;
+    private String hora;
     
     public enum Eventos{
         jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, entroJugador, comienzaPartida,
@@ -36,6 +40,9 @@ public class Partida extends Observable {
 
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.    
     public void comenzarRonda(){
+        
+        fecha = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        hora = new SimpleDateFormat("HH:mm:ss").format(new Date());
         mazo = new Mazo();
         apuesta = new Apuesta();
         agregarLuzAPozo();
@@ -181,6 +188,11 @@ public class Partida extends Observable {
 
     public void sumarAPozo(int dinero) {
         this.pozo += dinero;
+    }
+    
+    @Override
+    public String toString() {
+        return "Fecha/Hora: " + fecha + " " + hora + " Cant. Jugadores " + cantJugadores + " Total apostado: " + totalApostado + " Cant. Manos Jugadas: X";
     }
     
 }
