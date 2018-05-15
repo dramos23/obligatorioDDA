@@ -5,7 +5,8 @@
  */
 package controlador;
 
-import logica.Partida;
+import logica.Admin;
+
 
 
 /**
@@ -16,6 +17,6 @@ public interface VistaLoginAdministrador {
     
     public void mostrarError(String msg);
 
-    public void mostrarConfPartida(Partida p);
+    public void mostrarConfPartida(Admin adm);
     
 }

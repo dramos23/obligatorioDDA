@@ -113,10 +113,9 @@ public class LoginAdminDialogo extends javax.swing.JDialog implements VistaLogin
     }
     
     @Override
-    public void mostrarConfPartida(Partida p) {
+    public void mostrarConfPartida(Admin adm) {
         dispose();
-        new MonitorPartidasDialogo(null,false, p).setVisible(true);
-
+        new MonitorPartidasDialogo(null,false, adm).setVisible(true);
     }
 
 }

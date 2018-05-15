@@ -5,8 +5,10 @@
  */
 package controlador;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import logica.Admin;
 import logica.Partida;
 import logica.Sistema;
 
@@ -17,44 +19,43 @@ import logica.Sistema;
 public class ControladorMonitorPartidas implements Observer{
     
     private VistaMonitorPartidas vista;
-    private Partida partida;
+    private Admin adm;
+    private Sistema s = Sistema.getInstancia();
     
-    public ControladorMonitorPartidas(VistaMonitorPartidas vista, Partida p) {
+    public ControladorMonitorPartidas(VistaMonitorPartidas vista, Admin a) {
         this.vista = vista;
-        this.partida = p;
-        partida.addObserver(this);
+        this.adm = a;
+        Sistema.getInstancia().addObsSP(this);
         iniciarVentana();
     }
 
     @Override
     public void update(Observable o, Object evento) {
-        if(evento.equals(Partida.Eventos.cambiarLuz)){
-            vista.mostrarValores(partida.getLuz(), partida.getCantJugadores());
+        if(evento.equals()){
+            //vista.mostrarValores(Sistema.getInstancia()., partida.getCantJugadores());
         }
     }
     
     public void iniciarVentana()
     {
-        vista.mostrarValores(partida.getLuz(), partida.getCantJugadores());
+        vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
         mostrarPartidasAct();
     }
     
-    public void modificarLuz(Partida p, int luz) {
-        if(this.partida.equals(p)){
-            this.partida.setLuz(luz);
-            vista.mostrarValores(partida.getLuz(), partida.getCantJugadores());
-        }
+    public void modificarLuz(int luz) {
+        s.modificarLuz(luz);
+        vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
+
     }
 
-    public void modificarCantJugadores(Partida p, int cantJ) {
-        if(this.partida.equals(p)){
-            this.partida.setCantJugadores(cantJ);
-            vista.mostrarValores(partida.getLuz(), partida.getCantJugadores());
-        }
+    public void modificarCantJugadores(int cantJ) {
+        s.modificarCantJugadores(cantJ);
+        vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
+        
     }
     
     public void mostrarPartidasAct(){
-        vista.mostrarPartidasAct(Sistema.getInstancia().obtenerPartidasAct());
+        vista.mostrarPartidasAct(s.obtenerPartidasAct());
     }
     
 }

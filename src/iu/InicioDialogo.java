@@ -156,6 +156,6 @@ public class InicioDialogo extends javax.swing.JDialog implements VistaInicio{
 
     private void salir() {
         dispose();
-        new InicioDialogo(null, false).setVisible(true);
+        new InicioDialogo(null, false).setVisible(false);
     }
 }

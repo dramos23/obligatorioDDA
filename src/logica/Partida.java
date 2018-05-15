@@ -25,9 +25,9 @@ public class Partida extends Observable {
     private int luz;
     private int cantJugadores;
     private int totalApostado = 0;
-    private String fecha;
-    private String hora;
-    
+    private int cantManos = 0;
+    private String fechaHora;
+        
     public enum Eventos{
         jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, entroJugador, comienzaPartida,
         comienzaTurno, cambiarLuz
@@ -41,8 +41,7 @@ public class Partida extends Observable {
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.    
     public void comenzarRonda(){
         
-        fecha = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        hora = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        fechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
         mazo = new Mazo();
         apuesta = new Apuesta();
         agregarLuzAPozo();
@@ -69,6 +68,7 @@ public class Partida extends Observable {
     //Se asigna la mano de cada jugador recorriendo el array de jugadores y revisando 
     //los que van a jugar esta ronda.
     public void repartirCartas(){
+        cantManos++;
         for(JugadorParticipante j:jugadores){
             if(j.isJuegaMano()) j.setMano(mazo.dar5());
         }              
@@ -190,9 +190,21 @@ public class Partida extends Observable {
         this.pozo += dinero;
     }
     
-    @Override
-    public String toString() {
-        return "Fecha/Hora: " + fecha + " " + hora + " Cant. Jugadores " + cantJugadores + " Total apostado: " + totalApostado + " Cant. Manos Jugadas: X";
+//    @Override
+//    public String toString() {
+//        return "Fecha/Hora: " + fechaHora + " Cant. Jugadores " + cantJugadores + " Total apostado: " + totalApostado + " Cant. Manos Jugadas: " + totalApostado;
+//    }
+
+    public int getTotalApostado() {
+        return totalApostado;
+    }
+
+    public String getFechaHora() {
+        return fechaHora;
+    }
+    
+    public int getCantManos() {
+        return cantManos;
     }
     
 }

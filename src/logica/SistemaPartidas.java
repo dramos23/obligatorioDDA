@@ -6,19 +6,24 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import logica.Partida.Eventos;
 
 /**
  *
  * @author FAT
  */
-public class SistemaPartidas {
+public class SistemaPartidas extends Observable{
     
     private ArrayList<Partida> partidas = new ArrayList();
     private Partida proximaPartida;
     private int valorLuz;
     private int cantJugadoresPorPartida;
-     
+    
+    public enum Eventos{
+        cambiarLuz, cambiarCantJugadores
+    }
+    
     public SistemaPartidas(){
         proximaPartida = new Partida(valorLuz, cantJugadoresPorPartida);
     }
@@ -69,7 +74,10 @@ public class SistemaPartidas {
         return proximaPartida;
     }
     
-    
+    public void avisar(Eventos evento) {
+        setChanged();
+        notifyObservers(evento);
+    }
     
     
     

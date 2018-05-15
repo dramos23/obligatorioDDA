@@ -24,9 +24,9 @@ public class ControladorLoginA {
 
     public void login(String u,String p){
         
-        Partida proxP = modelo.loginA(u, p);
-        if(proxP==null) vista.mostrarError("Login incorrecto");
-        else vista.mostrarConfPartida(proxP);
+        Admin adm = modelo.loginA(u, p);
+        if(adm==null) vista.mostrarError("Login incorrecto");
+        else vista.mostrarConfPartida(adm);
 
     }
     

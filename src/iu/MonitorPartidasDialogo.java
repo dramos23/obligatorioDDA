@@ -8,7 +8,11 @@ package iu;
 import controlador.ControladorMonitorPartidas;
 import controlador.VistaMonitorPartidas;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import logica.Admin;
 import logica.Partida;
+
+
 
 /**
  *
@@ -22,13 +26,13 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
      */
     
     private ControladorMonitorPartidas controlador;
-    private Partida partida;
-    
-    public MonitorPartidasDialogo(java.awt.Frame parent, boolean modal, Partida p) {
+    private Admin admin;
+        
+    public MonitorPartidasDialogo(java.awt.Frame parent, boolean modal, Admin adm) {
         super(parent, modal);
         initComponents();
-        partida = p;
-        controlador = new ControladorMonitorPartidas(this,p);
+        admin = adm;
+        controlador = new ControladorMonitorPartidas(this,adm);
     }
 
     /**
@@ -50,8 +54,8 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
         jLabel6 = new javax.swing.JLabel();
         txtJugadores = new javax.swing.JTextField();
         btnModificarJugadores = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listPartidasAct = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDatos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,7 +91,37 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
             }
         });
 
-        jScrollPane1.setViewportView(listPartidasAct);
+        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Fecha/Hora", "Cant. Jugadores", "Total Apostado", "Cant. Manos", "Seleccion"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDatos.setColumnSelectionAllowed(true);
+        tblDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDatosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblDatos);
+        tblDatos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,8 +129,8 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -120,8 +154,9 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnModificarLuz, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                            .addComponent(btnModificarJugadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnModificarJugadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,9 +175,9 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
                     .addComponent(jLabel6)
                     .addComponent(txtJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificarJugadores))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -153,12 +188,16 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
     }//GEN-LAST:event_txtLuzActionPerformed
 
     private void btnModificarLuzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLuzActionPerformed
-        controlador.modificarLuz(partida, Integer.parseInt(txtLuz.getText()));
+        controlador.modificarLuz(Integer.parseInt(txtLuz.getText()));
     }//GEN-LAST:event_btnModificarLuzActionPerformed
 
     private void btnModificarJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarJugadoresActionPerformed
-       controlador.modificarCantJugadores(partida, Integer.parseInt(txtJugadores.getText()));
+       controlador.modificarCantJugadores(Integer.parseInt(txtJugadores.getText()));
     }//GEN-LAST:event_btnModificarJugadoresActionPerformed
+
+    private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblDatosMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificarJugadores;
@@ -167,10 +206,10 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCantJugadores;
     private javax.swing.JLabel lblLuz;
-    private javax.swing.JList<String> listPartidasAct;
+    private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtJugadores;
     private javax.swing.JTextField txtLuz;
     // End of variables declaration//GEN-END:variables
@@ -183,10 +222,10 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
 
     @Override
     public void mostrarPartidasAct(ArrayList<Partida> partidas) {
-        listPartidasAct.setListData(partidas.toArray());
-    }
-
-   
-    
+        DefaultTableModel model = (DefaultTableModel) tblDatos.getModel();
+        for (Partida p:partidas) {
+            model.addRow(new Object[]{p.getFechaHora(),p.getCantJugadores(),p.getTotalApostado(),p.getCantManos()});
+        }           
+    }    
 
 }

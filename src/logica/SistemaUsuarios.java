@@ -28,13 +28,11 @@ public class SistemaUsuarios {
         return null;
     }
     
-    public Partida loginA(String u,String p){
+    public Admin loginA(String u,String p){
         for(Admin adm:admins){
             if(adm.getNombre().equalsIgnoreCase(u) && 
                     adm.getPass().equals(p)){
-
-                Partida proxP = Sistema.getInstancia().obtenerProximaPartida();
-                return proxP;
+                return adm;
             }
         }
         return null;
