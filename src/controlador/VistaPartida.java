@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import logica.Apuesta;
 import logica.Carta;
 import logica.JugadorParticipante;
-import logica.Partida;
+
 
 /**
  *

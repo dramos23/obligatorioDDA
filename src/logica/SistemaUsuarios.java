@@ -16,7 +16,7 @@ public class SistemaUsuarios {
     public ArrayList<Jugador> jugadores = new ArrayList();
     public ArrayList<Admin> admins = new ArrayList();
     
-    public JugadorParticipante login(String u,String p){
+    public JugadorParticipante loginJ(String u,String p){
         for(Jugador jug:jugadores){
             if(jug.getNombre().equalsIgnoreCase(u) && 
                     jug.getPass().equals(p)){                
@@ -28,21 +28,23 @@ public class SistemaUsuarios {
         return null;
     }
     
-    
-        //Se devuelve admin o booleano? No hay datos de admin en la ventana de partidas entonces no parece necesario.
-        /*
-        public Admin loginAdmin(String u,String p){
-        for(Admin ad:admins){
-            if(ad.getNombre().equalsIgnoreCase(u) && 
-                    ad.getPass().equals(p)){
-                return true;
+    public Partida loginA(String u,String p){
+        for(Admin adm:admins){
+            if(adm.getNombre().equalsIgnoreCase(u) && 
+                    adm.getPass().equals(p)){
+
+                Partida proxP = Sistema.getInstancia().obtenerProximaPartida();
+                return proxP;
             }
         }
-        return false;
+        return null;
     }
-*/
     
     public void agregar(Jugador j){
         jugadores.add(j);
+    }
+    
+    public void agregarA(Admin a){
+        admins.add(a);
     }
 }

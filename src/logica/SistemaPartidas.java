@@ -64,6 +64,10 @@ public class SistemaPartidas {
     public int getCantJugadoresPorPartida() {
         return cantJugadoresPorPartida;
     }
+
+    public Partida getProximaPartida() {
+        return proximaPartida;
+    }
     
     
     

@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package controlador;
 
 /**
  *
- * @author Diego
+ * @author danie
  */
-public class Admin extends Usuario{
+public interface VistaMonitorPartidas {
     
-    public Admin(String nombre, String pass, String nombreCompleto) {
-            super(nombre, pass, nombreCompleto);
-    }
+    public void mostrarValores(int luz, int cantJugadores);
     
 }

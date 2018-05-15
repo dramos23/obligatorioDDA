@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package iu;
-import controlador.ControladorLogin;
+import controlador.ControladorLoginJ;
 import controlador.VistaLoginJugador;
 import javax.swing.JOptionPane;
 import logica.Jugador;
@@ -13,18 +13,18 @@ import logica.JugadorParticipante;
  *
  * @author danie
  */
-public class LoginDialogo extends javax.swing.JDialog implements VistaLoginJugador{
+public class LoginJugadorDialogo extends javax.swing.JDialog implements VistaLoginJugador{
 
     /**
      * Creates new form LoginDialogo
      */
     
-    private ControladorLogin controlador;
+    private ControladorLoginJ controlador;
         
-    public LoginDialogo(java.awt.Frame parent, boolean modal) {
+    public LoginJugadorDialogo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        controlador = new ControladorLogin(this);
+        controlador = new ControladorLoginJ(this);
     }
 
     @SuppressWarnings("unchecked")

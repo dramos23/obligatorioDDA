@@ -49,6 +49,11 @@ public class InicioDialogo extends javax.swing.JDialog implements VistaInicio{
         });
 
         btnLoginA.setText("Login Administrador");
+        btnLoginA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginAActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
 
@@ -80,10 +85,16 @@ public class InicioDialogo extends javax.swing.JDialog implements VistaInicio{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginJActionPerformed
-        //dispose();
-        new LoginDialogo(null, false).setVisible(true);            
+        
+        new LoginJugadorDialogo(null, false).setVisible(true);            
         
     }//GEN-LAST:event_btnLoginJActionPerformed
+
+    private void btnLoginAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginAActionPerformed
+        
+        new LoginAdminDialogo(null, false).setVisible(true); 
+        
+    }//GEN-LAST:event_btnLoginAActionPerformed
 
     /**
      * @param args the command line arguments

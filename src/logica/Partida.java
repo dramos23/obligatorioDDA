@@ -26,7 +26,7 @@ public class Partida extends Observable {
     
     public enum Eventos{
         jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, entroJugador, comienzaPartida,
-        comienzaTurno
+        comienzaTurno, cambiarLuz
     }
     
     public Partida(int cantJug, int luz){
@@ -89,6 +89,7 @@ public class Partida extends Observable {
     
     public void setLuz(int luz){
         if(this.jugadores.isEmpty()) this.luz = luz;
+        avisar(Eventos.cambiarLuz);
     }
     
     public boolean completa(){

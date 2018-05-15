@@ -13,17 +13,17 @@ import logica.Sistema;
  *
  * @author danie
  */
-public class ControladorLogin {
+public class ControladorLoginJ {
     
     private Sistema modelo = Sistema.getInstancia();
     private VistaLoginJugador vista;
     
-    public ControladorLogin(VistaLoginJugador vista) {
+    public ControladorLoginJ(VistaLoginJugador vista) {
         this.vista = vista;
     }
 
         public void login(String u,String p){
-        JugadorParticipante jp = modelo.login(u, p);
+        JugadorParticipante jp = modelo.loginJ(u, p);
         
         if(jp==null) vista.mostrarError("Login incorrecto");
         else vista.mostrarPartida(jp);

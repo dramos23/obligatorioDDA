@@ -28,9 +28,17 @@ public class Sistema extends Observable{
         su.agregar(j);
     }
     
+    public void agregarA(Admin a) {
+        su.agregarA(a);
+    }
     
-    public JugadorParticipante login(String u, String p) {
-        return su.login(u, p);
+    
+    public JugadorParticipante loginJ(String u, String p) {
+        return su.loginJ(u, p);        
+    }
+    
+    public Partida loginA(String u, String p) {
+        return su.loginA(u, p);        
     }
     
     public JugadorParticipante agregarJugadorAPartida(Jugador j){
@@ -44,6 +52,10 @@ public class Sistema extends Observable{
     
     public void modificarCantJugadores(int valor){
         this.sp.setCantJugadores(valor);
+    }
+    
+    public Partida obtenerProximaPartida(){
+        return this.sp.getProximaPartida();
     }
 
 }

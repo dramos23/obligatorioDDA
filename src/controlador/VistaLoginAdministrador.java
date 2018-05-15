@@ -3,16 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package controlador;
+
+import logica.Partida;
+
 
 /**
  *
- * @author Diego
+ * @author danie
  */
-public class Admin extends Usuario{
+public interface VistaLoginAdministrador {
     
-    public Admin(String nombre, String pass, String nombreCompleto) {
-            super(nombre, pass, nombreCompleto);
-    }
+    public void mostrarError(String msg);
+
+    public void mostrarConfPartida(Partida p);
     
 }
