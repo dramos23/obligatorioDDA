@@ -31,9 +31,9 @@ public class ControladorMonitorPartidas implements Observer{
 
     @Override
     public void update(Observable o, Object evento) {
-        if(evento.equals()){
-            //vista.mostrarValores(Sistema.getInstancia()., partida.getCantJugadores());
-        }
+//        if(evento.equals()){
+//            //vista.mostrarValores(Sistema.getInstancia()., partida.getCantJugadores());
+//        }
     }
     
     public void iniciarVentana()
