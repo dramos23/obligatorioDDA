@@ -18,6 +18,7 @@ import java.util.Observable;
 public class Partida extends Observable {
     
 //    private DateTime FechaInicio;
+    private SistemaPartidas sp;
     private ArrayList<JugadorParticipante> jugadores = new ArrayList();    
     private Mazo mazo = new Mazo();
     private Apuesta apuesta = new Apuesta();
@@ -33,9 +34,10 @@ public class Partida extends Observable {
         comienzaTurno, cambiaPozo, finalizoPartida
     }
     
-    public Partida(int cantJug, int luz){
+    public Partida(int cantJug, int luz, SistemaPartidas sisP){
         this.luz = luz;
         this.cantJugadores = cantJug;
+        this.sp = sisP;
     }
 
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.    
@@ -189,8 +191,8 @@ public class Partida extends Observable {
     public void avisar(Eventos evento) {
         setChanged();
         notifyObservers(evento);
+        this.sp.avisarCambioEnPartida(evento);
     }
-
 
     public void sumarAPozo(int dinero) {
         this.pozo += dinero;

@@ -19,13 +19,15 @@ public class SistemaPartidas extends Observable{
     private Partida proximaPartida;
     private int valorLuz;
     private int cantJugadoresPorPartida;
+
+    
     
     public enum Eventos{
         cambiarLuz, cambiarCantJugadores
     }
     
     public SistemaPartidas(){
-        proximaPartida = new Partida(valorLuz, cantJugadoresPorPartida);
+        proximaPartida = new Partida(valorLuz, cantJugadoresPorPartida, this);
     }
 
     
@@ -36,7 +38,7 @@ public class SistemaPartidas extends Observable{
         {
             if(proximaPartida.completa()){
                 //Empezar proxima partida y crear una nproximaPartida nueva.
-                Partida nuevaProx = new Partida(cantJugadoresPorPartida, valorLuz);
+                Partida nuevaProx = new Partida(cantJugadoresPorPartida, valorLuz, this);
                 partidas.add(nuevaProx);
                 proximaPartida = nuevaProx;
             }
@@ -49,14 +51,15 @@ public class SistemaPartidas extends Observable{
     public void setLuz(int valorLuz) {
         this.valorLuz = valorLuz;
         if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setLuz(valorLuz);
+        avisar(Eventos.cambiarLuz);
     }
 
         //Throws exception
     public void setCantJugadores(int cantJugadoresPorPartida) {
         this.cantJugadoresPorPartida = cantJugadoresPorPartida;
         if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setCantJugadores(cantJugadoresPorPartida);
+        avisar(Eventos.cambiarCantJugadores);
     }
-
     
     public ArrayList<Partida> getPartidas() {
         return partidas;
@@ -78,7 +81,11 @@ public class SistemaPartidas extends Observable{
         setChanged();
         notifyObservers(evento);
     }
-    
-    
+
+    public void avisarCambioEnPartida(Partida.Eventos evento) {
+        setChanged();
+        notifyObservers(evento);
+    }
+
     
 }

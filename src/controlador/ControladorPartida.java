@@ -8,6 +8,7 @@ package controlador;
 import java.util.Observable;
 import java.util.Observer;
 import logica.Apuesta;
+import logica.Jugador;
 import logica.JugadorParticipante;
 
 import logica.Partida;
@@ -21,12 +22,13 @@ public class ControladorPartida implements Observer {
     private JugadorParticipante jugador;
     private Partida partida;
     private VistaPartida vista;
-    
+
     public ControladorPartida(JugadorParticipante jugador, VistaPartida vista){
         this.jugador = jugador;
         this.partida = jugador.getPartida();
         this.vista = vista;
-        partida.addObserver(this);
+        partida.addObserver(this);        
+        jugador.getJugador().addObserver(this);
         vista.mostrarNombreJugador(jugador.getNombreCompleto());
         iniciarVentana();
     }
@@ -66,7 +68,13 @@ public class ControladorPartida implements Observer {
         }
         if(evento.equals(Partida.Eventos.comienzaTurno)){
             vista.cambiaDinero(jugador);
-        }if(evento.equals(Partida.Eventos.cambiaPozo)) vista.cambiaDinero(jugador);
+        }
+        if(evento.equals(Partida.Eventos.cambiaPozo))
+               vista.cambiaDinero(jugador);
+        if(evento.equals(Jugador.Eventos.cambioSaldo)){
+            vista.cambiaDinero(jugador);
+        }
+
     }
 
     public void removerJugador() {
@@ -79,8 +87,7 @@ public class ControladorPartida implements Observer {
     }
 
     public void aceptarApuesta() {
-        Apuesta a = partida.getApuesta();
-        
+        Apuesta a = partida.getApuesta();        
         this.jugador.pagarDinero(a.getMontoApostado());        
         vista.aceptarApuesta();
     }

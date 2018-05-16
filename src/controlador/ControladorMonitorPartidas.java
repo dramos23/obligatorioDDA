@@ -25,6 +25,7 @@ public class ControladorMonitorPartidas implements Observer{
     public ControladorMonitorPartidas(VistaMonitorPartidas vista, Admin a) {
         this.vista = vista;
         this.adm = a;
+                
         Sistema.getInstancia().addObsSP(this);
         iniciarVentana();
     }

@@ -5,13 +5,22 @@
  */
 package logica;
 
+import java.util.ArrayList;
+import java.util.Observable;
+
 /**
  *
  * @author Ninja
  */
-public class Jugador extends Usuario {
-    
+public class Jugador extends Usuario{
+   
     private int saldo;
+    private Observable obs = new Observable();
+    private ArrayList<Partida> partidas = new ArrayList();
+    
+    public enum Eventos {
+        cambioSaldo;
+    }
     
     public Jugador(String nombre, String pass, String nombreCompleto, int dineroInicial) {
             super(nombre, pass, nombreCompleto);
@@ -25,14 +34,15 @@ public class Jugador extends Usuario {
     public void setSaldo(int saldo) {
         this.saldo = saldo;
     }
-    
+           
+    //Throws
     public boolean apostar(int dinero){
         if(tengoSaldo(dinero)) 
         {
             this.setSaldo(this.getSaldo() - dinero);
+            avisar(Eventos.cambioSaldo);
             return true;
-        }
-     
+        }     
         return false;
     }
     
@@ -45,5 +55,15 @@ public class Jugador extends Usuario {
     void ganarDinero(int dinero) {
         this.saldo += dinero;
     }
+
+    void agregarPartida(Partida miPartida) {
+        this.partidas.add(miPartida);
+    }
+    
+    private void avisar(Eventos evento) {
+            setChanged();
+            notifyObservers(evento);   
+    }
+
 
 }

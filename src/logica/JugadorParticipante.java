@@ -5,6 +5,7 @@
  */
 package logica;
 
+import controlador.ControladorPartida;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -24,6 +25,7 @@ public class JugadorParticipante{
     public JugadorParticipante(Jugador jugador, Partida par) {
         this.jugador = jugador;
         this.miPartida = par;
+        this.jugador.agregarPartida(miPartida);
         this.saldoInicial = jugador.getSaldo();
     }
 
@@ -114,4 +116,9 @@ public class JugadorParticipante{
         if(getSaldoJugador() < miPartida.getLuz()) return false;
         return true;
     }
+
+    public Jugador getJugador() {
+        return this.jugador;
+    }
+
 }

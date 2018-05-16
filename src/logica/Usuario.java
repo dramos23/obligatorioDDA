@@ -5,11 +5,9 @@
  */
 package logica;
 
-/**
- *
- * @author FAT
- */
-public class Usuario {
+import java.util.Observable;
+
+public class Usuario extends Observable {
     
         public String nombre;
         public String pass;
