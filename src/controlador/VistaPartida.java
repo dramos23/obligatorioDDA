@@ -45,5 +45,11 @@ public interface VistaPartida {
     public void aceptarApuesta();
 
     public void actualizarPozo(int pozo);
+
+    public void jugadorAposto();
+
+    public void jugadorNoPuedeSeguir(String msg);
+    
+    public void cerrarVentana();
     
 }

@@ -94,7 +94,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Valor de la apuesta base o luz:"/>
+        <Property name="text" type="java.lang.String" value=" Valor de la apuesta base o luz:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblLuz">
@@ -122,7 +122,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cant. jugadores por partida:"/>
+        <Property name="text" type="java.lang.String" value=" Cant. jugadores por partida:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCantJugadores">

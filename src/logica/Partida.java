@@ -30,7 +30,7 @@ public class Partida extends Observable {
         
     public enum Eventos{
         jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, entroJugador, comienzaPartida,
-        comienzaTurno, cambiarLuz
+        comienzaTurno, cambiaPozo, finalizoPartida
     }
     
     public Partida(int cantJug, int luz){
@@ -39,8 +39,7 @@ public class Partida extends Observable {
     }
 
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.    
-    public void comenzarRonda(){
-        
+    public void comenzarRonda(){        
         fechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
         mazo = new Mazo();
         apuesta = new Apuesta();
@@ -57,7 +56,29 @@ public class Partida extends Observable {
         return luz;
     }
     
+    public void setLuz(int luz){
+        if(this.jugadores.isEmpty()) this.luz = luz;
+    }
     
+        
+    public ArrayList<JugadorParticipante> getJugadoresParticipantes(){
+        return this.jugadores;
+    }
+
+    public int getCantJugadores() {
+        return cantJugadores;
+    }
+
+        public Apuesta getApuesta() {
+        return apuesta;
+    }
+    
+   public void setCantJugadores(int cantJugadores) {
+       if(this.jugadores.isEmpty()) this.cantJugadores = cantJugadores;
+
+    }
+    
+      //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.       
     public void agregarLuzAPozo(){
         for(JugadorParticipante j:jugadores){
             sumarAPozo(luz);
@@ -94,11 +115,7 @@ public class Partida extends Observable {
         return p;
     }
     
-    public void setLuz(int luz){
-        if(this.jugadores.isEmpty()) this.luz = luz;
-        avisar(Eventos.cambiarLuz);
-    }
-    
+
     public boolean completa(){
         return this.cantJugadores == jugadores.size();
     }
@@ -130,11 +147,9 @@ public class Partida extends Observable {
         return juegan;
     }
         
-    //Esto iria con manejador de eventos.
     public void realizarApuesta(JugadorParticipante j, int dinero){        
         j.apostar(dinero);
         apuesta = new Apuesta(j, dinero);
-        sumarAPozo(dinero);
         avisar(Eventos.jApuesta);
     } 
         
@@ -149,23 +164,19 @@ public class Partida extends Observable {
         return this.cantJugadores == this.jugadores.size();
     }
 
-    
-    public ArrayList<JugadorParticipante> getJugadoresParticipantes(){
-        return this.jugadores;
-    }
-
-    public int getCantJugadores() {
-        return cantJugadores;
-    }
 
     public void removerJugador(JugadorParticipante jugador) {
         this.jugadores.remove(jugador);
-        avisar(Eventos.jAbandonaPartida);
+        if(finalizada()) {
+            avisar(Eventos.finalizoPartida);
+            this.jugadores.removeAll(jugadores);
+        }        
+        else avisar(Eventos.jAbandonaPartida);
     }
 
     
-    public ArrayList<JugadorParticipante> getJugadoresSinMi(JugadorParticipante jugador){
-     
+    public ArrayList<JugadorParticipante> getJugadoresSinMi(JugadorParticipante jugador)
+    {     
         ArrayList<JugadorParticipante> jugadoresSM = new ArrayList();
         for (JugadorParticipante j:jugadores){
             if (!j.equals(jugador)) jugadoresSM.add(j);
@@ -173,27 +184,21 @@ public class Partida extends Observable {
         return jugadoresSM;
     }
 
-    public Apuesta getApuesta() {
-        return apuesta;
-    }
-    
     public void avisar(Eventos evento) {
         setChanged();
         notifyObservers(evento);
     }
 
-    public void setCantJugadores(int cantJugadores) {
-        this.cantJugadores = cantJugadores;
-    }
 
     public void sumarAPozo(int dinero) {
         this.pozo += dinero;
+        this.totalApostado += dinero;
+        avisar(Eventos.cambiaPozo);
     }
     
-//    @Override
-//    public String toString() {
-//        return "Fecha/Hora: " + fechaHora + " Cant. Jugadores " + cantJugadores + " Total apostado: " + totalApostado + " Cant. Manos Jugadas: " + totalApostado;
-//    }
+    public boolean finalizada() {
+        return this.getJugadoresParticipantes().size() <= 1;
+    }
 
     public int getTotalApostado() {
         return totalApostado;
