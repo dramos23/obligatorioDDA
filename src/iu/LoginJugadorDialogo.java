@@ -114,7 +114,7 @@ public class LoginJugadorDialogo extends javax.swing.JDialog implements VistaLog
     @Override
     public void mostrarPartida(JugadorParticipante jp) {
         dispose();
-        new PartidaDialogo(null,false,jp).setVisible(true);
+        new PartidaDialogo2(null,false,jp).setVisible(true);
     }
 
 }

@@ -83,6 +83,10 @@ public class JugadorParticipante{
        return this.jugador.getNombre();
    }
    
+   public String getNombreCompleto(){
+       return this.jugador.nombreCompleto;
+   }
+   
    public String toString(){
        return this.jugador.getNombre();
    }

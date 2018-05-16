@@ -27,6 +27,7 @@ public class ControladorPartida implements Observer {
         this.partida = jugador.getPartida();
         this.vista = vista;
         partida.addObserver(this);
+        vista.mostrarNombreJugador(jugador.getNombreCompleto());
         iniciarVentana();
     }
 
@@ -38,6 +39,7 @@ public class ControladorPartida implements Observer {
         }  
         
         if(evento.equals(Partida.Eventos.finalizoPartida)){
+            
             vista.jugadorNoPuedeSeguir("Debido a la falta de jugadores se há terminado la partida.");
         }
         
@@ -68,8 +70,12 @@ public class ControladorPartida implements Observer {
     }
 
     public void removerJugador() {
-        this.partida.removerJugador(jugador);
+        if (this.partida.finalizada()){
+            partida.deleteObserver(this);
+        }
         vista.cerrarVentana();
+        this.partida.removerJugador(jugador);
+        
     }
 
     public void aceptarApuesta() {
