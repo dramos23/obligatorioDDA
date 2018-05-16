@@ -166,12 +166,14 @@ public class Partida extends Observable {
 
 
     public void removerJugador(JugadorParticipante jugador) {
-        this.jugadores.remove(jugador);
         if(finalizada()) {
             avisar(Eventos.finalizoPartida);
             this.jugadores.removeAll(jugadores);
         }        
-        else avisar(Eventos.jAbandonaPartida);
+        else {
+            avisar(Eventos.jAbandonaPartida);
+            this.jugadores.remove(jugador);
+        }
     }
 
     
@@ -197,7 +199,7 @@ public class Partida extends Observable {
     }
     
     public boolean finalizada() {
-        return this.getJugadoresParticipantes().size() <= 1;
+        return this.getJugadoresParticipantes().size() == 2;
     }
 
     public int getTotalApostado() {
