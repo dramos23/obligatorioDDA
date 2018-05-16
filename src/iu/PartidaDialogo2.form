@@ -29,7 +29,7 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="pnlApostar" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="pnlValores" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -48,13 +48,13 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="pnlFinMano" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <Component id="pnlMano" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -234,9 +234,9 @@
                   <Component id="btnCarta4" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCarta5" min="-2" pref="95" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="btnCartaGanadora" min="-2" pref="95" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                  <EmptySpace pref="51" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -245,13 +245,13 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" max="-2" attributes="0">
-                      <Component id="btnCarta1" alignment="3" pref="150" max="32767" attributes="0"/>
-                      <Component id="btnCarta2" alignment="3" max="32767" attributes="0"/>
-                      <Component id="btnCarta3" alignment="3" max="32767" attributes="0"/>
-                      <Component id="btnCarta4" alignment="3" max="32767" attributes="0"/>
-                      <Component id="btnCarta5" alignment="3" max="32767" attributes="0"/>
+                      <Component id="btnCarta1" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnCarta2" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnCarta3" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnCarta4" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnCarta5" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="104" max="-2" attributes="0"/>
-                      <Component id="btnCartaGanadora" max="32767" attributes="0"/>
+                      <Component id="btnCartaGanadora" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
@@ -268,6 +268,9 @@
         <Component class="javax.swing.JButton" name="btnCarta4">
         </Component>
         <Component class="javax.swing.JButton" name="btnCarta5">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCarta5ActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
