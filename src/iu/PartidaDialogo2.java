@@ -529,7 +529,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     @Override
     public void jugadorNoPuedeSeguir(String msg) {
         optFinPartida.showMessageDialog(null, msg);
-        //this.dispose();
+        this.dispose();
     }
     
     public void cerrarVentana(){

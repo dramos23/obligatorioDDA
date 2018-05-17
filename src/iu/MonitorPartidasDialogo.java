@@ -5,6 +5,7 @@
  */
 package iu;
 
+import com.sun.glass.events.KeyEvent;
 import controlador.ControladorMonitorPartidas;
 import controlador.VistaMonitorPartidas;
 import java.util.ArrayList;
@@ -55,9 +56,15 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
 
         jLabel3.setText("Modificar a:");
 
+        txtLuz.setHorizontalAlignment(txtLuz.CENTER);
         txtLuz.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLuzActionPerformed(evt);
+            }
+        });
+        txtLuz.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtLuzKeyPressed(evt);
             }
         });
 
@@ -67,6 +74,11 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
                 btnModificarLuzActionPerformed(evt);
             }
         });
+        btnModificarLuz.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnModificarLuzKeyPressed(evt);
+            }
+        });
 
         jLabel4.setText(" Cant. jugadores por partida:");
 
@@ -74,10 +86,22 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
 
         jLabel6.setText("Modificar a:");
 
+        txtJugadores.setHorizontalAlignment(txtJugadores.CENTER);
+        txtJugadores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtJugadoresKeyPressed(evt);
+            }
+        });
+
         btnModificarJugadores.setText("Modificar");
         btnModificarJugadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarJugadoresActionPerformed(evt);
+            }
+        });
+        btnModificarJugadores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnModificarJugadoresKeyPressed(evt);
             }
         });
 
@@ -86,14 +110,14 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
 
             },
             new String [] {
-                "Fecha/Hora", "Cant. Jugadores", "Total Apostado", "Cant. Manos", "Seleccion"
+                "Fecha/Hora", "Cant. Jugadores", "Total Apostado", "Cant. Manos"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -179,15 +203,45 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
 
     private void btnModificarLuzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLuzActionPerformed
         controlador.modificarLuz(Integer.parseInt(txtLuz.getText()));
+        txtLuz.setText("");
     }//GEN-LAST:event_btnModificarLuzActionPerformed
 
     private void btnModificarJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarJugadoresActionPerformed
        controlador.modificarCantJugadores(Integer.parseInt(txtJugadores.getText()));
+       txtJugadores.setText("");
     }//GEN-LAST:event_btnModificarJugadoresActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tblDatosMouseClicked
+
+    private void txtLuzKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLuzKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnModificarLuz.setFocusable(true); // How do I get focus on button on App launch?
+            btnModificarLuz.requestFocus(true);
+        }
+    }//GEN-LAST:event_txtLuzKeyPressed
+
+    private void btnModificarLuzKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnModificarLuzKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            java.awt.event.ActionEvent evento = null;
+            btnModificarLuzActionPerformed(evento);
+        }
+    }//GEN-LAST:event_btnModificarLuzKeyPressed
+
+    private void txtJugadoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJugadoresKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnModificarJugadores.setFocusable(true); // How do I get focus on button on App launch?
+            btnModificarJugadores.requestFocus(true);
+        }
+    }//GEN-LAST:event_txtJugadoresKeyPressed
+
+    private void btnModificarJugadoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnModificarJugadoresKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            java.awt.event.ActionEvent evento = null;
+            btnModificarJugadoresActionPerformed(evento);
+        }
+    }//GEN-LAST:event_btnModificarJugadoresKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificarJugadores;
@@ -205,17 +259,21 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void mostrarValores(int luz, int cantJugadores) {
-        lblLuz.setText(luz + "");
-        lblCantJugadores.setText(cantJugadores + "");
-    }
-
-    @Override
     public void mostrarPartidasAct(ArrayList<Partida> partidas) {
         DefaultTableModel model = (DefaultTableModel) tblDatos.getModel();
         for (Partida p:partidas) {
             model.addRow(new Object[]{p.getFechaHora(),p.getCantJugadores(),p.getTotalApostado(),p.getCantManos()});
         }           
     }    
+
+    @Override
+    public void mostrarLuz(int luz) {
+        lblLuz.setText(luz + "");
+    }
+
+    @Override
+    public void mostrarCantJugadores(int cantJugadores) {
+        lblCantJugadores.setText(cantJugadores + "");
+    }
     
 }

@@ -6,6 +6,7 @@
 package iu;
 import controlador.ControladorLoginJ;
 import controlador.VistaLoginJugador;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import logica.Jugador;
 import logica.JugadorParticipante;
@@ -43,10 +44,27 @@ public class LoginJugadorDialogo extends javax.swing.JDialog implements VistaLog
 
         jLabel2.setText("Contraseña");
 
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+        });
+
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
+            }
+        });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
+            }
+        });
+
+        txtContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContraseñaKeyPressed(evt);
             }
         });
 
@@ -90,6 +108,27 @@ public class LoginJugadorDialogo extends javax.swing.JDialog implements VistaLog
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
             login();
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            txtContraseña.setFocusable(true); // How do I get focus on button on App launch?
+            txtContraseña.requestFocus(true);
+        }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void txtContraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnLogin.setFocusable(true); // How do I get focus on button on App launch?
+            btnLogin.requestFocus(true);
+        }
+    }//GEN-LAST:event_txtContraseñaKeyPressed
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            java.awt.event.ActionEvent evento = null;
+            btnLoginActionPerformed(evento);
+        }
+    }//GEN-LAST:event_btnLoginKeyPressed
 
     
 

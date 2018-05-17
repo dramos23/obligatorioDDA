@@ -31,7 +31,8 @@ public class Partida extends Observable {
         
     public enum Eventos{
         jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, entroJugador, comienzaPartida,
-        comienzaTurno, cambiaPozo, finalizoPartida
+        comienzaTurno, cambiaPozo, finalizoPartida, cambiaLuz, cambiaCantJugadores,
+        
     }
     
     public Partida(int cantJug, int luz, SistemaPartidas sisP){
@@ -60,6 +61,7 @@ public class Partida extends Observable {
     
     public void setLuz(int luz){
         if(this.jugadores.isEmpty()) this.luz = luz;
+        avisar(Eventos.cambiaLuz);
     }
     
         
@@ -71,13 +73,13 @@ public class Partida extends Observable {
         return cantJugadores;
     }
 
-        public Apuesta getApuesta() {
+    public Apuesta getApuesta() {
         return apuesta;
     }
     
    public void setCantJugadores(int cantJugadores) {
        if(this.jugadores.isEmpty()) this.cantJugadores = cantJugadores;
-
+       avisar(Eventos.cambiaCantJugadores);
     }
     
       //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.       

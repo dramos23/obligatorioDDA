@@ -14,8 +14,10 @@ import logica.Partida;
  */
 public interface VistaMonitorPartidas {
     
-    public void mostrarValores(int luz, int cantJugadores);
-    
     public void mostrarPartidasAct(ArrayList<Partida> partidas);
+
+    public void mostrarLuz(int obtenerLuzPartida);
+
+    public void mostrarCantJugadores(int obtenerCantJugadores);
     
 }

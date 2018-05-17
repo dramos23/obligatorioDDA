@@ -11,6 +11,7 @@ import java.util.Observer;
 import logica.Admin;
 import logica.Partida;
 import logica.Sistema;
+import logica.SistemaPartidas;
 
 /**
  *
@@ -32,26 +33,37 @@ public class ControladorMonitorPartidas implements Observer{
 
     @Override
     public void update(Observable o, Object evento) {
-//        if(evento.equals()){
-//            //vista.mostrarValores(Sistema.getInstancia()., partida.getCantJugadores());
-//        }
+        if(evento.equals(Partida.Eventos.cambiaLuz)){
+            vista.mostrarLuz(s.obtenerLuzPartida());
+        }
+        if(evento.equals(Partida.Eventos.cambiaCantJugadores)){
+            vista.mostrarLuz(s.obtenerLuzPartida());
+        }
+        if(evento.equals(SistemaPartidas.Eventos.comienzaPartida)){
+            vista.mostrarPartidasAct(s.obtenerPartidasAct());
+        }
+        
     }
     
     public void iniciarVentana()
     {
-        vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
+        vista.mostrarLuz(s.obtenerLuzPartida());
+        vista.mostrarCantJugadores(s.obtenerCantJugadores());
+        //vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
         mostrarPartidasAct();
     }
     
     public void modificarLuz(int luz) {
         s.modificarLuz(luz);
-        vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
+        vista.mostrarLuz(s.obtenerLuzPartida());
+        //vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
 
     }
 
     public void modificarCantJugadores(int cantJ) {
         s.modificarCantJugadores(cantJ);
-        vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
+        vista.mostrarCantJugadores(s.obtenerCantJugadores());
+        //vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
         
     }
     
