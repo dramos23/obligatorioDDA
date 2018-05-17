@@ -260,7 +260,11 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
 
     @Override
     public void mostrarPartidasAct(ArrayList<Partida> partidas) {
+        
         DefaultTableModel model = (DefaultTableModel) tblDatos.getModel();
+        while(model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
         for (Partida p:partidas) {
             model.addRow(new Object[]{p.getFechaHora(),p.getCantJugadores(),p.getTotalApostado(),p.getCantManos()});
         }           
