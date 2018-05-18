@@ -37,7 +37,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         pnlApostar = new javax.swing.JPanel();
         btnApostar = new javax.swing.JButton();
         txtApuesta = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnPasarApuesta = new javax.swing.JButton();
         pnlValores = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -62,7 +62,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         pnlAceptarApuesta = new javax.swing.JPanel();
         lblInfoApuesta = new javax.swing.JLabel();
         btnAceptarApuesta = new javax.swing.JButton();
-        btnPasar = new javax.swing.JButton();
+        btnNoApuesto = new javax.swing.JButton();
         btnAbandonar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -85,7 +85,12 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
             }
         });
 
-        jButton1.setText("Pasar");
+        btnPasarApuesta.setText("Pasar");
+        btnPasarApuesta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasarApuestaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlApostarLayout = new javax.swing.GroupLayout(pnlApostar);
         pnlApostar.setLayout(pnlApostarLayout);
@@ -97,7 +102,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                     .addComponent(btnApostar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtApuesta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPasarApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlApostarLayout.setVerticalGroup(
@@ -108,7 +113,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                 .addGap(18, 18, 18)
                 .addGroup(pnlApostarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApostar)
-                    .addComponent(jButton1))
+                    .addComponent(btnPasarApuesta))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -265,10 +270,10 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
             }
         });
 
-        btnPasar.setText("Pasar");
-        btnPasar.addActionListener(new java.awt.event.ActionListener() {
+        btnNoApuesto.setText("Pasar");
+        btnNoApuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPasarActionPerformed(evt);
+                btnNoApuestoActionPerformed(evt);
             }
         });
 
@@ -283,7 +288,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                     .addGroup(pnlAceptarApuestaLayout.createSequentialGroup()
                         .addComponent(btnAceptarApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPasar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNoApuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -295,7 +300,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlAceptarApuestaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptarApuesta)
-                    .addComponent(btnPasar))
+                    .addComponent(btnNoApuesto))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -364,9 +369,9 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApuestaActionPerformed
 
-    private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
+    private void btnNoApuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoApuestoActionPerformed
         controlador.removerJugador();
-    }//GEN-LAST:event_btnPasarActionPerformed
+    }//GEN-LAST:event_btnNoApuestoActionPerformed
 
     private void btnAceptarApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarApuestaActionPerformed
         controlador.aceptarApuesta();
@@ -387,6 +392,11 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
+    private void btnPasarApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarApuestaActionPerformed
+        controlador.pasarApuesta();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPasarApuestaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -402,9 +412,9 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     private javax.swing.JButton btnCarta5;
     private javax.swing.JButton btnCartaGanadora;
     private javax.swing.JButton btnJuegoMano;
+    private javax.swing.JButton btnNoApuesto;
     private javax.swing.JButton btnNoJuegoMano;
-    private javax.swing.JButton btnPasar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnPasarApuesta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -503,10 +513,19 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     @Override
     public void mostrarGanador(JugadorParticipante ganador) {
         pnlFinMano.setVisible(true);
-        lblInfoGanador.setText("Ganó " + ganador.getNombre() + " con esta carta: ");
+        lblInfoGanador.setText("Ganó " + ganador.getNombre() + " con esta carta: \n "
+                + "Quieres seguir jugando?");
         mostrarCarta(ganador.devolverMasAlta(), btnCartaGanadora);
     }
 
+    @Override
+    public void todosPasan() {
+        pnlFinMano.setVisible(true);
+        lblInfoGanador.setText("Todos pasaron: el pozo se acumuló. \n "
+                + "Quieres seguir jugando?");
+    }
+
+    
     @Override
     public void finMano() {
     }

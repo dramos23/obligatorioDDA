@@ -11,6 +11,7 @@ package logica;
  */
 public class Apuesta {
     private JugadorParticipante apostador;
+    private JugadorParticipante ganador;
     private int montoApostado;
     
     public Apuesta(JugadorParticipante jugador, int monto){
@@ -21,8 +22,16 @@ public class Apuesta {
     public Apuesta(){        
     }
 
+    public JugadorParticipante getGanador() {
+        return ganador;
+    }
+
     public JugadorParticipante getApostador() {
         return apostador;
+    }
+
+    public void setGanador(JugadorParticipante ganador) {
+        this.ganador = ganador;
     }
 
     public void setApostador(JugadorParticipante apostador) {

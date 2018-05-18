@@ -15,9 +15,14 @@ import java.util.Observable;
  */
 public class JugadorParticipante{
     
+    public enum Estado {
+        sinActuar, aposto, paso
+    }
+
     private Partida miPartida;
     private Jugador jugador;
     private ArrayList<Carta> mano = new ArrayList();
+    private Estado miEstado;
     int saldoInicial;
     int totalGanado = 0;
     int totalApostado = 0;
@@ -26,8 +31,8 @@ public class JugadorParticipante{
     public JugadorParticipante(Jugador jugador, Partida par) {
         this.jugador = jugador;
         this.miPartida = par;
-        this.jugador.agregarPartida(miPartida);
         this.saldoInicial = jugador.getSaldo();
+        this.miEstado = Estado.sinActuar;
     }
 
     public ArrayList<Carta> getMano() {
@@ -106,15 +111,14 @@ public class JugadorParticipante{
        return this.jugador.getNombre();
    }
     
-   public void pagarDinero(int dinero){
-       if(jugador.apostar(dinero)) miPartida.sumarAPozo(dinero);
-   }
 
     public boolean apostar(int dinero){
         if(jugador.apostar(dinero))
         {
+            miEstado = Estado.aposto;    
+            this.totalGanado -= dinero;
+            this.totalApostado += dinero;
             miPartida.sumarAPozo(dinero);
-            this.totalApostado = this.totalApostado + dinero;
             return true;
         }
         return false;
@@ -135,4 +139,14 @@ public class JugadorParticipante{
         return this.jugador;
     }
 
+    
+    public Estado getEstado() {
+        return miEstado;
+    }
+
+    public void setEstado(Estado miEstado) {
+        this.miEstado = miEstado;
+    }
+
+    
 }

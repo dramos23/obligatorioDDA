@@ -34,21 +34,25 @@ public class ControladorMonitorPartidas implements Observer{
     @Override
     public void update(Observable o, Object evento) {
         
-        if(evento.equals(Partida.Eventos.cambiaLuz)){
+        if(evento.equals(SistemaPartidas.Eventos.cambiarLuz)){
             vista.mostrarLuz(s.obtenerLuzPartida());
         }
         
-        if(evento.equals(Partida.Eventos.cambiaCantJugadores)){
-            vista.mostrarLuz(s.obtenerLuzPartida());
+        if(evento.equals(SistemaPartidas.Eventos.cambiarCantJugadores)){
+            vista.mostrarCantJugadores(s.obtenerCantJugadores());
         }
         
-        if(evento.equals(SistemaPartidas.Eventos.comienzaPartida)){
+        if(evento.equals(Partida.Eventos.comienzaPartida)){
             vista.mostrarPartidasAct(s.obtenerPartidasAct());
         }
         
         if(evento.equals(Partida.Eventos.finalizoPartida) || evento.equals(Partida.Eventos.jAbandonaPartida)){
             vista.mostrarPartidasAct(s.obtenerPartidasAct());
         }
+        
+        if(evento.equals(Partida.Eventos.cambiaPozo)){
+            vista.mostrarPartidasAct(s.obtenerPartidasAct());
+        }            
         
     }
     
@@ -71,12 +75,11 @@ public class ControladorMonitorPartidas implements Observer{
 
     }
 
-    public void modificarCantJugadores(int cantJ) {
-        
+    public void modificarCantJugadores(int cantJ) {        
         if (s.modificarCantJugadores(cantJ)){
             vista.mostrarCantJugadores(s.obtenerCantJugadores());
         } else {
-            vista.mostrarError("El valor luz debe ser mayor a cero.");
+            vista.mostrarError("La cantidad de jugadores debe estar entre 2 y 5.");
         }
         
     }

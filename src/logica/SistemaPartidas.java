@@ -19,13 +19,9 @@ public class SistemaPartidas extends Observable{
     private Partida proximaPartida;
     private int valorLuz;
     private int cantJugadoresPorPartida;
-
-    
-
-    
-    
+      
     public enum Eventos{
-        comienzaPartida
+        comienzaPartida, cambiarLuz, cambiarCantJugadores
     }
     
     public SistemaPartidas(){
@@ -34,47 +30,40 @@ public class SistemaPartidas extends Observable{
 
     
     public JugadorParticipante ingresar(Jugador j){
-        JugadorParticipante jp = proximaPartida.ingresar(j);
-        
+        JugadorParticipante jp = proximaPartida.ingresar(j);        
         if(jp != null)
         {
-            if(proximaPartida.completa()){
-                //Empezar proxima partida y crear una nproximaPartida nueva.
-                //Partida nuevaProx = new Partida(cantJugadoresPorPartida, valorLuz, this);
-                //partidas.add(nuevaProx);
-                //avisar(Eventos.comienzaPartida);
-                //proximaPartida = nuevaProx;
-                partidas.add(proximaPartida);
-                proximaPartida = new Partida(cantJugadoresPorPartida, valorLuz, this);
-                avisar(Eventos.comienzaPartida);
-            }
+            if(proximaPartida.revisarComienzoPartida()) 
+                
+                iniciarProxPartida();
         }
         return jp;
     }
 
         //Throws exception
 
-    public boolean setLuz(int valorLuz) {
-        if (valorLuz > 0){
-            this.valorLuz = valorLuz;
-            if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setLuz(valorLuz);
+    public boolean setLuz(int nuevaLuz) {
+        if (nuevaLuz > 0 && nuevaLuz != valorLuz){
+            this.valorLuz = nuevaLuz;
+            proximaPartida.setLuz(nuevaLuz);
+            avisar(Eventos.cambiarLuz);   
             return true;
         } else {
             return false;
         }
-        //avisar(Eventos.cambiarLuz);
     }
 
         //Throws exception
-    public boolean setCantJugadores(int cantJugadoresPorPartida) {
-        if (cantJugadoresPorPartida > 1 && cantJugadoresPorPartida < 6){
-            this.cantJugadoresPorPartida = cantJugadoresPorPartida;
-            if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setCantJugadores(cantJugadoresPorPartida);
+    public boolean setCantJugadores(int cantJug) {
+        if (cantJug > 1 && cantJug < 6 &&
+                cantJug != this.cantJugadoresPorPartida){
+            this.cantJugadoresPorPartida = cantJug;
+            proximaPartida.setCantJugadores(cantJug);
+            avisar(Eventos.cambiarCantJugadores);
             return true;
         } else {
             return false;
         }
-        //avisar(Eventos.cambiarCantJugadores);
     }
     
     public ArrayList<Partida> getPartidas() {
@@ -110,5 +99,15 @@ public class SistemaPartidas extends Observable{
             }
         }
         return null;
+    }
+    
+    public void removerPartidaDeLista(Partida p) {
+        this.partidas.remove(p);
+    }
+    
+    public void iniciarProxPartida(){
+            partidas.add(proximaPartida);
+            proximaPartida.avisar(Partida.Eventos.comienzaPartida);
+            proximaPartida = new Partida(cantJugadoresPorPartida, valorLuz, this);            
     }
 }

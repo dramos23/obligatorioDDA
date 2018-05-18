@@ -41,13 +41,11 @@ public class ControladorPartida implements Observer {
         }  
         
         if(evento.equals(Partida.Eventos.finalizoPartida)){
-            
             vista.jugadorNoPuedeSeguir("Debido a la falta de jugadores se há terminado la partida.");
         }
         
         if(evento.equals(Partida.Eventos.jApuesta))
-        {
-            vista.cambiaDinero(jugador);
+        {         
             if(!this.jugador.equals(partida.getApuesta().getApostador())) 
                 vista.mostrarApuesta(partida.getApuesta());
             else
@@ -66,13 +64,14 @@ public class ControladorPartida implements Observer {
         {
             vista.iniciarPartida(jugador);
         }
-        if(evento.equals(Partida.Eventos.comienzaTurno)){
+            
+        if(evento.equals(Partida.Eventos.cambiaPozo)){
             vista.cambiaDinero(jugador);
         }
-        if(evento.equals(Partida.Eventos.cambiaPozo))
-               vista.cambiaDinero(jugador);
-        if(evento.equals(Jugador.Eventos.cambioSaldo)){
-            vista.cambiaDinero(jugador);
+        if(evento.equals(Partida.Eventos.hayGanador)){
+            vista.mostrarGanador(partida.getApuesta().getGanador());
+        }if(evento.equals(Partida.Eventos.todosPasaron)){
+            vista.todosPasan();
         }
 
     }
@@ -88,8 +87,9 @@ public class ControladorPartida implements Observer {
     }
 
     public void aceptarApuesta() {
-        Apuesta a = partida.getApuesta();        
-        this.jugador.pagarDinero(a.getMontoApostado());        
+        Apuesta a = partida.getApuesta();     
+        this.jugador.setJuegaMano(true);
+        partida.jugadorAceptaApuesta(jugador, a.getMontoApostado()); 
         vista.aceptarApuesta();
     }
     
@@ -124,6 +124,10 @@ public class ControladorPartida implements Observer {
             vista.jugadorNoPuedeSeguir("No hay saldo suficiente para continuar jugando. Ha sido removido de la partida.");
             partida.removerJugador(jugador);
         }
+    }
+
+    public void pasarApuesta() {
+        partida.jugadorPasaApuesta(jugador);
     }
     
 }

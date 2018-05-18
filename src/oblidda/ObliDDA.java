@@ -32,7 +32,6 @@ public class ObliDDA {
      */
     public static void main(String[] args) {
    
-        //Partida p = 
         cargarDatos();
         new InicioDialogo(null,false).setVisible(true); 
         

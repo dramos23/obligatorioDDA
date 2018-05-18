@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
+import logica.JugadorParticipante.Estado;
 
 /**
  *
@@ -29,11 +30,12 @@ public class Partida extends Observable {
     private int cantManos;
     private String fechaHora;
     private int idPartida = 0;
-        
+
+    
     public enum Eventos{
         jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, entroJugador, comienzaPartida,
-        comienzaTurno, cambiaPozo, finalizoPartida, cambiaLuz, cambiaCantJugadores,
-        
+        comienzaTurno, finalizoPartida, cambiaLuz, cambiaCantJugadores, cambiaPozo,
+        hayGanador, todosPasaron        
     }
     
     public Partida(int cantJug, int luz, SistemaPartidas sisP){
@@ -58,6 +60,7 @@ public class Partida extends Observable {
         apuesta = new Apuesta();
         agregarLuzAPozo();
         repartirCartas();
+        resetearFlagsJugadores();
         avisar(Eventos.comienzaTurno);
     }
     
@@ -98,20 +101,26 @@ public class Partida extends Observable {
     }
     
     public void setLuz(int luz){
-        if(this.jugadores.isEmpty()) this.luz = luz;
-        avisar(Eventos.cambiaLuz);
+        if(this.jugadores.isEmpty()) {
+            this.luz = luz;
+        }
     }
      
     public void setCantJugadores(int cantJugadores) {
-       if(this.jugadores.isEmpty()) this.cantJugadores = cantJugadores;
-       avisar(Eventos.cambiaCantJugadores);
+        if(this.jugadores.size() <= cantJugadores)        
+        {
+            this.cantJugadores = cantJugadores;
+            if(revisarComienzoPartida()){
+                comenzarRonda();      
+                sp.iniciarProxPartida();      
+            }
+       }
     }
     
-      //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.       
+    //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.       
     public void agregarLuzAPozo(){
         for(JugadorParticipante j:jugadores){
-            sumarAPozo(luz);
-            j.pagarDinero(luz);
+            j.apostar(luz);
         }
     }
     
@@ -124,35 +133,22 @@ public class Partida extends Observable {
         }              
     }
 
-    //Esto va a ser void.
-    public JugadorParticipante ingresar(Jugador j){
-        
+    
+    public JugadorParticipante ingresar(Jugador j){        
         JugadorParticipante p = new JugadorParticipante(j, this);
         if(jugadores.size() >= cantJugadores ||
                 jugadores.contains(p)) return null;
        
         jugadores.add(p);
-
-        avisar(Eventos.entroJugador);
-        
-        if(jugadores.size() == cantJugadores)
-        {
-            comenzarRonda();
-            avisar(Eventos.comienzaPartida);
-        }
-            
+        avisar(Eventos.entroJugador);        
+        if(revisarComienzoPartida()) comenzarRonda();
         return p;
     }
     
-
-    public boolean completa(){
-        return this.cantJugadores == jugadores.size();
-    }
     
-    public JugadorParticipante darGanador(){
+    public void darGanador(){
        
-        ArrayList<JugadorParticipante> juegan = devolverListaParticipantesRonda();
-        JugadorParticipante ganador = juegan.get(0);
+        JugadorParticipante ganador = jugadores.get(0);
         for(int i = 1; i < jugadores.size(); i++){
             //Tomo la carta mas alta del ganador actual y de la posicion i
             //de la lista. Comparo con compareTo y reviso el valor. Si el get(i)
@@ -162,10 +158,10 @@ public class Partida extends Observable {
             {
                 ganador = jugadores.get(i);
             }
-        }        
-        ganador.ganarDinero(pozo);
-        this.pozo = 0;    
-        return ganador;
+        }                
+        darPozoAGanador(ganador);
+        apuesta.setGanador(ganador);
+        avisar(Eventos.hayGanador);
     }
 
     public ArrayList<JugadorParticipante> devolverListaParticipantesRonda(){
@@ -181,7 +177,19 @@ public class Partida extends Observable {
         apuesta = new Apuesta(j, dinero);
         avisar(Eventos.jApuesta);
     } 
-        
+    
+    public void jugadorAceptaApuesta(JugadorParticipante j, int dinero){
+        j.apostar(dinero);
+        if(todosApostaron()) darGanador();    
+    }
+    
+    public void jugadorPasaApuesta(JugadorParticipante jugador) {
+        jugador.setEstado(Estado.paso);
+        if(todosPasaron()) avisar(Eventos.todosPasaron);
+    }
+
+
+    
     public boolean verificarApuesta(int dinero){
         for (JugadorParticipante h: jugadores){
             if (h.getSaldoJugador() < dinero ) return false;
@@ -196,11 +204,16 @@ public class Partida extends Observable {
     public void removerJugador(JugadorParticipante jugador) {
         if(finalizada()) {
             this.jugadores.removeAll(jugadores);
+            sp.removerPartidaDeLista(this);
             avisar(Eventos.finalizoPartida);
         }        
         else {
             this.jugadores.remove(jugador);
             avisar(Eventos.jAbandonaPartida);
+            if(todosApostaron()) darGanador();
+            else if(todosPasaron()){
+                avisar(Eventos.todosPasaron);
+            } 
         }
     }
     
@@ -215,9 +228,37 @@ public class Partida extends Observable {
         this.totalApostado += dinero;
         avisar(Eventos.cambiaPozo);
     }
-    
+        
     public boolean finalizada() {
         return this.getJugadoresParticipantes().size() == 2;
     }
+    
+    private void darPozoAGanador(JugadorParticipante ganador) {
+        ganador.ganarDinero(pozo);
+        pozo = 0;
+        avisar(Eventos.cambiaPozo);
+    }
+
+    private boolean todosApostaron() {
+        for(int i = 0; i < jugadores.size(); i++){
+            if(jugadores.get(i).getEstado() != Estado.aposto) return false;
+        }
+        return true;
+    }
+    
+    private boolean todosPasaron(){
+        for(int i = 0; i < jugadores.size(); i++){
+            if(jugadores.get(i).getEstado() != Estado.paso) return false;
+        }
+        return true;
+    }
+        
+    private void resetearFlagsJugadores() {
+        for(JugadorParticipante jp : jugadores){
+            jp.setEstado(Estado.sinActuar);
+        }
+    }
+
+    
     
 }
