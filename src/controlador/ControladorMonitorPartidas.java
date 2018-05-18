@@ -33,13 +33,20 @@ public class ControladorMonitorPartidas implements Observer{
 
     @Override
     public void update(Observable o, Object evento) {
+        
         if(evento.equals(Partida.Eventos.cambiaLuz)){
             vista.mostrarLuz(s.obtenerLuzPartida());
         }
+        
         if(evento.equals(Partida.Eventos.cambiaCantJugadores)){
             vista.mostrarLuz(s.obtenerLuzPartida());
         }
+        
         if(evento.equals(SistemaPartidas.Eventos.comienzaPartida)){
+            vista.mostrarPartidasAct(s.obtenerPartidasAct());
+        }
+        
+        if(evento.equals(Partida.Eventos.finalizoPartida) || evento.equals(Partida.Eventos.jAbandonaPartida)){
             vista.mostrarPartidasAct(s.obtenerPartidasAct());
         }
         
@@ -54,21 +61,33 @@ public class ControladorMonitorPartidas implements Observer{
     }
     
     public void modificarLuz(int luz) {
-        s.modificarLuz(luz);
-        vista.mostrarLuz(s.obtenerLuzPartida());
+        
+        if (s.modificarLuz(luz)){
+            vista.mostrarLuz(s.obtenerLuzPartida());
+        } else {
+            vista.mostrarError("El valor luz debe ser mayor a cero.");
+        }
         //vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
 
     }
 
     public void modificarCantJugadores(int cantJ) {
-        s.modificarCantJugadores(cantJ);
-        vista.mostrarCantJugadores(s.obtenerCantJugadores());
-        //vista.mostrarValores(s.obtenerLuzPartida(), s.obtenerCantJugadores());
+        
+        if (s.modificarCantJugadores(cantJ)){
+            vista.mostrarCantJugadores(s.obtenerCantJugadores());
+        } else {
+            vista.mostrarError("El valor luz debe ser mayor a cero.");
+        }
         
     }
     
     public void mostrarPartidasAct(){
         vista.mostrarPartidasAct(s.obtenerPartidasAct());
+    }
+    
+    public void obtenerPartidaAct(String f){
+        Partida p = s.obtenerPartidaAct(f);
+        vista.mostrarDatosPartida(p.getJugadoresParticipantes());
     }
     
 }

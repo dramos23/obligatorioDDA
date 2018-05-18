@@ -19,15 +19,16 @@ public class Partida extends Observable {
     
 //    private DateTime FechaInicio;
     private SistemaPartidas sp;
-    private ArrayList<JugadorParticipante> jugadores = new ArrayList();    
-    private Mazo mazo = new Mazo();
-    private Apuesta apuesta = new Apuesta();
+    private ArrayList<JugadorParticipante> jugadores;   
+    private Mazo mazo;
+    private Apuesta apuesta;
     private int pozo;
     private int luz;
     private int cantJugadores;
-    private int totalApostado = 0;
-    private int cantManos = 0;
+    private int totalApostado;
+    private int cantManos;
     private String fechaHora;
+    private int idPartida = 0;
         
     public enum Eventos{
         jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, entroJugador, comienzaPartida,
@@ -36,10 +37,19 @@ public class Partida extends Observable {
     }
     
     public Partida(int cantJug, int luz, SistemaPartidas sisP){
+        this.idPartida = this.idPartida++;
         this.luz = luz;
         this.cantJugadores = cantJug;
         this.sp = sisP;
+        this.jugadores = new ArrayList(); 
+        this.mazo = new Mazo();
+        this.apuesta = new Apuesta();
+        this.fechaHora = "";
+        this.totalApostado = 0;
+        this.cantManos = 0;
     }
+
+      
 
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.    
     public void comenzarRonda(){        
@@ -50,6 +60,10 @@ public class Partida extends Observable {
         repartirCartas();
         avisar(Eventos.comienzaTurno);
     }
+    
+    public int getIdPartida() {
+        return idPartida;
+    }
 
     public int getPozo() {
         return pozo;
@@ -59,12 +73,6 @@ public class Partida extends Observable {
         return luz;
     }
     
-    public void setLuz(int luz){
-        if(this.jugadores.isEmpty()) this.luz = luz;
-        avisar(Eventos.cambiaLuz);
-    }
-    
-        
     public ArrayList<JugadorParticipante> getJugadoresParticipantes(){
         return this.jugadores;
     }
@@ -76,8 +84,25 @@ public class Partida extends Observable {
     public Apuesta getApuesta() {
         return apuesta;
     }
+           
+    public int getTotalApostado() {
+        return totalApostado;
+    }
     
-   public void setCantJugadores(int cantJugadores) {
+    public String getFechaHora() {
+        return fechaHora;
+    }
+    
+    public int getCantManos() {
+        return cantManos;
+    }
+    
+    public void setLuz(int luz){
+        if(this.jugadores.isEmpty()) this.luz = luz;
+        avisar(Eventos.cambiaLuz);
+    }
+     
+    public void setCantJugadores(int cantJugadores) {
        if(this.jugadores.isEmpty()) this.cantJugadores = cantJugadores;
        avisar(Eventos.cambiaCantJugadores);
     }
@@ -168,28 +193,17 @@ public class Partida extends Observable {
         return this.cantJugadores == this.jugadores.size();
     }
 
-
     public void removerJugador(JugadorParticipante jugador) {
         if(finalizada()) {
-            avisar(Eventos.finalizoPartida);
             this.jugadores.removeAll(jugadores);
+            avisar(Eventos.finalizoPartida);
         }        
         else {
-            avisar(Eventos.jAbandonaPartida);
             this.jugadores.remove(jugador);
+            avisar(Eventos.jAbandonaPartida);
         }
     }
-
     
-    public ArrayList<JugadorParticipante> getJugadoresSinMi(JugadorParticipante jugador)
-    {     
-        ArrayList<JugadorParticipante> jugadoresSM = new ArrayList();
-        for (JugadorParticipante j:jugadores){
-            if (!j.equals(jugador)) jugadoresSM.add(j);
-        }
-        return jugadoresSM;
-    }
-
     public void avisar(Eventos evento) {
         setChanged();
         notifyObservers(evento);
@@ -204,18 +218,6 @@ public class Partida extends Observable {
     
     public boolean finalizada() {
         return this.getJugadoresParticipantes().size() == 2;
-    }
-
-    public int getTotalApostado() {
-        return totalApostado;
-    }
-
-    public String getFechaHora() {
-        return fechaHora;
-    }
-    
-    public int getCantManos() {
-        return cantManos;
     }
     
 }

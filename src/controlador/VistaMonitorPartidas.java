@@ -6,6 +6,7 @@
 package controlador;
 
 import java.util.ArrayList;
+import logica.JugadorParticipante;
 import logica.Partida;
 
 /**
@@ -19,5 +20,9 @@ public interface VistaMonitorPartidas {
     public void mostrarLuz(int obtenerLuzPartida);
 
     public void mostrarCantJugadores(int obtenerCantJugadores);
+
+    public void mostrarDatosPartida(ArrayList<JugadorParticipante> jugadoresParticipantes);
+
+    public void mostrarError(String el_valor_luz_debe_ser_mayor_a_cero);
     
 }

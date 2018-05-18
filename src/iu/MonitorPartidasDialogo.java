@@ -9,8 +9,10 @@ import com.sun.glass.events.KeyEvent;
 import controlador.ControladorMonitorPartidas;
 import controlador.VistaMonitorPartidas;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Admin;
+import logica.JugadorParticipante;
 import logica.Partida;
 
 
@@ -47,6 +49,9 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
         btnModificarJugadores = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
+        pnlDatosJP = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDatosJP = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -137,6 +142,44 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
         jScrollPane2.setViewportView(tblDatos);
         tblDatos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
+        tblDatosJP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Total Apostado", "Saldo inicio", "Total Ganado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblDatosJP);
+
+        javax.swing.GroupLayout pnlDatosJPLayout = new javax.swing.GroupLayout(pnlDatosJP);
+        pnlDatosJP.setLayout(pnlDatosJPLayout);
+        pnlDatosJPLayout.setHorizontalGroup(
+            pnlDatosJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosJPLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
+        pnlDatosJPLayout.setVerticalGroup(
+            pnlDatosJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosJPLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,6 +214,7 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
                             .addComponent(btnModificarJugadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(pnlDatosJP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,8 +234,10 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
                     .addComponent(txtJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificarJugadores))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlDatosJP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -202,17 +248,28 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
     }//GEN-LAST:event_txtLuzActionPerformed
 
     private void btnModificarLuzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLuzActionPerformed
-        controlador.modificarLuz(Integer.parseInt(txtLuz.getText()));
+        try{
+            controlador.modificarLuz(Integer.parseInt(txtLuz.getText()));
+        }catch (Exception e) {
+            mostrarError("Debe ingresar un número entero mayor a cero.");
+        }
         txtLuz.setText("");
     }//GEN-LAST:event_btnModificarLuzActionPerformed
 
     private void btnModificarJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarJugadoresActionPerformed
-       controlador.modificarCantJugadores(Integer.parseInt(txtJugadores.getText()));
+       try{
+            controlador.modificarCantJugadores(Integer.parseInt(txtJugadores.getText()));
+        }catch (Exception e) {
+            mostrarError("Debe ingresar un número entero mayor a uno y menor a seis.");
+        }
+       
        txtJugadores.setText("");
     }//GEN-LAST:event_btnModificarJugadoresActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)tblDatos.getModel();
+        String f = model.getValueAt(tblDatos.getSelectedRow(), 0).toString();
+        controlador.obtenerPartidaAct(f);
     }//GEN-LAST:event_tblDatosMouseClicked
 
     private void txtLuzKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLuzKeyPressed
@@ -250,24 +307,43 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCantJugadores;
     private javax.swing.JLabel lblLuz;
+    private javax.swing.JPanel pnlDatosJP;
     private javax.swing.JTable tblDatos;
+    private javax.swing.JTable tblDatosJP;
     private javax.swing.JTextField txtJugadores;
     private javax.swing.JTextField txtLuz;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void mostrarPartidasAct(ArrayList<Partida> partidas) {
-        
         DefaultTableModel model = (DefaultTableModel) tblDatos.getModel();
+        String f = "";
+        if (model.getDataVector().size() > 0){ 
+            int select = tblDatos.getSelectedRow();
+            if ( select >= 0 ) f = model.getValueAt(select, 0).toString();
+        }
         while(model.getRowCount() > 0) {
             model.removeRow(0);
         }
         for (Partida p:partidas) {
             model.addRow(new Object[]{p.getFechaHora(),p.getCantJugadores(),p.getTotalApostado(),p.getCantManos()});
-        }           
+        }
+        if (!f.equals("") && model.getRowCount() > 0){
+            for (int i = 0; i < model.getRowCount(); i++){
+                if (f.equals(model.getValueAt(i, 0).toString())){
+                    tblDatos.setRowSelectionInterval(0, i);
+                    java.awt.event.MouseEvent evento = null;
+                    tblDatosMouseClicked(evento);
+                }
+            }
+        } 
+        
+        
+                   
     }    
 
     @Override
@@ -278,6 +354,22 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
     @Override
     public void mostrarCantJugadores(int cantJugadores) {
         lblCantJugadores.setText(cantJugadores + "");
+    }
+
+    @Override
+    public void mostrarDatosPartida(ArrayList<JugadorParticipante> jugadores) {
+        DefaultTableModel model = (DefaultTableModel) tblDatosJP.getModel();
+        while(model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+        for (JugadorParticipante jp:jugadores) {
+            model.addRow(new Object[]{jp.getNombreCompleto(),jp.getTotalApostado(),jp.getSaldoInicial(),jp.getTotalGanado()});
+        } 
+    }
+
+    @Override
+    public void mostrarError(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
     }
     
 }

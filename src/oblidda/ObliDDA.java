@@ -76,8 +76,8 @@ public class ObliDDA {
     private static void cargarDatos() {
     
         Sistema logica = Sistema.getInstancia();
-        logica.modificarLuz(50);
-        logica.modificarCantJugadores(2);
+        boolean m = logica.modificarLuz(50);
+        boolean n = logica.modificarCantJugadores(2);
         
         logica.agregarA(new Admin("0", "", "Jonas"));
         

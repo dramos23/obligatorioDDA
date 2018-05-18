@@ -21,6 +21,8 @@ public class SistemaPartidas extends Observable{
     private int cantJugadoresPorPartida;
 
     
+
+    
     
     public enum Eventos{
         comienzaPartida
@@ -38,10 +40,13 @@ public class SistemaPartidas extends Observable{
         {
             if(proximaPartida.completa()){
                 //Empezar proxima partida y crear una nproximaPartida nueva.
-                Partida nuevaProx = new Partida(cantJugadoresPorPartida, valorLuz, this);
-                partidas.add(nuevaProx);
+                //Partida nuevaProx = new Partida(cantJugadoresPorPartida, valorLuz, this);
+                //partidas.add(nuevaProx);
+                //avisar(Eventos.comienzaPartida);
+                //proximaPartida = nuevaProx;
+                partidas.add(proximaPartida);
+                proximaPartida = new Partida(cantJugadoresPorPartida, valorLuz, this);
                 avisar(Eventos.comienzaPartida);
-                proximaPartida = nuevaProx;
             }
         }
         return jp;
@@ -49,16 +54,26 @@ public class SistemaPartidas extends Observable{
 
         //Throws exception
 
-    public void setLuz(int valorLuz) {
-        this.valorLuz = valorLuz;
-        if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setLuz(valorLuz);
+    public boolean setLuz(int valorLuz) {
+        if (valorLuz > 0){
+            this.valorLuz = valorLuz;
+            if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setLuz(valorLuz);
+            return true;
+        } else {
+            return false;
+        }
         //avisar(Eventos.cambiarLuz);
     }
 
         //Throws exception
-    public void setCantJugadores(int cantJugadoresPorPartida) {
-        this.cantJugadoresPorPartida = cantJugadoresPorPartida;
-        if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setCantJugadores(cantJugadoresPorPartida);
+    public boolean setCantJugadores(int cantJugadoresPorPartida) {
+        if (cantJugadoresPorPartida > 1 && cantJugadoresPorPartida < 6){
+            this.cantJugadoresPorPartida = cantJugadoresPorPartida;
+            if(proximaPartida.getJugadoresParticipantes().isEmpty()) proximaPartida.setCantJugadores(cantJugadoresPorPartida);
+            return true;
+        } else {
+            return false;
+        }
         //avisar(Eventos.cambiarCantJugadores);
     }
     
@@ -88,5 +103,12 @@ public class SistemaPartidas extends Observable{
         notifyObservers(evento);
     }
 
-    
+    public Partida getPartidaAct(String f) {
+        for(Partida p:partidas){
+            if (p.getFechaHora().equals(f)){
+                return p;
+            }
+        }
+        return null;
+    }
 }

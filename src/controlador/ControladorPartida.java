@@ -79,6 +79,7 @@ public class ControladorPartida implements Observer {
 
     public void removerJugador() {
         if (this.partida.finalizada()){
+            
             partida.deleteObserver(this);
         }
         vista.cerrarVentana();

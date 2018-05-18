@@ -48,12 +48,12 @@ public class Sistema{
     }
     
     //Throws exception
-    public void modificarLuz(int valor){
-        this.sp.setLuz(valor);
+    public boolean modificarLuz(int valor){
+        return this.sp.setLuz(valor);
     }
     
-    public void modificarCantJugadores(int valor){
-        this.sp.setCantJugadores(valor);
+    public boolean modificarCantJugadores(int valor){
+        return this.sp.setCantJugadores(valor);
     }
     
     public void addObsSP(ControladorMonitorPartidas o){
@@ -70,5 +70,9 @@ public class Sistema{
     
     public int obtenerCantJugadores(){
         return this.sp.getCantJugadoresPorPartida();
+    }
+    
+    public Partida obtenerPartidaAct(String f){
+        return this.sp.getPartidaAct(f);
     }
 }

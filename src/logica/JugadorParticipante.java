@@ -20,6 +20,7 @@ public class JugadorParticipante{
     private ArrayList<Carta> mano = new ArrayList();
     int saldoInicial;
     int totalGanado = 0;
+    int totalApostado = 0;
     private boolean juegaMano = true;
 
     public JugadorParticipante(Jugador jugador, Partida par) {
@@ -88,6 +89,18 @@ public class JugadorParticipante{
    public String getNombreCompleto(){
        return this.jugador.nombreCompleto;
    }
+
+    public int getSaldoInicial() {
+        return saldoInicial;
+    }
+
+    public int getTotalApostado() {
+        return totalApostado;
+    }
+
+    public int getTotalGanado() {
+        return totalGanado;
+    }
    
    public String toString(){
        return this.jugador.getNombre();
@@ -101,6 +114,7 @@ public class JugadorParticipante{
         if(jugador.apostar(dinero))
         {
             miPartida.sumarAPozo(dinero);
+            this.totalApostado = this.totalApostado + dinero;
             return true;
         }
         return false;
