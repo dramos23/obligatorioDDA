@@ -55,5 +55,7 @@ public interface VistaPartida {
     public void cerrarVentana();
     
     public void mostrarNombreJugador(String nombreCompleto);
+
+    public void mostrarGanadorPorSerUltimo(JugadorParticipante ganador);
     
 }

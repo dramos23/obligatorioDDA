@@ -518,5 +518,10 @@ public class PartidaDialogo extends javax.swing.JDialog implements VistaPartida 
     public void mostrarNombreJugador(String nombreCompleto) {
         setTitle(nombreCompleto);
     }
+
+    @Override
+    public void todosPasan() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
                     
 }

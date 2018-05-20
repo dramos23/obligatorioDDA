@@ -65,13 +65,21 @@ public class ControladorPartida implements Observer {
             vista.iniciarPartida(jugador);
         }
             
-        if(evento.equals(Partida.Eventos.cambiaPozo)){
+        if(evento.equals(Partida.Eventos.cambiaPozo))
+        {
             vista.cambiaDinero(jugador);
         }
-        if(evento.equals(Partida.Eventos.hayGanador)){
+        if(evento.equals(Partida.Eventos.hayGanador))
+        {
             vista.mostrarGanador(partida.getApuesta().getGanador());
-        }if(evento.equals(Partida.Eventos.todosPasaron)){
+        }
+        if(evento.equals(Partida.Eventos.todosPasaron))
+        {
             vista.todosPasan();
+        }
+        if(evento.equals(Partida.Eventos.ultimoJugadorGanador))
+        {
+            vista.mostrarGanadorPorSerUltimo(partida.getApuesta().getGanador());
         }
 
     }
@@ -81,9 +89,9 @@ public class ControladorPartida implements Observer {
             
             partida.deleteObserver(this);
         }
-        vista.cerrarVentana();
-        this.partida.removerJugador(jugador);
         
+        vista.cerrarVentana();
+        this.partida.removerJugador(jugador);                
     }
 
     public void aceptarApuesta() {
@@ -129,5 +137,7 @@ public class ControladorPartida implements Observer {
     public void pasarApuesta() {
         partida.jugadorPasaApuesta(jugador);
     }
+    
+    
     
 }

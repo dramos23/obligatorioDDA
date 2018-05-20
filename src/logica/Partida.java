@@ -35,7 +35,7 @@ public class Partida extends Observable {
     public enum Eventos{
         jAbandonaPartida, jApuesta, jPasa, jAceptaApuesta, entroJugador, comienzaPartida,
         comienzaTurno, finalizoPartida, cambiaLuz, cambiaCantJugadores, cambiaPozo,
-        hayGanador, todosPasaron        
+        hayGanador, todosPasaron, ultimoJugadorGanador        
     }
     
     public Partida(int cantJug, int luz, SistemaPartidas sisP){
@@ -203,20 +203,31 @@ public class Partida extends Observable {
 
     public void removerJugador(JugadorParticipante jugador) {
         if(finalizada()) {
+            //this.jugadores.removeAll(jugadores);
+            //sp.removerPartidaDeLista(this);
+            //avisar(Eventos.finalizoPartida);
+            this.jugadores.remove(jugador);
+            darPozoAGanador(this.jugadores.get(0));
+            apuesta.setGanador(this.jugadores.get(0));
+            avisar(Eventos.ultimoJugadorGanador);
+           
             this.jugadores.removeAll(jugadores);
             sp.removerPartidaDeLista(this);
             avisar(Eventos.finalizoPartida);
-        }        
-        else {
+           
+        } else {
             this.jugadores.remove(jugador);
-            avisar(Eventos.jAbandonaPartida);
-            if(todosApostaron()) darGanador();
-            else if(todosPasaron()){
+            
+            if(todosApostaron()) { 
+                darGanador();
+            } else if(todosPasaron()){
                 avisar(Eventos.todosPasaron);
-            } 
+            }
+            avisar(Eventos.jAbandonaPartida);
         }
     }
     
+      
     public void avisar(Eventos evento) {
         setChanged();
         notifyObservers(evento);

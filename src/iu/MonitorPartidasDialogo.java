@@ -144,10 +144,7 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
 
         tblDatosJP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Total Apostado", "Saldo inicio", "Total Ganado"
@@ -156,9 +153,16 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblDatosJP);
@@ -335,12 +339,18 @@ public class MonitorPartidasDialogo extends javax.swing.JDialog implements Vista
         if (!f.equals("") && model.getRowCount() > 0){
             for (int i = 0; i < model.getRowCount(); i++){
                 if (f.equals(model.getValueAt(i, 0).toString())){
-                    tblDatos.setRowSelectionInterval(0, i);
+                    tblDatos.changeSelection(0, i, false, false);
+                    //tblDatos.setRowSelectionInterval(0, i);
                     java.awt.event.MouseEvent evento = null;
                     tblDatosMouseClicked(evento);
                 }
             }
-        } 
+        } else {
+            model = (DefaultTableModel) tblDatosJP.getModel();
+            while(model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+        }
         
         
                    
