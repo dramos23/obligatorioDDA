@@ -16,7 +16,7 @@ public class SistemaUsuarios {
     public ArrayList<Jugador> jugadores = new ArrayList();
     public ArrayList<Admin> admins = new ArrayList();
     
-    public JugadorParticipante loginJ(String u,String p){
+    public JugadorParticipante loginJ(String u,String p) throws PartidaException{
         for(Jugador jug:jugadores){
             if(jug.getNombre().equalsIgnoreCase(u) && 
                     jug.getPass().equals(p)){                
@@ -25,17 +25,17 @@ public class SistemaUsuarios {
                 return jp;
             }
         }
-        return null;
+        throw new PartidaException("Login incorrecto.");
     }
     
-    public Admin loginA(String u,String p){
+    public Admin loginA(String u,String p) throws PartidaException{
         for(Admin adm:admins){
             if(adm.getNombre().equalsIgnoreCase(u) && 
                     adm.getPass().equals(p)){
                 return adm;
             }
         }
-        return null;
+        throw new PartidaException("Login incorrecto");
     }
     
     public void agregar(Jugador j){

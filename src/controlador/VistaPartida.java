@@ -31,10 +31,16 @@ public interface VistaPartida {
     public void mostrarGanador(JugadorParticipante j);
 
     public void mostrarMano(ArrayList<Carta> cartas);    
+        
+    public void mostrarNombreJugador(String nombreCompleto);
+
+    public void mostrarGanadorPorSerUltimo(JugadorParticipante ganador);
+    
+    public void mostrarMensaje(String msg);
 
     public void cambiaDinero(JugadorParticipante jugador);
     
-    //public void cambiarPozo(int dinero);
+    public void inicioRonda(JugadorParticipante jugador);
 
     public void esconderAndMostrarAlInicio();
     
@@ -53,9 +59,6 @@ public interface VistaPartida {
     public void jugadorNoPuedeSeguir(String msg);
     
     public void cerrarVentana();
-    
-    public void mostrarNombreJugador(String nombreCompleto);
 
-    public void mostrarGanadorPorSerUltimo(JugadorParticipante ganador);
     
 }

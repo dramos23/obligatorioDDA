@@ -7,6 +7,7 @@ package controlador;
 
 import logica.Admin;
 import logica.Partida;
+import logica.PartidaException;
 import logica.Sistema;
 
 /**
@@ -24,10 +25,13 @@ public class ControladorLoginA {
 
     public void login(String u,String p){
         
-        Admin adm = modelo.loginA(u, p);
-        if(adm==null) vista.mostrarError("Login incorrecto");
-        else vista.mostrarConfPartida(adm);
-
+        try{
+            Admin adm = modelo.loginA(u, p);
+            vista.mostrarConfPartida(adm);
+        }catch(PartidaException ex){
+            vista.mostrarError(ex.getMessage());
+        }
+ 
     }
     
 }

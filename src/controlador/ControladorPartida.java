@@ -12,6 +12,7 @@ import logica.Jugador;
 import logica.JugadorParticipante;
 
 import logica.Partida;
+import logica.PartidaException;
 
 /**W
  *
@@ -60,12 +61,12 @@ public class ControladorPartida implements Observer {
         {
             vista.mostrarJugadores(partida.getJugadoresParticipantes());
         }
-        if(evento.equals(Partida.Eventos.comienzaPartida))
+        if(evento.equals(Partida.Eventos.comienzaPartida) || evento.equals(Partida.Eventos.comienzaTurno))
         {
             vista.iniciarPartida(jugador);
         }
             
-        if(evento.equals(Partida.Eventos.cambiaPozo))
+        if(evento.equals(Partida.Eventos.cambiaPozo) || evento.equals(Jugador.Eventos.cambioSaldo))
         {
             vista.cambiaDinero(jugador);
         }
@@ -106,11 +107,12 @@ public class ControladorPartida implements Observer {
     }
 
     public void realizarApuesta(JugadorParticipante jugador, int dinero) {
-        if(partida.verificarApuesta(dinero)){
+        try{
+            partida.verificarApuesta(dinero);
             partida.realizarApuesta(jugador, dinero);         
-        }else
+        }catch(PartidaException ex)
         {
-            //vista.darError("Uno de los jugadores no puede pagar esta apuesta.");
+            vista.mostrarMensaje(ex.getMessage());
         }
     }
 
@@ -136,6 +138,12 @@ public class ControladorPartida implements Observer {
 
     public void pasarApuesta() {
         partida.jugadorPasaApuesta(jugador);
+    }
+    
+
+    public void continuoJugando() {
+        jugador.setEstado(JugadorParticipante.Estado.juegoProxima);
+        partida.revisarComienzoRonda();
     }
     
     

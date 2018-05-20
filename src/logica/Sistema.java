@@ -35,25 +35,25 @@ public class Sistema{
     }
     
     
-    public JugadorParticipante loginJ(String u, String p) {
+    public JugadorParticipante loginJ(String u, String p) throws PartidaException {
         return su.loginJ(u, p);        
     }
     
-    public Admin loginA(String u, String p) {
+    public Admin loginA(String u, String p) throws PartidaException {
         return su.loginA(u, p);        
     }
     
-    public JugadorParticipante agregarJugadorAPartida(Jugador j){
+    public JugadorParticipante agregarJugadorAPartida(Jugador j) throws PartidaException{
         return sp.ingresar(j);
     }
     
     //Throws exception
-    public boolean modificarLuz(int valor){
-        return this.sp.setLuz(valor);
+    public void modificarLuz(int valor) throws PartidaException{
+         this.sp.setLuz(valor);
     }
     
-    public boolean modificarCantJugadores(int valor){
-        return this.sp.setCantJugadores(valor);
+    public void modificarCantJugadores(int valor) throws PartidaException{
+         this.sp.setCantJugadores(valor);
     }
     
     public void addObsSP(ControladorMonitorPartidas o){

@@ -34,13 +34,16 @@ public class Jugador extends Usuario{
     }
            
     //Throws
-    public boolean apostar(int dinero){
+    public void apostar(int dinero) throws PartidaException{
         if(tengoSaldo(dinero)) 
         {
-            saldo -= dinero;
-            return true;
-        }     
-        return false;
+            pagarDinero(dinero);
+        }else throw new PartidaException("No tiene saldo suficiente para realizar esa apuesta.");
+    }
+    
+    public void pagarDinero(int dinero){
+        this.saldo -= dinero;
+        avisar(Eventos.cambioSaldo);
     }
     
     public boolean tengoSaldo(int dinero){
@@ -50,6 +53,7 @@ public class Jugador extends Usuario{
     
     void ganarDinero(int dinero) {
         this.saldo += dinero;
+        avisar(Eventos.cambioSaldo);
     }
     
     private void avisar(Eventos evento) {

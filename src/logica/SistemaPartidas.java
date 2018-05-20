@@ -21,7 +21,7 @@ public class SistemaPartidas extends Observable{
     private int cantJugadoresPorPartida;
       
     public enum Eventos{
-        comienzaPartida, cambiarLuz, cambiarCantJugadores
+        comienzaPartida, cambiarLuz, cambiarCantJugadores, cambioEnPartida
     }
     
     public SistemaPartidas(){
@@ -29,41 +29,32 @@ public class SistemaPartidas extends Observable{
     }
 
     
-    public JugadorParticipante ingresar(Jugador j){
+    public JugadorParticipante ingresar(Jugador j) throws PartidaException{
         JugadorParticipante jp = proximaPartida.ingresar(j);        
-        if(jp != null)
-        {
-            if(proximaPartida.revisarComienzoPartida()) 
-                
+         
+        if(proximaPartida.revisarComienzoPartida())                
                 iniciarProxPartida();
-        }
         return jp;
     }
 
         //Throws exception
 
-    public boolean setLuz(int nuevaLuz) {
-        if (nuevaLuz > 0 && nuevaLuz != valorLuz){
-            this.valorLuz = nuevaLuz;
-            proximaPartida.setLuz(nuevaLuz);
-            avisar(Eventos.cambiarLuz);   
-            return true;
-        } else {
-            return false;
-        }
+    public void setLuz(int nuevaLuz) throws PartidaException {
+        if (nuevaLuz <= 0) throw new PartidaException("El valor de la luz debe ser mayor a 0");
+        if(nuevaLuz == valorLuz) return;
+        this.valorLuz = nuevaLuz;
+        proximaPartida.setLuz(nuevaLuz);
+        avisar(Eventos.cambiarLuz);   
     }
 
         //Throws exception
-    public boolean setCantJugadores(int cantJug) {
-        if (cantJug > 1 && cantJug < 6 &&
-                cantJug != this.cantJugadoresPorPartida){
-            this.cantJugadoresPorPartida = cantJug;
-            proximaPartida.setCantJugadores(cantJug);
-            avisar(Eventos.cambiarCantJugadores);
-            return true;
-        } else {
-            return false;
-        }
+    public void setCantJugadores(int cantJug) throws PartidaException{
+        
+        if (cantJug < 2 || cantJug > 5) throw new PartidaException("La cantidad de jugadores debe estar entre 2 y 5");
+        if(cantJug == this.cantJugadoresPorPartida) return;        
+        this.cantJugadoresPorPartida = cantJug;
+        proximaPartida.setCantJugadores(cantJug);
+        avisar(Eventos.cambiarCantJugadores);
     }
     
     public ArrayList<Partida> getPartidas() {
@@ -87,7 +78,7 @@ public class SistemaPartidas extends Observable{
         notifyObservers(evento);
     }
 
-    public void avisarCambioEnPartida(Partida.Eventos evento) {
+    public void avisarCambioEnPartida(Eventos evento) {
         setChanged();
         notifyObservers(evento);
     }

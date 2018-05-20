@@ -7,6 +7,7 @@ package controlador;
 
 import logica.Jugador;
 import logica.JugadorParticipante;
+import logica.PartidaException;
 import logica.Sistema;
 
 /**
@@ -23,10 +24,13 @@ public class ControladorLoginJ {
     }
 
         public void login(String u,String p){
-        JugadorParticipante jp = modelo.loginJ(u, p);
+         try{
+                JugadorParticipante jp = modelo.loginJ(u, p);
+                vista.mostrarPartida(jp);
+         }catch(PartidaException ex){
+             vista.mostrarError(ex.getMessage());
+         }
         
-        if(jp==null) vista.mostrarError("Login incorrecto");
-        else vista.mostrarPartida(jp);
 
     }
     

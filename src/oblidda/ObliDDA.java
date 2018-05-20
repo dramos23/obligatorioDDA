@@ -7,7 +7,6 @@ package oblidda;
 
 import controlador.VistaPartida;
 import iu.InicioDialogo;
-import iu.PartidaDialogo;
 import java.io.File;
 import javax.swing.filechooser.FileSystemView;
 import logica.Admin;
@@ -17,6 +16,7 @@ import logica.JugadorParticipante;
 import logica.Mazo;
 import logica.Mazo.palos;
 import logica.Partida;
+import logica.PartidaException;
 import logica.Sistema;
 
 /*123*/
@@ -30,7 +30,7 @@ public class ObliDDA {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PartidaException {
    
         cargarDatos();
         new InicioDialogo(null,false).setVisible(true); 
@@ -72,15 +72,15 @@ public class ObliDDA {
     */
     }
     
-    private static void cargarDatos() {
+    private static void cargarDatos() throws PartidaException {
     
         Sistema logica = Sistema.getInstancia();
-        boolean m = logica.modificarLuz(50);
-        boolean n = logica.modificarCantJugadores(2);
+        logica.modificarLuz(50);
+        logica.modificarCantJugadores(2);
         
         logica.agregarA(new Admin("0", "", "Jonas"));
         
-        logica.agregar(new Jugador("1", "", "Pepe", 500));
+        logica.agregar(new Jugador("1", "", "Pepe", 300));
         logica.agregar(new Jugador("2", "", "Juan", 500));
         logica.agregar(new Jugador("Maria123", "123", "Mari", 500));
         logica.agregar(new Jugador("Joaquina123", "123", "Joaqui", 500));

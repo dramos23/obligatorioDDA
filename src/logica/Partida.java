@@ -55,12 +55,12 @@ public class Partida extends Observable {
 
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.    
     public void comenzarRonda(){        
-        fechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
         mazo = new Mazo();
         apuesta = new Apuesta();
         agregarLuzAPozo();
         repartirCartas();
         resetearFlagsJugadores();
+        cantManos++;
         avisar(Eventos.comienzaTurno);
     }
     
@@ -106,12 +106,12 @@ public class Partida extends Observable {
         }
     }
      
-    public void setCantJugadores(int cantJugadores) {
+    public void setCantJugadores(int cantJugadores){
         if(this.jugadores.size() <= cantJugadores)        
         {
             this.cantJugadores = cantJugadores;
             if(revisarComienzoPartida()){
-                comenzarRonda();      
+                comenzarPartida();
                 sp.iniciarProxPartida();      
             }
        }
@@ -120,28 +120,28 @@ public class Partida extends Observable {
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.       
     public void agregarLuzAPozo(){
         for(JugadorParticipante j:jugadores){
-            j.apostar(luz);
+            j.pagarDinero(luz);
         }
     }
     
     //Se asigna la mano de cada jugador recorriendo el array de jugadores y revisando 
     //los que van a jugar esta ronda.
     public void repartirCartas(){
-        cantManos++;
         for(JugadorParticipante j:jugadores){
             if(j.isJuegaMano()) j.setMano(mazo.dar5());
         }              
     }
 
     
-    public JugadorParticipante ingresar(Jugador j){        
+    public JugadorParticipante ingresar(Jugador j) throws PartidaException{        
         JugadorParticipante p = new JugadorParticipante(j, this);
-        if(jugadores.size() >= cantJugadores ||
-                jugadores.contains(p)) return null;
-       
+        
+        if(jugadores.contains(p)) throw new PartidaException("Ya està en cola para la próxima partida.");
+        if(j.getSaldo() < this.luz) throw new PartidaException("No tiene suficiente saldo para entrar en la partida.");
+            
         jugadores.add(p);
         avisar(Eventos.entroJugador);        
-        if(revisarComienzoPartida()) comenzarRonda();
+        if(revisarComienzoPartida()) comenzarPartida();
         return p;
     }
     
@@ -172,14 +172,15 @@ public class Partida extends Observable {
         return juegan;
     }
         
-    public void realizarApuesta(JugadorParticipante j, int dinero){        
+    public void realizarApuesta(JugadorParticipante j, int dinero) throws PartidaException{                
+        if(!verificarApuesta(dinero)) throw new PartidaException("Usted u otro de los jugadores no tiene el saldo suficiente para aceptar esta apuesta.");        
         j.apostar(dinero);
         apuesta = new Apuesta(j, dinero);
         avisar(Eventos.jApuesta);
     } 
     
     public void jugadorAceptaApuesta(JugadorParticipante j, int dinero){
-        j.apostar(dinero);
+        j.pagarDinero(dinero);
         if(todosApostaron()) darGanador();    
     }
     
@@ -203,9 +204,6 @@ public class Partida extends Observable {
 
     public void removerJugador(JugadorParticipante jugador) {
         if(finalizada()) {
-            //this.jugadores.removeAll(jugadores);
-            //sp.removerPartidaDeLista(this);
-            //avisar(Eventos.finalizoPartida);
             this.jugadores.remove(jugador);
             darPozoAGanador(this.jugadores.get(0));
             apuesta.setGanador(this.jugadores.get(0));
@@ -231,7 +229,7 @@ public class Partida extends Observable {
     public void avisar(Eventos evento) {
         setChanged();
         notifyObservers(evento);
-        this.sp.avisarCambioEnPartida(evento);
+        this.sp.avisarCambioEnPartida(SistemaPartidas.Eventos.cambioEnPartida);
     }
 
     public void sumarAPozo(int dinero) {
@@ -263,13 +261,29 @@ public class Partida extends Observable {
         }
         return true;
     }
+    
+    private boolean revisarTodosListosParaProxima(){
+           for(int i = 0; i < jugadores.size(); i++){
+            if(jugadores.get(i).getEstado() != Estado.juegoProxima) return false;
+        }
+        return true;
+    }
         
     private void resetearFlagsJugadores() {
         for(JugadorParticipante jp : jugadores){
             jp.setEstado(Estado.sinActuar);
         }
     }
-
     
+    private void comenzarPartida(){
+            fechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
+            comenzarRonda();
+    }
+
+    public void revisarComienzoRonda(){
+        if(revisarTodosListosParaProxima()){
+            comenzarRonda();
+        }
+    }
     
 }

@@ -16,7 +16,7 @@ import java.util.Observable;
 public class JugadorParticipante{
     
     public enum Estado {
-        sinActuar, aposto, paso
+        sinActuar, aposto, paso, juegoProxima
     }
 
     private Partida miPartida;
@@ -112,18 +112,23 @@ public class JugadorParticipante{
    }
     
 
-    public boolean apostar(int dinero){
-        if(jugador.apostar(dinero))
-        {
-            miEstado = Estado.aposto;    
-            this.totalGanado -= dinero;
-            this.totalApostado += dinero;
-            miPartida.sumarAPozo(dinero);
-            return true;
-        }
-        return false;
+    public void apostar(int dinero) throws PartidaException{
+        jugador.apostar(dinero);
+        cambiarValoresCartera(dinero);
+    }
+    
+    public void pagarDinero(int dinero){
+        jugador.pagarDinero(dinero);
+        cambiarValoresCartera(dinero);        
     }
    
+    public void cambiarValoresCartera(int dinero){
+        miEstado = Estado.aposto;    
+        this.totalGanado -= dinero;
+        this.totalApostado += dinero;
+        miPartida.sumarAPozo(dinero);
+}
+    
     @Override
     public boolean equals(Object o){
         JugadorParticipante jp = (JugadorParticipante) o;
