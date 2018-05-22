@@ -5,17 +5,9 @@
  */
 package oblidda;
 
-import controlador.VistaPartida;
 import iu.InicioDialogo;
-import java.io.File;
-import javax.swing.filechooser.FileSystemView;
 import logica.Admin;
-import logica.Carta;
 import logica.Jugador;
-import logica.JugadorParticipante;
-import logica.Mazo;
-import logica.Mazo.palos;
-import logica.Partida;
 import logica.PartidaException;
 import logica.Sistema;
 
@@ -29,6 +21,7 @@ public class ObliDDA {
 
     /**
      * @param args the command line arguments
+     * @throws logica.PartidaException
      */
     public static void main(String[] args) throws PartidaException {
    
