@@ -84,8 +84,6 @@ public class PartidaDialogo3  extends javax.swing.JDialog implements VistaPartid
         btnCarta4.setBounds(486, 11, 95, 150);
         getContentPane().add(btnCarta5);
         btnCarta5.setBounds(599, 11, 95, 150);
-
-        btnCartaGanadora.setMargin(new java.awt.Insets(2, 14, 2, 40));
         getContentPane().add(btnCartaGanadora);
         btnCartaGanadora.setBounds(734, 11, 95, 150);
 
@@ -374,10 +372,10 @@ public class PartidaDialogo3  extends javax.swing.JDialog implements VistaPartid
     }
     
     public void pnlAceptarApuesta(String texto){
-        Object[] opciones = {"Aceptar, Pasar"};
+        Object[] opciones = {"Aceptar","Pasar"};
         int ventana = JOptionPane.showOptionDialog(rootPane,texto,"A Silly Question",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,
             opciones,//the titles of buttons
-            opciones[2]);//default button title
+            opciones[0]);//default button title
         if (ventana == 0){
             controlador.aceptarApuesta();
         }else {
@@ -386,10 +384,10 @@ public class PartidaDialogo3  extends javax.swing.JDialog implements VistaPartid
     }
     
     public void pnlFinMano(String texto){
-        Object[] opciones = {"Si, No"};
+        Object[] opciones = {"  Si  ","  No  "};
         int ventana = JOptionPane.showOptionDialog(rootPane,texto,"A Silly Question",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,
             opciones,//the titles of buttons
-            opciones[2]);//default button title
+            opciones[0]);//default button title
         if (ventana == 0){
             controlador.continuoJugando();
         }else {

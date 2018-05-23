@@ -225,7 +225,41 @@ public class Partida extends Observable {
         }
     }
     
-      
+    
+    public void removerJugador2(JugadorParticipante jugador) {
+        if (this.cantJugadores > 2) { 
+            removerJugadorX(jugador);
+            estadoPartida();
+        } else if (this.cantJugadores == 2){
+            removerJugadorX(jugador);
+            darPozoAGanador(this.jugadores.get(0));
+        } else {
+            removerUltimoJugador(jugador);
+        }
+        
+    }
+    
+    public void removerUltimoJugador(JugadorParticipante jugador){
+        this.jugadores.remove(jugador);
+        avisar(Eventos.ultimoJugadorGanador);
+        avisar(Eventos.finalizoPartida);
+    }
+    
+    public void removerJugadorX(JugadorParticipante jugador){
+        this.jugadores.remove(jugador);
+        avisar(Eventos.jAbandonaPartida);
+    }
+    
+    public void estadoPartida(){
+    
+        if(todosApostaron()) { 
+                darGanador();
+        } else if(todosPasaron()){
+                avisar(Eventos.todosPasaron);
+        }
+    
+    }
+    
     public void avisar(Eventos evento) {
         setChanged();
         notifyObservers(evento);
@@ -240,6 +274,10 @@ public class Partida extends Observable {
         
     public boolean finalizada() {
         return this.getJugadoresParticipantes().size() == 2;
+    }
+    
+    public boolean finalizada2() {
+        return this.getJugadoresParticipantes().size() == 1;
     }
     
     private void darPozoAGanador(JugadorParticipante ganador) {

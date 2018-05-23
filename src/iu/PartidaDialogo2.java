@@ -409,7 +409,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        controlador.removerJugador();
+        controlador.removerJugador2();
     }//GEN-LAST:event_formWindowClosed
 
     private void txtApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApuestaActionPerformed
@@ -417,7 +417,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }//GEN-LAST:event_txtApuestaActionPerformed
 
     private void btnNoApuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoApuestoActionPerformed
-        controlador.removerJugador();
+        controlador.removerJugador2();
     }//GEN-LAST:event_btnNoApuestoActionPerformed
 
     private void btnAceptarApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarApuestaActionPerformed
@@ -425,7 +425,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }//GEN-LAST:event_btnAceptarApuestaActionPerformed
 
     private void btnNoJuegoManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoJuegoManoActionPerformed
-        controlador.removerJugador();
+        controlador.removerJugador2();
     }//GEN-LAST:event_btnNoJuegoManoActionPerformed
 
     private void btnJuegoManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoManoActionPerformed
@@ -446,7 +446,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }//GEN-LAST:event_btnPasarApuestaActionPerformed
 
     private void btnAbandonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbandonarActionPerformed
-        controlador.removerJugador();
+        controlador.removerJugador2();
     }//GEN-LAST:event_btnAbandonarActionPerformed
 
     /**
@@ -637,7 +637,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     @Override
     public void mostrarGanadorPorSerUltimo(JugadorParticipante ganador) {
         optFinPartida.showMessageDialog(null, "Ganó " + ganador.getNombre() + " por ser el último jugador");
-        //controlador.cerrarUltimoJugador();
+        controlador.removerJugador2();
     }
     
     public int devolverCantJugadoresParaEmpezar(){

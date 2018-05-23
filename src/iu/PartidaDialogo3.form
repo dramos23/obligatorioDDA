@@ -91,11 +91,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JButton" name="btnCartaGanadora">
-      <Properties>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[2, 14, 2, 40]"/>
-        </Property>
-      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="734" y="11" width="95" height="150"/>

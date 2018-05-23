@@ -90,9 +90,20 @@ public class ControladorPartida implements Observer {
             
             partida.deleteObserver(this);
         }
-        
         vista.cerrarVentana();
         this.partida.removerJugador(jugador);                
+    }
+    
+    public void removerJugador2(){
+        
+        
+        if (this.partida.finalizada()){
+            partida.deleteObserver(this);
+        }
+        vista.cerrarVentana();
+        this.partida.removerJugador2(jugador);
+        
+        
     }
 
     public void aceptarApuesta() {
