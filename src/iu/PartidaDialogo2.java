@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -404,12 +405,17 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
-        //Revisar excepcion si jugador pone letras.
-        controlador.realizarApuesta(jugador, Integer.parseInt(txtApuesta.getText()));
+        if(!Pattern.matches("[a-zA-Z]+", txtApuesta.getText())){
+            controlador.realizarApuesta(jugador, Integer.parseInt(txtApuesta.getText()));
+        }else
+        {
+            mostrarMensaje("Solo puede ingresar numeros sin espacios en la apuesta.");
+            txtApuesta.setText("");
+        }
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        controlador.removerJugador2();
+        controlador.removerJugador();
     }//GEN-LAST:event_formWindowClosed
 
     private void txtApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApuestaActionPerformed
@@ -417,7 +423,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }//GEN-LAST:event_txtApuestaActionPerformed
 
     private void btnNoApuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoApuestoActionPerformed
-        controlador.removerJugador2();
+        controlador.removerJugador();
     }//GEN-LAST:event_btnNoApuestoActionPerformed
 
     private void btnAceptarApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarApuestaActionPerformed
@@ -425,7 +431,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }//GEN-LAST:event_btnAceptarApuestaActionPerformed
 
     private void btnNoJuegoManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoJuegoManoActionPerformed
-        controlador.removerJugador2();
+        controlador.removerJugador();
     }//GEN-LAST:event_btnNoJuegoManoActionPerformed
 
     private void btnJuegoManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoManoActionPerformed
@@ -446,7 +452,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }//GEN-LAST:event_btnPasarApuestaActionPerformed
 
     private void btnAbandonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbandonarActionPerformed
-        controlador.removerJugador2();
+        controlador.removerJugador();
     }//GEN-LAST:event_btnAbandonarActionPerformed
 
     /**
@@ -637,7 +643,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     @Override
     public void mostrarGanadorPorSerUltimo(JugadorParticipante ganador) {
         optFinPartida.showMessageDialog(null, "Ganó " + ganador.getNombre() + " por ser el último jugador");
-        controlador.removerJugador2();
+        controlador.removerJugador();
     }
     
     public int devolverCantJugadoresParaEmpezar(){
