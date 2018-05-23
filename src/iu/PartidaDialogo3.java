@@ -146,11 +146,13 @@ public class PartidaDialogo3  extends javax.swing.JDialog implements VistaPartid
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
-        controlador.realizarApuesta(jugador, Integer.parseInt(txtApuesta.getText()));
+        if (!txtApuesta.getText().contains("[a-zA-Z]+")){
+            controlador.realizarApuesta(jugador, Integer.parseInt(txtApuesta.getText()));
+        }
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        controlador.removerJugador();
+        controlador.removerJugador2();
     }//GEN-LAST:event_formWindowClosed
 
     private void btnPasarApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarApuestaActionPerformed
@@ -158,7 +160,7 @@ public class PartidaDialogo3  extends javax.swing.JDialog implements VistaPartid
     }//GEN-LAST:event_btnPasarApuestaActionPerformed
 
     private void btnAbandonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbandonarActionPerformed
-        controlador.removerJugador();
+        controlador.removerJugador2();
     }//GEN-LAST:event_btnAbandonarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -385,7 +387,7 @@ public class PartidaDialogo3  extends javax.swing.JDialog implements VistaPartid
     
     public void pnlFinMano(String texto){
         Object[] opciones = {"  Si  ","  No  "};
-        int ventana = JOptionPane.showOptionDialog(rootPane,texto,"A Silly Question",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,
+        int ventana = JOptionPane.showOptionDialog(rootPane,texto,"Fin de turno",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,
             opciones,//the titles of buttons
             opciones[0]);//default button title
         if (ventana == 0){
@@ -397,6 +399,6 @@ public class PartidaDialogo3  extends javax.swing.JDialog implements VistaPartid
     
     public void pnlFinPartida(String texto){
         Object[] opciones = {"OK"};
-        JOptionPane.showOptionDialog(rootPane,texto,"A Silly Question",JOptionPane.OK_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]);
+        JOptionPane.showOptionDialog(rootPane,texto,"Fin de partda",JOptionPane.OK_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]);
     }
 }

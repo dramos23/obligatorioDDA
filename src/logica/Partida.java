@@ -205,22 +205,12 @@ public class Partida extends Observable {
     public void removerJugador(JugadorParticipante jugador) {
         if(finalizada()) {
             this.jugadores.remove(jugador);
-            darPozoAGanador(this.jugadores.get(0));
-            apuesta.setGanador(this.jugadores.get(0));
-            avisar(Eventos.ultimoJugadorGanador);
-           
-            this.jugadores.removeAll(jugadores);
+            removerUltimoJugador();
             sp.removerPartidaDeLista(this);
-            avisar(Eventos.finalizoPartida);
            
         } else {
-            this.jugadores.remove(jugador);
-            
-            if(todosApostaron()) { 
-                darGanador();
-            } else if(todosPasaron()){
-                avisar(Eventos.todosPasaron);
-            }
+            this.jugadores.remove(jugador);            
+            terminarTurno();
             avisar(Eventos.jAbandonaPartida);
         }
     }
@@ -229,20 +219,23 @@ public class Partida extends Observable {
     public void removerJugador2(JugadorParticipante jugador) {
         if (this.cantJugadores > 2) { 
             removerJugadorX(jugador);
-            estadoPartida();
+            terminarTurno();
         } else if (this.cantJugadores == 2){
             removerJugadorX(jugador);
             darPozoAGanador(this.jugadores.get(0));
         } else {
-            removerUltimoJugador(jugador);
+            removerUltimoJugador();
         }
         
     }
     
-    public void removerUltimoJugador(JugadorParticipante jugador){
-        this.jugadores.remove(jugador);
-        avisar(Eventos.ultimoJugadorGanador);
-        avisar(Eventos.finalizoPartida);
+    public void removerUltimoJugador(){
+            darPozoAGanador(this.jugadores.get(0));
+            if(this.pozo != 0){
+                apuesta.setGanador(this.jugadores.get(0));
+                avisar(Eventos.ultimoJugadorGanador);
+            }
+            avisar(Eventos.finalizoPartida);
     }
     
     public void removerJugadorX(JugadorParticipante jugador){
@@ -250,14 +243,13 @@ public class Partida extends Observable {
         avisar(Eventos.jAbandonaPartida);
     }
     
-    public void estadoPartida(){
+    public void terminarTurno(){
     
         if(todosApostaron()) { 
                 darGanador();
         } else if(todosPasaron()){
                 avisar(Eventos.todosPasaron);
-        }
-    
+        }    
     }
     
     public void avisar(Eventos evento) {

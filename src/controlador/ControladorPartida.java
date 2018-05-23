@@ -94,16 +94,12 @@ public class ControladorPartida implements Observer {
         this.partida.removerJugador(jugador);                
     }
     
-    public void removerJugador2(){
-        
-        
-        if (this.partida.finalizada()){
+    public void removerJugador2(){                
+        if (this.partida.finalizada2()){
             partida.deleteObserver(this);
         }
         vista.cerrarVentana();
-        this.partida.removerJugador2(jugador);
-        
-        
+        this.partida.removerJugador2(jugador);                
     }
 
     public void aceptarApuesta() {
@@ -117,7 +113,7 @@ public class ControladorPartida implements Observer {
           return this.partida.revisarComienzoPartida();
     }
 
-    public void realizarApuesta(JugadorParticipante jugador, int dinero) {
+    public void realizarApuesta(JugadorParticipante jugador, int dinero) {        
         try{
             partida.verificarApuesta(dinero);
             partida.realizarApuesta(jugador, dinero);         
