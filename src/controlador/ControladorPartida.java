@@ -30,7 +30,7 @@ public class ControladorPartida implements Observer {
         this.vista = vista;
         partida.addObserver(this);        
         jugador.getJugador().addObserver(this);
-        vista.mostrarNombreJugador(jugador.getNombreCompleto());
+        
         iniciarVentana();
     }
 
@@ -39,6 +39,7 @@ public class ControladorPartida implements Observer {
         
         if(evento.equals(Partida.Eventos.jAbandonaPartida)){            
               vista.mostrarJugadores(partida.getJugadoresParticipantes());            
+              vista.mostrarJugadoresMano(partida.getJugadoresParticipantesMano());            
         }  
         
         if(evento.equals(Partida.Eventos.finalizoPartida)){
@@ -64,6 +65,7 @@ public class ControladorPartida implements Observer {
         if(evento.equals(Partida.Eventos.comienzaPartida) || evento.equals(Partida.Eventos.comienzaTurno))
         {
             vista.iniciarPartida(jugador);
+            vista.mostrarJugadoresMano(partida.getJugadoresParticipantesMano());            
         }            
         if(evento.equals(Partida.Eventos.cambiaPozo) || evento.equals(Jugador.Eventos.cambioSaldo))
         {
@@ -81,18 +83,20 @@ public class ControladorPartida implements Observer {
         {
             vista.mostrarGanadorPorSerUltimo(partida.getApuesta().getGanador());
         }
+        if(evento.equals(Partida.Eventos.jPasa))
+        {
+            vista.mostrarJugadoresMano(partida.getJugadoresParticipantesMano());    
+        }
 
     }
 
     public void removerJugador() {
-        
-        if (this.partida.finalizada()){
-            
-            partida.deleteObserver(this);
+        if(partida.getJugadoresParticipantes().contains(jugador)){
+            partida.deleteObserver(this); 
+            this.partida.removerJugador(jugador);        
+                   
+            vista.cerrarVentana();        
         }
-        
-        vista.cerrarVentana();
-        this.partida.removerJugador(jugador);
     }
    
     /*
@@ -131,8 +135,10 @@ public class ControladorPartida implements Observer {
     
     public void iniciarVentana()
     {
+        vista.mostrarNombreJugador(jugador.getNombreCompleto());
         vista.esconderAndMostrarAlInicio();
         vista.mostrarJugadores(partida.getJugadoresParticipantes());
+        vista.mostrarJugadoresMano(partida.getJugadoresParticipantesMano());    
         if(comenzoPartida()) vista.iniciarPartida(jugador);
     }
     
@@ -141,7 +147,14 @@ public class ControladorPartida implements Observer {
     }
     
     public void continuoJugando() {
-        jugador.setEstado(JugadorParticipante.Estado.juegoProxima);
+        try{
+            jugador.puedeSeguir();
+            jugador.setEstado(JugadorParticipante.Estado.juegoProxima);
+        
+        }catch(PartidaException ex){
+            vista.mostrarMensaje(ex.getMessage());
+            this.removerJugador();
+        }
         partida.revisarComienzoRonda();
     }
 

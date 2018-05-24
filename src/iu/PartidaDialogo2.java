@@ -33,6 +33,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         initComponents();
         jugador = j;
         controlador = new ControladorPartida(j, this);
+        lblCartaGanadora.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -60,18 +61,26 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         jScrollPane1 = new javax.swing.JScrollPane();
         lstJugadores = new javax.swing.JList();
         btnCartaGanadora = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         pnlFinMano = new javax.swing.JPanel();
         btnJuegoMano = new javax.swing.JButton();
         btnNoJuegoMano = new javax.swing.JButton();
         lblInfoGanador = new javax.swing.JLabel();
+        lblInfoGanador2 = new javax.swing.JLabel();
         optFinPartida = new javax.swing.JOptionPane();
         pnlAceptarApuesta = new javax.swing.JPanel();
         lblInfoApuesta = new javax.swing.JLabel();
         btnAceptarApuesta = new javax.swing.JButton();
         btnPasarDeApuesta = new javax.swing.JButton();
-        btnAbandonar = new javax.swing.JButton();
         pnlFaltan = new javax.swing.JPanel();
         lblInfoIngresados = new javax.swing.JLabel();
+        pnlJugadoresMano = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstJugadoresMano = new javax.swing.JList();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblCartaGanadora = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,6 +99,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                 formWindowClosed(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnApostar.setText("Apostar");
         btnApostar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,24 +127,29 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
             pnlApostarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlApostarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlApostarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnApostar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtApuesta))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPasarApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlApostarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlApostarLayout.createSequentialGroup()
+                        .addComponent(btnApostar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(btnPasarApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlApostarLayout.createSequentialGroup()
+                        .addComponent(txtApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlApostarLayout.setVerticalGroup(
             pnlApostarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlApostarLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlApostarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApostar)
                     .addComponent(btnPasarApuesta))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        getContentPane().add(pnlApostar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, -1, -1));
 
         jLabel1.setText("Luz: ");
 
@@ -181,17 +196,15 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        getContentPane().add(pnlValores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, -1, -1));
+
         btnCarta5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCarta5ActionPerformed(evt);
             }
         });
 
-        lstJugadores.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        lstJugadores.setAutoscrolls(false);
         jScrollPane1.setViewportView(lstJugadores);
 
         btnCartaGanadora.addActionListener(new java.awt.event.ActionListener() {
@@ -200,42 +213,63 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
             }
         });
 
+        jLabel4.setText("Jugadores en");
+
+        jLabel5.setText("partida:");
+
         javax.swing.GroupLayout pnlManoLayout = new javax.swing.GroupLayout(pnlMano);
         pnlMano.setLayout(pnlManoLayout);
         pnlManoLayout.setHorizontalGroup(
             pnlManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlManoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlManoLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(pnlManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlManoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(btnCarta1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnCarta2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnCarta3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnCarta4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnCarta5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(btnCartaGanadora, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         pnlManoLayout.setVerticalGroup(
             pnlManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlManoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCartaGanadora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCarta1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCarta2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCarta3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCarta4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCarta5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25))
+                .addGap(30, 30, 30)
+                .addComponent(jLabel4)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel5)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(pnlManoLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(pnlManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCarta1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarta2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarta3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarta4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarta5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCartaGanadora, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        getContentPane().add(pnlMano, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 760, -1));
+
+        pnlFinMano.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnJuegoMano.setText("Si");
         btnJuegoMano.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +277,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                 btnJuegoManoActionPerformed(evt);
             }
         });
+        pnlFinMano.add(btnJuegoMano, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 86, -1));
 
         btnNoJuegoMano.setText("No");
         btnNoJuegoMano.addActionListener(new java.awt.event.ActionListener() {
@@ -250,37 +285,17 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                 btnNoJuegoManoActionPerformed(evt);
             }
         });
+        pnlFinMano.add(btnNoJuegoMano, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 86, -1));
+        pnlFinMano.add(lblInfoGanador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 253, 20));
+        pnlFinMano.add(lblInfoGanador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 253, 20));
 
-        javax.swing.GroupLayout pnlFinManoLayout = new javax.swing.GroupLayout(pnlFinMano);
-        pnlFinMano.setLayout(pnlFinManoLayout);
-        pnlFinManoLayout.setHorizontalGroup(
-            pnlFinManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFinManoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlFinManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFinManoLayout.createSequentialGroup()
-                        .addComponent(lblInfoGanador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(pnlFinManoLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btnJuegoMano, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNoJuegoMano, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))))
-        );
-        pnlFinManoLayout.setVerticalGroup(
-            pnlFinManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFinManoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblInfoGanador, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlFinManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNoJuegoMano)
-                    .addComponent(btnJuegoMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        getContentPane().add(pnlFinMano, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 235, -1, 90));
+        getContentPane().add(optFinPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 331, -1, -1));
+
+        pnlAceptarApuesta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblInfoApuesta.setText("texto apuesta");
+        pnlAceptarApuesta.add(lblInfoApuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, 240, 38));
 
         btnAceptarApuesta.setText("Aceptar");
         btnAceptarApuesta.addActionListener(new java.awt.event.ActionListener() {
@@ -288,6 +303,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                 btnAceptarApuestaActionPerformed(evt);
             }
         });
+        pnlAceptarApuesta.add(btnAceptarApuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 86, -1));
 
         btnPasarDeApuesta.setText("Pasar");
         btnPasarDeApuesta.addActionListener(new java.awt.event.ActionListener() {
@@ -295,42 +311,9 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                 btnPasarDeApuestaActionPerformed(evt);
             }
         });
+        pnlAceptarApuesta.add(btnPasarDeApuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 86, -1));
 
-        javax.swing.GroupLayout pnlAceptarApuestaLayout = new javax.swing.GroupLayout(pnlAceptarApuesta);
-        pnlAceptarApuesta.setLayout(pnlAceptarApuestaLayout);
-        pnlAceptarApuestaLayout.setHorizontalGroup(
-            pnlAceptarApuestaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAceptarApuestaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlAceptarApuestaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAceptarApuestaLayout.createSequentialGroup()
-                        .addComponent(lblInfoApuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(pnlAceptarApuestaLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btnAceptarApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPasarDeApuesta)
-                        .addGap(38, 38, 38))))
-        );
-        pnlAceptarApuestaLayout.setVerticalGroup(
-            pnlAceptarApuestaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAceptarApuestaLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(lblInfoApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlAceptarApuestaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptarApuesta)
-                    .addComponent(btnPasarDeApuesta))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        btnAbandonar.setText("Abandonar");
-        btnAbandonar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbandonarActionPerformed(evt);
-            }
-        });
+        getContentPane().add(pnlAceptarApuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 427, 258, 94));
 
         lblInfoIngresados.setToolTipText("");
 
@@ -338,74 +321,65 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         pnlFaltan.setLayout(pnlFaltanLayout);
         pnlFaltanLayout.setHorizontalGroup(
             pnlFaltanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFaltanLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblInfoIngresados, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 232, Short.MAX_VALUE)
+            .addGroup(pnlFaltanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlFaltanLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(lblInfoIngresados, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         pnlFaltanLayout.setVerticalGroup(
             pnlFaltanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFaltanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblInfoIngresados, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 29, Short.MAX_VALUE)
+            .addGroup(pnlFaltanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlFaltanLayout.createSequentialGroup()
+                    .addGap(4, 4, 4)
+                    .addComponent(lblInfoIngresados, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlApostar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pnlValores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(74, 74, 74)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(optFinPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlAceptarApuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(217, 217, 217)
-                        .addComponent(pnlFaltan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(btnAbandonar)
-                        .addGap(12, 12, 12))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlFinMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addComponent(pnlMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        getContentPane().add(pnlFaltan, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 197, -1, -1));
+
+        lstJugadoresMano.setAutoscrolls(false);
+        jScrollPane2.setViewportView(lstJugadoresMano);
+
+        jLabel7.setText("la mano:");
+
+        jLabel6.setText("Jugadores en");
+
+        javax.swing.GroupLayout pnlJugadoresManoLayout = new javax.swing.GroupLayout(pnlJugadoresMano);
+        pnlJugadoresMano.setLayout(pnlJugadoresManoLayout);
+        pnlJugadoresManoLayout.setHorizontalGroup(
+            pnlJugadoresManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlJugadoresManoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlJugadoresManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlMano, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(optFinPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlValores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlFinMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlApostar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pnlAceptarApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlFaltan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAbandonar))
-                .addGap(28, 28, 28))
+        pnlJugadoresManoLayout.setVerticalGroup(
+            pnlJugadoresManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlJugadoresManoLayout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel7)
+                .addGap(13, 13, 13)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
+
+        getContentPane().add(pnlJugadoresMano, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, 150));
+
+        lblCartaGanadora.setText("!!CARTA GANADORA!!");
+        getContentPane().add(lblCartaGanadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
-        if(!Pattern.matches("[a-zA-Z]+", txtApuesta.getText())){
+        if(!Pattern.matches("[a-zA-Z]+", txtApuesta.getText()) && !txtApuesta.getText().equals("")){
             controlador.realizarApuesta(jugador, Integer.parseInt(txtApuesta.getText()));
         }else
         {
@@ -445,17 +419,14 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
     private void btnPasarApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarApuestaActionPerformed
+        pnlApostar.setVisible(false);
         controlador.jugadorNoApuesta();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPasarApuestaActionPerformed
 
-    private void btnAbandonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbandonarActionPerformed
-        controlador.removerJugador();
-    }//GEN-LAST:event_btnAbandonarActionPerformed
-
     private void btnPasarDeApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarDeApuestaActionPerformed
-        controlador.jugadorNoAceptaApuesta();
         pnlAceptarApuesta.setVisible(false);
+        controlador.jugadorNoAceptaApuesta();
     }//GEN-LAST:event_btnPasarDeApuestaActionPerformed
 
     /**
@@ -463,7 +434,6 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
      */
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAbandonar;
     private javax.swing.JButton btnAceptarApuesta;
     private javax.swing.JButton btnApostar;
     private javax.swing.JButton btnCarta1;
@@ -479,20 +449,29 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCartaGanadora;
     private javax.swing.JLabel lblInfoApuesta;
     private javax.swing.JLabel lblInfoGanador;
+    private javax.swing.JLabel lblInfoGanador2;
     private javax.swing.JLabel lblInfoIngresados;
     private javax.swing.JLabel lblLuz;
     private javax.swing.JLabel lblMiDinero;
     private javax.swing.JLabel lblPozo;
     private javax.swing.JList lstJugadores;
+    private javax.swing.JList lstJugadoresMano;
     private javax.swing.JOptionPane optFinPartida;
     private javax.swing.JPanel pnlAceptarApuesta;
     private javax.swing.JPanel pnlApostar;
     private javax.swing.JPanel pnlFaltan;
     private javax.swing.JPanel pnlFinMano;
+    private javax.swing.JPanel pnlJugadoresMano;
     private javax.swing.JPanel pnlMano;
     private javax.swing.JPanel pnlValores;
     private javax.swing.JTextField txtApuesta;
@@ -509,6 +488,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
 
         btn.setIcon(c);
     }
+    
 
    @Override
    public void mostrarMano(ArrayList<Carta> cartas)
@@ -517,7 +497,8 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
        mostrarCarta(cartas.get(1), btnCarta2);
        mostrarCarta(cartas.get(2), btnCarta3);
        mostrarCarta(cartas.get(3), btnCarta4);
-       mostrarCarta(cartas.get(4), btnCarta5);       
+       mostrarCarta(cartas.get(4), btnCarta5);
+       btnCartaGanadora.setIcon(null);
    }
     
     @Override
@@ -530,6 +511,11 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         {
                 lblInfoIngresados.setText("Esperando jugadores... faltan " + faltan);
         }
+    }
+    
+    @Override
+    public void mostrarJugadoresMano(ArrayList<JugadorParticipante> jugadores) {
+        lstJugadoresMano.setListData(jugadores.toArray());
     }
             
     @Override
@@ -565,6 +551,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         pnlApostar.setVisible(false);
         pnlValores.setVisible(false);
         pnlFinMano.setVisible(false);
+        pnlJugadoresMano.setVisible(false);
         optFinPartida.setVisible(false);
     }
 
@@ -576,6 +563,8 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
 
     @Override
     public void inicioRonda(JugadorParticipante j) {
+        lblCartaGanadora.setVisible(false);
+        pnlJugadoresMano.setVisible(true);
         pnlApostar.setVisible(true);
         pnlValores.setVisible(true);
         pnlFinMano.setVisible(false);
@@ -587,16 +576,17 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     @Override
     public void mostrarGanador(JugadorParticipante ganador) {
         pnlFinMano.setVisible(true);
-        lblInfoGanador.setText("Ganó " + ganador.getNombre() + " con esta carta: \n "
-                + "Quieres seguir jugando?");
+        lblInfoGanador.setText("Ganó " + ganador.getNombre());
+        lblInfoGanador2.setText("Quieres seguir jugando?");
         mostrarCarta(ganador.devolverMasAlta(), btnCartaGanadora);
+        lblCartaGanadora.setVisible(true);
     }
 
     @Override
     public void todosPasan() {
         pnlFinMano.setVisible(true);
-        lblInfoGanador.setText("Todos pasaron: el pozo se acumuló. \n "
-                + "Quieres seguir jugando?");
+        lblInfoGanador.setText("Todos pasaron: el pozo se acumuló.");
+        lblInfoGanador2.setText("Quieres seguir jugando?");
     }
 
     
@@ -607,6 +597,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     @Override
     public void aceptarApuesta() {
         pnlAceptarApuesta.setVisible(false);
+
     }
 
     @Override
@@ -622,7 +613,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     @Override
     public void jugadorNoPuedeSeguir(String msg) {
         optFinPartida.showMessageDialog(null, msg);
-        //this.dispose();
+        this.dispose();
     }
     
     @Override
@@ -638,7 +629,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     @Override
     public void mostrarGanadorPorSerUltimo(JugadorParticipante ganador) {
         optFinPartida.showMessageDialog(null, "Ganó " + ganador.getNombre() + " por ser el último jugador");
-        controlador.removerJugador();
+        //controlador.removerJugador();
     }
     
     public int devolverCantJugadoresParaEmpezar(){

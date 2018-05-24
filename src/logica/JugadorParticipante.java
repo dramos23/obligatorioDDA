@@ -120,9 +120,8 @@ public class JugadorParticipante{
         return jp.getNombre().equalsIgnoreCase(this.getNombre());
     }   
 
-    public boolean puedeSeguir() {
-        if(getSaldoJugador() < miPartida.getLuz()) return false;
-        return true;
+    public void puedeSeguir() throws PartidaException {
+        if(getSaldoJugador() < miPartida.getLuz()) throw new PartidaException("Saldo insuficiente para continuar la partida.");
     }
 
     public Jugador getJugador() {

@@ -75,4 +75,16 @@ public class Sistema{
     public Partida obtenerPartidaAct(String f){
         return this.sp.getPartidaAct(f);
     }
+
+    public void iniciarProximaPartida() {
+        sp.iniciarProxPartida();      
+    }
+
+    public void removerPartidaDeLista(Partida partida) {
+        sp.removerPartidaDeLista(partida);
+    }
+
+    public void avisarCambioEnPartida(SistemaPartidas.Eventos eventos) {
+        sp.avisar(eventos);
+    }
 }

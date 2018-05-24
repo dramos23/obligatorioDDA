@@ -78,11 +78,6 @@ public class SistemaPartidas extends Observable{
         notifyObservers(evento);
     }
 
-    public void avisarCambioEnPartida(Eventos evento) {
-        setChanged();
-        notifyObservers(evento);
-    }
-
     public Partida getPartidaAct(String f) {
         for(Partida p:partidas){
             if (p.getFechaHora().equals(f)){

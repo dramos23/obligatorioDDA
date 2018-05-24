@@ -22,6 +22,8 @@ public interface VistaPartida {
         
     public void mostrarJugadores(ArrayList<JugadorParticipante> jugadores);
     
+    public void mostrarJugadoresMano(ArrayList<JugadorParticipante> jugadores);
+    
     public void mostrarValores(int luz, int pozo, int dineroJugador);
     
     public void mostrarEstado(String estado);

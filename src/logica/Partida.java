@@ -20,7 +20,6 @@ public class Partida extends Observable {
     
 //    private DateTime FechaInicio;
     
-    private SistemaPartidas sp;
     private ArrayList<JugadorParticipante> jugadores;   
     private Mazo mazo;
     private Apuesta apuesta;
@@ -30,19 +29,17 @@ public class Partida extends Observable {
     private int totalApostado;
     private int cantManos;
     private String fechaHora;
-    private int idPartida = 0;
+    
     
     public enum Eventos{
         jAbandonaPartida, jApuesta, jAceptaApuesta, entroJugador, comienzaPartida,
         comienzaTurno, finalizoPartida, cambiaPozo, hayGanador, 
-        todosPasaron, ultimoJugadorGanador        
+        todosPasaron, ultimoJugadorGanador, jPasa    
     }
     
     public Partida(int cantJug, int luz, SistemaPartidas sisP){
-        this.idPartida = this.idPartida++;
         this.luz = luz;
         this.cantJugadores = cantJug;
-        this.sp = sisP;
         this.jugadores = new ArrayList(); 
         this.mazo = new Mazo();
         this.apuesta = new Apuesta();
@@ -64,10 +61,6 @@ public class Partida extends Observable {
         avisar(Eventos.comienzaTurno);
     }
     
-    public int getIdPartida() {
-        return idPartida;
-    }
-
     public int getPozo() {
         return pozo;
     }
@@ -78,6 +71,16 @@ public class Partida extends Observable {
     
     public ArrayList<JugadorParticipante> getJugadoresParticipantes(){
         return this.jugadores;
+    }
+    
+    public ArrayList<JugadorParticipante> getJugadoresParticipantesMano(){
+        ArrayList<JugadorParticipante> lista = new ArrayList();
+        for(JugadorParticipante jp : jugadores){
+            if (jp.getEstado() != Estado.pasoDeApuesta){
+                lista.add(jp);
+            }
+        }
+        return lista;
     }
 
     public int getCantJugadores() {
@@ -112,7 +115,7 @@ public class Partida extends Observable {
             this.cantJugadores = cantJugadores;
             if(revisarComienzoPartida()){
                 comenzarPartida();
-                sp.iniciarProxPartida();      
+                Sistema.getInstancia().iniciarProximaPartida();
             }
        }
     }
@@ -164,7 +167,7 @@ public class Partida extends Observable {
     }
         
     public void realizarApuesta(JugadorParticipante j, int dinero) throws PartidaException{                
-        if(!verificarApuesta(dinero)) throw new PartidaException("Usted u otro de los jugadores no tiene el saldo suficiente para aceptar esta apuesta.");        
+        //if(!verificarApuesta(dinero)) throw new PartidaException("Usted u otro de los jugadores no tiene el saldo suficiente para aceptar esta apuesta.");        
         j.apostar(dinero);
         apuesta = new Apuesta(j, dinero);
         avisar(Eventos.jApuesta);
@@ -181,11 +184,11 @@ public class Partida extends Observable {
         if(todosPasaron()) avisar(Eventos.todosPasaron);
     }
     
-    public boolean verificarApuesta(int dinero){
+    public void verificarApuesta(int dinero) throws PartidaException{
+        if (dinero <= 0) throw new PartidaException("Debe ingresar un monto mayor a cero.");
         for (JugadorParticipante h: jugadores){
-            if (h.getSaldoJugador() < dinero ) return false;
+            if (h.getSaldoJugador() < dinero )throw new PartidaException("Usted u otro de los jugadores no tiene el saldo suficiente para aceptar esta apuesta.");
         }
-        return true;        
     }
     
     public boolean revisarComienzoPartida() {
@@ -193,27 +196,29 @@ public class Partida extends Observable {
     }
 
     public void removerJugador(JugadorParticipante jugador) {
-        if(!jugadores.contains(jugador)) return;
+  
+        if (this.fechaHora.isEmpty()) this.jugadores.remove(jugador);
+        //if(!jugadores.contains(jugador)) return;
         if(finalizada()) {
             this.jugadores.remove(jugador);        
             removerUltimoJugador();
-            sp.removerPartidaDeLista(this);
+            Sistema.getInstancia().removerPartidaDeLista(this);
            
-        } else if(!jugadores.isEmpty()) {
-            this.jugadores.remove(jugador);            
-            terminarTurno();
-        }
-          avisar(Eventos.jAbandonaPartida);
+        } else if(!this.jugadores.isEmpty()) {
+            this.jugadores.remove(jugador);
+            if (this.jugadores.size() > 1) terminarTurno();
+        } 
+        avisar(Eventos.jAbandonaPartida);
     }
             
     public void removerUltimoJugador(){
         JugadorParticipante ultimo = this.jugadores.get(0);
         if(this.pozo != 0){
-                darPozoAGanador(ultimo);
-                apuesta.setGanador(ultimo);
-                this.jugadores.remove(ultimo);
-                avisar(Eventos.ultimoJugadorGanador);
-            }
+            darPozoAGanador(ultimo);
+            apuesta.setGanador(ultimo);
+            this.jugadores.remove(ultimo);
+            avisar(Eventos.ultimoJugadorGanador);
+        }
         avisar(Eventos.finalizoPartida);
     }
     
@@ -231,7 +236,8 @@ public class Partida extends Observable {
     public void avisar(Eventos evento) {
         setChanged();
         notifyObservers(evento);
-        this.sp.avisarCambioEnPartida(SistemaPartidas.Eventos.cambioEnPartida);
+        Sistema.getInstancia().avisarCambioEnPartida(SistemaPartidas.Eventos.cambioEnPartida);
+        
     }
 
     public void sumarAPozo(int dinero) {
@@ -310,7 +316,7 @@ public class Partida extends Observable {
                 
             }else return;
         }               
-        
+        avisar(Eventos.jPasa);
         darGanador();            
     }
     
