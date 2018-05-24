@@ -64,8 +64,7 @@ public class ControladorPartida implements Observer {
         if(evento.equals(Partida.Eventos.comienzaPartida) || evento.equals(Partida.Eventos.comienzaTurno))
         {
             vista.iniciarPartida(jugador);
-        }
-            
+        }            
         if(evento.equals(Partida.Eventos.cambiaPozo) || evento.equals(Jugador.Eventos.cambioSaldo))
         {
             vista.cambiaDinero(jugador);
@@ -86,14 +85,17 @@ public class ControladorPartida implements Observer {
     }
 
     public void removerJugador() {
+        
         if (this.partida.finalizada()){
             
             partida.deleteObserver(this);
         }
+        
         vista.cerrarVentana();
-        this.partida.removerJugador(jugador);                
+        this.partida.removerJugador(jugador);
     }
-    
+   
+    /*
     public void removerJugador2(){                
         if (this.partida.finalizada2()){
             partida.deleteObserver(this);
@@ -101,10 +103,9 @@ public class ControladorPartida implements Observer {
         vista.cerrarVentana();
         this.partida.removerJugador2(jugador);                
     }
-
+*/
     public void aceptarApuesta() {
         Apuesta a = partida.getApuesta();     
-        this.jugador.setJuegaMano(true);
         partida.jugadorAceptaApuesta(jugador, a.getMontoApostado()); 
         vista.aceptarApuesta();
     }
@@ -135,22 +136,18 @@ public class ControladorPartida implements Observer {
         if(comenzoPartida()) vista.iniciarPartida(jugador);
     }
     
-    public void revisarSiPuedeContinuar()
-    {
-        if(!jugador.puedeSeguir()) {
-            vista.jugadorNoPuedeSeguir("No hay saldo suficiente para continuar jugando. Ha sido removido de la partida.");
-            partida.removerJugador(jugador);
-        }
-    }
-
-    public void pasarApuesta() {
-        partida.jugadorPasaApuesta(jugador);
+    public void jugadorNoApuesta() {
+        partida.jugadorNoApuesta(jugador);
     }
     
-
     public void continuoJugando() {
         jugador.setEstado(JugadorParticipante.Estado.juegoProxima);
         partida.revisarComienzoRonda();
+    }
+
+    public void jugadorNoAceptaApuesta() {
+        jugador.setEstado(JugadorParticipante.Estado.pasoDeApuesta);
+        partida.revisarAceptacionDeApuesta();
     }
     
     

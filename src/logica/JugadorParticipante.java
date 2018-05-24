@@ -16,7 +16,7 @@ import java.util.Observable;
 public class JugadorParticipante{
     
     public enum Estado {
-        sinActuar, aposto, paso, juegoProxima
+        sinActuar, aposto, noApuesto, juegoProxima, pasoDeApuesta 
     }
 
     private Partida miPartida;
@@ -50,22 +50,7 @@ public class JugadorParticipante{
     public void setJuegaMano(boolean juegaMano) {
         this.juegaMano = juegaMano;
     }
-    
-    /* Metodo apostar viejo
-    public boolean apostar(int dinero){
-        if(this.jugador.getSaldo() < dinero) return false;
-        this.jugador.setSaldo(this.jugador.getSaldo() - dinero);
-        return true;
-    }
-    */ 
-    
-    //Metodo apostar nuevo
-    
-    
-    public void darLuz(int dinero){
-        
-    }
-
+       
     public void ganarDinero(int dinero){
         this.totalGanado += dinero;
         this.jugador.ganarDinero(dinero);
@@ -107,11 +92,11 @@ public class JugadorParticipante{
         return totalGanado;
     }
    
+   @Override
    public String toString(){
        return this.jugador.getNombre();
    }
     
-
     public void apostar(int dinero) throws PartidaException{
         jugador.apostar(dinero);
         cambiarValoresCartera(dinero);
@@ -143,7 +128,6 @@ public class JugadorParticipante{
     public Jugador getJugador() {
         return this.jugador;
     }
-
     
     public Estado getEstado() {
         return miEstado;

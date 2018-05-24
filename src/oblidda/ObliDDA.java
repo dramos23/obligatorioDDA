@@ -69,13 +69,13 @@ public class ObliDDA {
     
         Sistema logica = Sistema.getInstancia();
         logica.modificarLuz(50);
-        logica.modificarCantJugadores(2);
+        logica.modificarCantJugadores(3);
         
         logica.agregarA(new Admin("0", "", "Jonas"));
         
         logica.agregar(new Jugador("1", "", "Pepe", 300));
         logica.agregar(new Jugador("2", "", "Juan", 500));
-        logica.agregar(new Jugador("Maria123", "123", "Mari", 500));
+        logica.agregar(new Jugador("3", "", "Maria", 500));
         logica.agregar(new Jugador("Joaquina123", "123", "Joaqui", 500));
         logica.agregar(new Jugador("Nicolas123", "123", "Nico", 500));
         

@@ -404,8 +404,8 @@
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Component id="btnAceptarApuesta" min="-2" pref="86" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnNoApuesto" min="-2" pref="86" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <Component id="btnPasarDeApuesta" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -419,7 +419,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAceptarApuesta" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnNoApuesto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPasarDeApuesta" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -440,12 +440,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAceptarApuestaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnNoApuesto">
+        <Component class="javax.swing.JButton" name="btnPasarDeApuesta">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pasar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNoApuestoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPasarDeApuestaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

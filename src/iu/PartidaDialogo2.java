@@ -68,7 +68,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         pnlAceptarApuesta = new javax.swing.JPanel();
         lblInfoApuesta = new javax.swing.JLabel();
         btnAceptarApuesta = new javax.swing.JButton();
-        btnNoApuesto = new javax.swing.JButton();
+        btnPasarDeApuesta = new javax.swing.JButton();
         btnAbandonar = new javax.swing.JButton();
         pnlFaltan = new javax.swing.JPanel();
         lblInfoIngresados = new javax.swing.JLabel();
@@ -289,10 +289,10 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
             }
         });
 
-        btnNoApuesto.setText("Pasar");
-        btnNoApuesto.addActionListener(new java.awt.event.ActionListener() {
+        btnPasarDeApuesta.setText("Pasar");
+        btnPasarDeApuesta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNoApuestoActionPerformed(evt);
+                btnPasarDeApuestaActionPerformed(evt);
             }
         });
 
@@ -310,8 +310,8 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                         .addGap(10, 10, 10)
                         .addComponent(btnAceptarApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNoApuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))))
+                        .addComponent(btnPasarDeApuesta)
+                        .addGap(38, 38, 38))))
         );
         pnlAceptarApuestaLayout.setVerticalGroup(
             pnlAceptarApuestaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,7 +321,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlAceptarApuestaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptarApuesta)
-                    .addComponent(btnNoApuesto))
+                    .addComponent(btnPasarDeApuesta))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -422,20 +422,18 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApuestaActionPerformed
 
-    private void btnNoApuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoApuestoActionPerformed
-        controlador.removerJugador();
-    }//GEN-LAST:event_btnNoApuestoActionPerformed
-
     private void btnAceptarApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarApuestaActionPerformed
         controlador.aceptarApuesta();
     }//GEN-LAST:event_btnAceptarApuestaActionPerformed
 
     private void btnNoJuegoManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoJuegoManoActionPerformed
         controlador.removerJugador();
+        pnlFinMano.setVisible(false);
     }//GEN-LAST:event_btnNoJuegoManoActionPerformed
 
     private void btnJuegoManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoManoActionPerformed
         controlador.continuoJugando();
+        pnlFinMano.setVisible(false);
     }//GEN-LAST:event_btnJuegoManoActionPerformed
 
     private void btnCartaGanadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCartaGanadoraActionPerformed
@@ -447,13 +445,18 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
     private void btnPasarApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarApuestaActionPerformed
-        controlador.pasarApuesta();
+        controlador.jugadorNoApuesta();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPasarApuestaActionPerformed
 
     private void btnAbandonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbandonarActionPerformed
         controlador.removerJugador();
     }//GEN-LAST:event_btnAbandonarActionPerformed
+
+    private void btnPasarDeApuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarDeApuestaActionPerformed
+        controlador.jugadorNoAceptaApuesta();
+        pnlAceptarApuesta.setVisible(false);
+    }//GEN-LAST:event_btnPasarDeApuestaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -470,9 +473,9 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     private javax.swing.JButton btnCarta5;
     private javax.swing.JButton btnCartaGanadora;
     private javax.swing.JButton btnJuegoMano;
-    private javax.swing.JButton btnNoApuesto;
     private javax.swing.JButton btnNoJuegoMano;
     private javax.swing.JButton btnPasarApuesta;
+    private javax.swing.JButton btnPasarDeApuesta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -571,24 +574,16 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         pnlFaltan.setVisible(false);
     }
 
-        @Override
+    @Override
     public void inicioRonda(JugadorParticipante j) {
         pnlApostar.setVisible(true);
         pnlValores.setVisible(true);
         pnlFinMano.setVisible(false);
+        txtApuesta.setText("");
         mostrarValores(j.getPartida().getLuz(), j.getPartida().getPozo(), j.getSaldoJugador());
         mostrarMano(j.getMano());
     }
                     
-
-    
-    
-    
-    private void togglePanelFinMano() {
-        if(!pnlFinMano.isVisible()) pnlFinMano.setVisible(true);
-        else pnlFinMano.setVisible(false);                
-    }
-
     @Override
     public void mostrarGanador(JugadorParticipante ganador) {
         pnlFinMano.setVisible(true);
