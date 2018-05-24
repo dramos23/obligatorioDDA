@@ -167,7 +167,6 @@ public class Partida extends Observable {
     }
         
     public void realizarApuesta(JugadorParticipante j, int dinero) throws PartidaException{                
-        //if(!verificarApuesta(dinero)) throw new PartidaException("Usted u otro de los jugadores no tiene el saldo suficiente para aceptar esta apuesta.");        
         j.apostar(dinero);
         apuesta = new Apuesta(j, dinero);
         avisar(Eventos.jApuesta);
