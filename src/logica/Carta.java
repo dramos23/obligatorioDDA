@@ -1,5 +1,8 @@
 package logica;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import logica.Mazo.palos;
 
 
@@ -51,6 +54,13 @@ public class Carta implements Comparable<Carta>{
         }
     }
     
-    
-    
+    public static Comparator<Carta> ordenarCartas = new Comparator<Carta>() {
+
+        @Override
+	public int compare(Carta c1, Carta c2){
+                return c1.compareTo(c2);
+        }
+        
+    };
+        
 }

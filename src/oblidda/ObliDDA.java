@@ -69,7 +69,7 @@ public class ObliDDA {
     
         Sistema logica = Sistema.getInstancia();
         logica.modificarLuz(50);
-        logica.modificarCantJugadores(3);
+        logica.modificarCantJugadores(2);
         
         logica.agregarA(new Admin("0", "", "Jonas"));
         

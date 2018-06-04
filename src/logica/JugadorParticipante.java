@@ -7,6 +7,7 @@ package logica;
 
 import controlador.ControladorPartida;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Observable;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Observable;
  * @author Ninja
  */
 public class JugadorParticipante{
-    
+
     public enum Estado {
         sinActuar, aposto, noApuesto, juegoProxima, pasoDeApuesta 
     }
@@ -22,6 +23,7 @@ public class JugadorParticipante{
     private Partida miPartida;
     private Jugador jugador;
     private ArrayList<Carta> mano = new ArrayList();
+    private Figura figura;
     private Estado miEstado;
     int saldoInicial;
     int totalGanado = 0;
@@ -39,8 +41,14 @@ public class JugadorParticipante{
         return mano;
     }
 
+    public Figura getFigura() {
+        return figura;
+    }
+    
     public void setMano(ArrayList<Carta> mano) {
         this.mano = mano;
+        Collections.sort(mano, Carta.ordenarCartas);
+        this.figura = revisarFiguraEnMano(mano);
     }
 
     public boolean isJuegaMano() {
@@ -136,5 +144,20 @@ public class JugadorParticipante{
         this.miEstado = miEstado;
     }
 
+    private Figura revisarFiguraEnMano(ArrayList<Carta> mano) {
+        Color color = new Color();
+        if (color.soyColor(mano)){
+            return color;
+        }
+        DoblePar doblePar = new DoblePar();
+        if (doblePar.soyDoblePar(mano)){
+            return doblePar;
+        }
+        Par par = new Par();
+        if (par.soyPar(mano)){
+            return par;
+        }
+        return null;
+    }
     
 }
