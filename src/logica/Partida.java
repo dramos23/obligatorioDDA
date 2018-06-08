@@ -55,7 +55,7 @@ public class Partida extends Observable {
         mazo = new Mazo();
         apuesta = new Apuesta();
         agregarLuzAPozo();
-        repartirCartas();
+        repartirCartasPrueba2();
         resetearFlagsJugadores();
         cantManos++;
         avisar(Eventos.comienzaTurno);
@@ -134,8 +134,67 @@ public class Partida extends Observable {
             if(j.isJuegaMano()) j.setMano(mazo.dar5());
         }              
     }
-
     
+    public void repartirCartasPrueba1(){
+        for(JugadorParticipante j:jugadores){
+            if(j.isJuegaMano()){
+                if (j.getNombre() == "1"){
+                    j.setMano(mazo.devolverColorGanador());
+                }
+                if (j.getNombre() == "2"){
+                    j.setMano(mazo.devolverColorPerdedorr());
+                }else{
+                    //j.setMano(mazo.dar5());
+                }
+            }
+        }              
+    }
+    
+    public void repartirCartasPrueba2(){
+        for(JugadorParticipante j:jugadores){
+            if(j.isJuegaMano()){
+                if (j.getNombre() == "1"){
+                    j.setMano(mazo.devolverDobleParGanador());
+                }
+                if (j.getNombre() == "2"){
+                    j.setMano(mazo.devolverDobleParPerdedor());
+                }else{
+                    //j.setMano(mazo.dar5());
+                }
+            }
+        }              
+    }
+    
+     public void repartirCartasPrueba3(){
+        for(JugadorParticipante j:jugadores){
+            if(j.isJuegaMano()){
+                if (j.getNombre() == "1"){
+                    j.setMano(mazo.devolverDobleParGanador2());
+                }
+                if (j.getNombre() == "2"){
+                    j.setMano(mazo.devolverDobleParPerdedor2());
+                }else{
+                    //j.setMano(mazo.dar5());
+                }
+            }
+        }              
+    }
+     
+     public void repartirCartasPrueba4(){
+        for(JugadorParticipante j:jugadores){
+            if(j.isJuegaMano()){
+                if (j.getNombre() == "1"){
+                    j.setMano(mazo.devolverParGanador());
+                }
+                if (j.getNombre() == "2"){
+                    j.setMano(mazo.devolverParPerdedor());
+                }else{
+                    //j.setMano(mazo.dar5());
+                }
+            }
+        }              
+    }
+
     public JugadorParticipante ingresar(Jugador j) throws PartidaException{        
         JugadorParticipante p = new JugadorParticipante(j, this);
         
@@ -154,68 +213,13 @@ public class Partida extends Observable {
         ArrayList<JugadorParticipante> lista = devolverJugadoresQueJueganTurno();
         JugadorParticipante ganador = lista.get(0);
         for(int i = 1; i < lista.size(); i++){
-            
-            if(ganador.devolverMasAlta().compareTo
-              (lista.get(i).devolverMasAlta()) == -1)
-            {
-                ganador = lista.get(i);
-            }
+            if(ganador.compararFigurasConJugador(lista.get(i)) == -1) ganador = lista.get(i);
         }                
         darPozoAGanador(ganador);
         apuesta.setGanador(ganador);
         avisar(Eventos.hayGanador);
     }
     
-    public void darGanadorNew(){
-     
-        ArrayList<JugadorParticipante> lista = devolverJugadoresQueJueganTurno();
-        ArrayList<JugadorParticipante> conFigura = devolverJugadoresConFigura(lista);
-        JugadorParticipante ganador = null;
-        if (conFigura.size() > 0){
-            ArrayList<JugadorParticipante> figura = devolverJugadoresFiguraDoblePar(conFigura);
-            if (figura.size() > 0) {
-                ganador = ganadorConFigura(figura);
-            }
-            figura = devolverJugadoresFiguraPar(conFigura);
-            if (figura.size() > 0) {
-                ganador = ganadorConFigura(figura);
-            }
-            figura = devolverJugadoresFiguraColor(conFigura);
-            if (figura.size() > 0) {
-                ganador = ganadorConFigura(figura);
-            }
-        }else{
-            ganador = ganadorSinFigura(lista);
-        }
-        darPozoAGanador(ganador);
-        apuesta.setGanador(ganador);
-        avisar(Eventos.hayGanador);
-    }
-    
-    public JugadorParticipante ganadorSinFigura(ArrayList<JugadorParticipante> lista){
-        JugadorParticipante ganador = lista.get(0);
-        for(int i = 1; i < lista.size(); i++){
-            
-            if(ganador.devolverMasAlta().compareTo(lista.get(i).devolverMasAlta()) == -1)
-            {
-                ganador = lista.get(i);
-            }
-        }
-        return ganador;
-    }
-    
-    public JugadorParticipante ganadorConFigura(ArrayList<JugadorParticipante> lista){
-        JugadorParticipante ganador = lista.get(0);
-        for(int i = 1; i < lista.size(); i++){
-            
-            if(ganador.getFigura().compareTo(lista.get(i).getFigura()) == -1)
-            {
-                ganador = lista.get(i);
-            }
-        }
-        return ganador;
-    }
-        
     public void realizarApuesta(JugadorParticipante j, int dinero) throws PartidaException{                
         j.apostar(dinero);
         apuesta = new Apuesta(j, dinero);
@@ -247,7 +251,6 @@ public class Partida extends Observable {
     public void removerJugador(JugadorParticipante jugador) {
   
         if (this.fechaHora.isEmpty()) this.jugadores.remove(jugador);
-        //if(!jugadores.contains(jugador)) return;
         if(finalizada()) {
             this.jugadores.remove(jugador);        
             removerUltimoJugador();
@@ -274,7 +277,7 @@ public class Partida extends Observable {
     public void terminarTurno(){
     
         if(todosApostaron()) { 
-                darGanadorNew();
+                darGanador();
         } else if(todosPasaron()){
                 avisar(Eventos.todosPasaron);
         }else{
@@ -345,58 +348,6 @@ public class Partida extends Observable {
         return lista;
     }
     
-    private ArrayList<JugadorParticipante> devolverJugadoresConFigura(ArrayList<JugadorParticipante> jugadores)
-    {
-        ArrayList<JugadorParticipante> lista = new ArrayList();
-        for(JugadorParticipante jp : jugadores)
-        {
-            if(jp.getFigura() != null)
-            {
-                lista.add(jp);
-            }
-        }
-        return lista;
-    }
-    
-    private ArrayList<JugadorParticipante> devolverJugadoresFiguraDoblePar(ArrayList<JugadorParticipante> jugadores)
-    {
-        ArrayList<JugadorParticipante> lista = new ArrayList();
-        for(JugadorParticipante jp : jugadores)
-        {
-            if(jp.getFigura().toString() == "DoblePar")
-            {
-                lista.add(jp);
-            }
-        }
-        return lista;
-    }
-    
-    private ArrayList<JugadorParticipante> devolverJugadoresFiguraPar(ArrayList<JugadorParticipante> jugadores)
-    {
-        ArrayList<JugadorParticipante> lista = new ArrayList();
-        for(JugadorParticipante jp : jugadores)
-        {
-            if(jp.getFigura().toString() == "Par")
-            {
-                lista.add(jp);
-            }
-        }
-        return lista;
-    }
-    
-    private ArrayList<JugadorParticipante> devolverJugadoresFiguraColor(ArrayList<JugadorParticipante> jugadores)
-    {
-        ArrayList<JugadorParticipante> lista = new ArrayList();
-        for(JugadorParticipante jp : jugadores)
-        {
-            if(jp.getFigura().toString() == "Color")
-            {
-                lista.add(jp);
-            }
-        }
-        return lista;
-    }
-    
     private void comenzarPartida(){
             fechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
             comenzarRonda();
@@ -418,7 +369,7 @@ public class Partida extends Observable {
             }else return;
         }               
         avisar(Eventos.jPasa);
-        darGanadorNew();            
+        darGanador();            
     }
     
 }

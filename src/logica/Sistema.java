@@ -12,10 +12,13 @@ import java.util.ArrayList;
  *
  * @author Daniel
  */
+
+// La mas alta tiene que ser la última
 public class Sistema{
     
     private SistemaUsuarios su = new SistemaUsuarios();
     private SistemaPartidas sp = new SistemaPartidas();
+    private ArrayList<Figura> figuras = new ArrayList();
     
     private static Sistema instancia = new Sistema();
     public static Sistema getInstancia() {
@@ -23,7 +26,7 @@ public class Sistema{
     }
     
     private Sistema() {
-        
+        CargarFiguras();
     }
     
     public void agregar(Jugador j) {
@@ -87,4 +90,17 @@ public class Sistema{
     public void avisarCambioEnPartida(SistemaPartidas.Eventos eventos) {
         sp.avisar(eventos);
     }
+
+    private void CargarFiguras() {
+        figuras.add(new Color());
+        figuras.add(new DoblePar());
+        figuras.add(new Par());
+    }
+
+    public ArrayList<Figura> getFiguras() {
+        return figuras;
+    }
+
+    
+    
 }

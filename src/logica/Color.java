@@ -13,25 +13,26 @@ import java.util.ArrayList;
  */
 public class Color extends Figura {
     
-    public Color(int valor, ArrayList<Carta> cartasQueComponenFigura, ArrayList<Carta> cartasQueNoComponenFigura) {
-        super(valor, cartasQueComponenFigura, cartasQueNoComponenFigura);
-    }
     
     public Color(){
-    
+        this.setValor(0);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Color";
     }
 
     @Override
-    public int compareTo(Figura b){
-    
-        if(this.getCartasQueComponenFigura().get(1).getPalo().ordinal() > b.getCartasQueComponenFigura().get(1).getPalo().ordinal()){
-            return 1;
-        } else {
-            return 2;
-        }
+    public int desempatar(ArrayList<Carta> mano1, ArrayList<Carta> mano2) {
+            if(mano1.get(0).getPalo().ordinal() > mano2.get(0).getPalo().ordinal()) return -1;
+            if(mano1.get(0).getPalo().ordinal() < mano2.get(0).getPalo().ordinal()) return 1;
+            return mano1.get(4).compareTo(mano2.get(4));
     }
-    
-    public boolean soyColor(ArrayList<Carta> cartas) {
+
+    @Override
+    public boolean soy(ArrayList<Carta> cartas) {
         Mazo.palos p = cartas.get(0).getPalo();
         for(int i = 1; i < cartas.size(); i++)
         {
@@ -39,15 +40,7 @@ public class Color extends Figura {
                     return false;
                 }    
         }
-        this.setValor(0);
-        this.setCartasQueComponenFigura(cartas);
-        this.setCartasQueNoComponenFigura(null);
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Color";
     }
     
     

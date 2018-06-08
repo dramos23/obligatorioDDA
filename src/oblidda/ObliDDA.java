@@ -6,8 +6,12 @@
 package oblidda;
 
 import iu.InicioDialogo;
+import java.util.ArrayList;
 import logica.Admin;
+import logica.Carta;
 import logica.Jugador;
+import logica.Mazo;
+import logica.Partida;
 import logica.PartidaException;
 import logica.Sistema;
 
@@ -26,6 +30,11 @@ public class ObliDDA {
     public static void main(String[] args) throws PartidaException {
    
         cargarDatos();
+        
+        //Mazo m = new Mazo();
+        //ArrayList<Carta> cartas = m.dar5();
+
+        //cartas.sort(null);
         new InicioDialogo(null,false).setVisible(true); 
         
         /*

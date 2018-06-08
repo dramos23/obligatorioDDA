@@ -76,4 +76,86 @@ public class Mazo {
             for(int i = 0; i < 5; i++) mano.add(darCarta());
             return mano;
         }
+        
+        public ArrayList<Carta> devolverColorGanador(){
+            ArrayList<Carta> cartas = new ArrayList<>();
+            cartas.add(new Carta(palos.H, 6));
+            cartas.add(new Carta(palos.H, 5));
+            cartas.add(new Carta(palos.H, 8));
+            cartas.add(new Carta(palos.H, 11));
+            cartas.add(new Carta(palos.H, 10));
+            return cartas;
+        }
+        
+            public ArrayList<Carta> devolverColorPerdedorr(){
+            ArrayList<Carta> cartas = new ArrayList<>();
+            cartas.add(new Carta(palos.S, 6));
+            cartas.add(new Carta(palos.S, 5));
+            cartas.add(new Carta(palos.S, 8));
+            cartas.add(new Carta(palos.S, 11));
+            cartas.add(new Carta(palos.S, 10));
+            return cartas;
+        }
+            
+           public ArrayList<Carta> devolverDobleParGanador(){
+            ArrayList<Carta> cartas = new ArrayList<>();
+            cartas.add(new Carta(palos.H, 11));
+            cartas.add(new Carta(palos.D, 11));
+            cartas.add(new Carta(palos.H, 8));
+            cartas.add(new Carta(palos.D, 8));
+            cartas.add(new Carta(palos.H, 13));
+            return cartas;
+        }
+        
+            public ArrayList<Carta> devolverDobleParPerdedor(){
+            ArrayList<Carta> cartas = new ArrayList<>();
+            cartas.add(new Carta(palos.S, 11));
+            cartas.add(new Carta(palos.C, 11));
+            cartas.add(new Carta(palos.S, 8));
+            cartas.add(new Carta(palos.C, 8));
+            cartas.add(new Carta(palos.C, 5));
+            return cartas;
+        }
+            
+            public ArrayList<Carta> devolverDobleParGanador2(){
+            ArrayList<Carta> cartas = new ArrayList<>();
+            cartas.add(new Carta(palos.H, 11));
+            cartas.add(new Carta(palos.D, 11));
+            cartas.add(new Carta(palos.H, 7));
+            cartas.add(new Carta(palos.D, 7));
+            cartas.add(new Carta(palos.H, 13));
+            return cartas;
+        }
+        
+            public ArrayList<Carta> devolverDobleParPerdedor2(){
+            ArrayList<Carta> cartas = new ArrayList<>();
+            cartas.add(new Carta(palos.S, 11));
+            cartas.add(new Carta(palos.C, 11));
+            cartas.add(new Carta(palos.S, 8));
+            cartas.add(new Carta(palos.C, 8));
+            cartas.add(new Carta(palos.C, 5));
+            return cartas;
+        }  
+            
+                       public ArrayList<Carta> devolverParGanador(){
+            ArrayList<Carta> cartas = new ArrayList<>();
+            cartas.add(new Carta(palos.H, 11));
+            cartas.add(new Carta(palos.D, 11));
+            cartas.add(new Carta(palos.H, 5));
+            cartas.add(new Carta(palos.D, 3));
+            cartas.add(new Carta(palos.H, 13));
+            return cartas;
+        }
+        
+            public ArrayList<Carta> devolverParPerdedor(){
+            ArrayList<Carta> cartas = new ArrayList<>();
+            cartas.add(new Carta(palos.S, 11));
+            cartas.add(new Carta(palos.C, 11));
+            cartas.add(new Carta(palos.S, 7));
+            cartas.add(new Carta(palos.C, 2));
+            cartas.add(new Carta(palos.C, 5));
+            return cartas;
+        }
+
+
 }

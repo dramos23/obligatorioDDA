@@ -37,6 +37,8 @@ public class JugadorParticipante{
         this.miEstado = Estado.sinActuar;
     }
 
+    
+    
     public ArrayList<Carta> getMano() {
         return mano;
     }
@@ -47,8 +49,8 @@ public class JugadorParticipante{
     
     public void setMano(ArrayList<Carta> mano) {
         this.mano = mano;
-        Collections.sort(mano, Carta.ordenarCartas);
-        this.figura = revisarFiguraEnMano(mano);
+        mano.sort(null);
+        this.figura = Figura.RevisarFigura(mano);
     }
 
     public boolean isJuegaMano() {
@@ -67,7 +69,7 @@ public class JugadorParticipante{
    public Carta devolverMasAlta(){
         Carta mejor = new Carta();
         for(Carta c:mano){
-            if(mejor.compareTo(c) == -1) mejor = c;
+            if(mejor.compareTo(c) == 1) mejor = c;
         }   
         return mejor;
    }
@@ -144,20 +146,13 @@ public class JugadorParticipante{
         this.miEstado = miEstado;
     }
 
-    private Figura revisarFiguraEnMano(ArrayList<Carta> mano) {
-        Color color = new Color();
-        if (color.soyColor(mano)){
-            return color;
-        }
-        DoblePar doblePar = new DoblePar();
-        if (doblePar.soyDoblePar(mano)){
-            return doblePar;
-        }
-        Par par = new Par();
-        if (par.soyPar(mano)){
-            return par;
-        }
-        return null;
+    public int compararFigurasConJugador(JugadorParticipante jp){
+
+        int resultado = this.figura.compareTo(jp.getFigura()); 
+        if(resultado == 0)
+        {
+            return  this.figura.desempatar(this.mano, jp.mano);
+        }        
+        return resultado;
     }
-    
 }

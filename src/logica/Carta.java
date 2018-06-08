@@ -46,14 +46,22 @@ public class Carta implements Comparable<Carta>{
     
     @Override
     public int compareTo(Carta c) {
-        if(this.valor > c.valor) return 1;
-        else if(this.valor < c.valor) return -1;
+        if(this.valor > c.valor) return -1;
+        else if(this.valor < c.valor) return 1;
         else{
             if (this.palo.ordinal() > c.palo.ordinal() ) return -1;
             else return 1;
         }
     }
-    
+
+     public int compareToSinPalo(Carta c) {
+        if(this.valor > c.valor) return 1;
+        if(this.valor < c.valor) return -1;
+        return 0;
+    }
+
+
+     /*
     public static Comparator<Carta> ordenarCartas = new Comparator<Carta>() {
 
         @Override
@@ -62,5 +70,5 @@ public class Carta implements Comparable<Carta>{
         }
         
     };
-        
+       */ 
 }

@@ -13,48 +13,76 @@ import java.util.ArrayList;
  */
 public class DoblePar extends Figura{
     
-    public DoblePar(int valor, ArrayList<Carta> cartasQueComponenFigura, ArrayList<Carta> cartasQueNoComponenFigura) {
-        super(valor, cartasQueComponenFigura, cartasQueNoComponenFigura);
+    public DoblePar() {
     }
-    
-    public DoblePar(){
-    
-    }
-    
-    public boolean soyDoblePar(ArrayList<Carta> cartas) {
+        
+    public boolean soy(ArrayList<Carta> cartas) {
         
         int cantPares = 0;
-        ArrayList<Carta> cartasDeFigura = new ArrayList();
-        ArrayList<Carta> cartasNoDeFigura =  (ArrayList<Carta>) cartas.clone();
-                
-        for(int i = 0; i < cartasNoDeFigura.size(); i++){
-            
-            Carta ultimaCarta = cartasNoDeFigura.get(i);
-            for(int j = i + 1; j < cartasNoDeFigura.size(); j++){
-                if(cartasNoDeFigura.get(j).getValor() == ultimaCarta.getValor()){
-                    cartasDeFigura.add(cartas.get(j));
-                    cartasNoDeFigura.remove(ultimaCarta);
-                    cartasNoDeFigura.remove(cartas.get(j));
-                    ultimaCarta = cartasNoDeFigura.get(0);
-                    cantPares++;
-                    break;
-                }
-            }
-        }      
-        
-        if(cantPares == 2){
-            this.setValor(0);
-            this.setCartasQueComponenFigura(cartasDeFigura);
-            this.setCartasQueNoComponenFigura(cartasNoDeFigura);
-            return true;
-        }else{
-            return false;
-        }
-    }
 
+        Carta ultimaCarta = cartas.get(0);
+        for(int i = 1; i < cartas.size(); i++){            
+                if(cartas.get(i).getValor() == ultimaCarta.getValor()){
+                    if(cantPares == 1) return true;    
+                    cantPares++;
+                }
+                ultimaCarta = cartas.get(i);
+            }
+        return false;
+     }      
+        
     @Override
     public String toString() {
         return "DoblePar";
     }
+
+    @Override
+    public int desempatar(ArrayList<Carta> mano1, ArrayList<Carta> mano2) {
+            
+            //Obtenemos las listas de cartas que componen la figura y las que no.
+            ArrayList cartas = devolverCartasFigura(mano1);
+            ArrayList cartas2 = devolverCartasFigura(mano2);
+            ArrayList<Carta> m1DeFigura = (ArrayList<Carta>) cartas.get(0);
+            ArrayList<Carta> m1NoDeFigura = (ArrayList<Carta>) cartas.get(1);
+            ArrayList<Carta> m2DeFigura = (ArrayList<Carta>) cartas2.get(0);
+            ArrayList<Carta> m2NoDeFigura = (ArrayList<Carta>) cartas2.get(1);
+            
+            //Comparamos las cartas que componen la figura. Si hay empate, se pasa a las cartas que no componen.
+            int comparado = m1DeFigura.get(0).compareToSinPalo(m2DeFigura.get(0));
+            //No hay empate.
+            if(comparado != 0) return comparado;
+            //Hay empate en primer par. reviso segundo
+            comparado = m1DeFigura.get(1).compareToSinPalo(m2DeFigura.get(1));
+            if(comparado != 0) return comparado;
+            //Hay empate en segundo par, que hijo de puta. Reviso mas alta.
+            return m1NoDeFigura.get(0).compareTo(m2NoDeFigura.get(0));            
+    }
     
+    
+        private ArrayList devolverCartasFigura(ArrayList<Carta> cartas) {
+        
+        ArrayList listas = new ArrayList();
+        ArrayList<Carta> cartasDeFigura = new ArrayList();
+        ArrayList<Carta> cartasNoDeFigura =  (ArrayList<Carta>) cartas.clone();
+        listas.add(cartasDeFigura);
+        listas.add(cartasNoDeFigura);
+        
+        int cantPares = 0;
+        Carta ultimaCarta = cartasNoDeFigura.get(0);
+            
+        for(int i = 1; i < cartasNoDeFigura.size(); i++){            
+                if(cartasNoDeFigura.get(i).getValor() == ultimaCarta.getValor())
+                {
+                    cartasDeFigura.add(cartas.get(i));
+                    cartasNoDeFigura.remove(ultimaCarta);
+                    cartasNoDeFigura.remove(cartas.get(i));
+                    cantPares++;
+                    i=0;
+                    if(cantPares == 2)  return listas;                   
+                }
+                ultimaCarta = cartasNoDeFigura.get(i);
+            }
+            return null;
+        }      
+        
 }

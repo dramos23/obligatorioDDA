@@ -12,17 +12,9 @@ import java.util.ArrayList;
  *
  * @author danie
  */
-public class Figura {
+public abstract class Figura {
     
     private int valor;
-    private ArrayList<Carta> cartasQueComponenFigura;
-    private ArrayList<Carta> cartasQueNoComponenFigura;
-
-    public Figura(int valor, ArrayList<Carta> cartasQueComponenFigura, ArrayList<Carta> cartasQueNoComponenFigura) {
-        this.valor = valor;
-        this.cartasQueComponenFigura = cartasQueComponenFigura;
-        this.cartasQueNoComponenFigura = cartasQueNoComponenFigura;
-    }
     
     public Figura(){}
 
@@ -34,51 +26,30 @@ public class Figura {
         this.valor = valor;
     }
 
-    public ArrayList<Carta> getCartasQueComponenFigura() {
-        return cartasQueComponenFigura;
-    }
-
-    public void setCartasQueComponenFigura(ArrayList<Carta> cartasQueComponenFigura) {
-        this.cartasQueComponenFigura = cartasQueComponenFigura;
-    }
-
-    public ArrayList<Carta> getCartasQueNoComponenFigura() {
-        return cartasQueNoComponenFigura;
-    }
-
-    public void setCartasQueNoComponenFigura(ArrayList<Carta> cartasQueNoComponenFigura) {
-        this.cartasQueNoComponenFigura = cartasQueNoComponenFigura;
-    }
 
     public int compareTo(Figura b){
-        
-        if (this.cartasQueComponenFigura.get(0).getPalo().ordinal() >  b.cartasQueComponenFigura.get(0).getPalo().ordinal()){
-            return -1;
-        } else if (this.cartasQueComponenFigura.get(0).getPalo().ordinal() ==  b.cartasQueComponenFigura.get(0).getPalo().ordinal()){
-            
-            if (this.cartasQueComponenFigura.get(1).getPalo().ordinal() >  b.cartasQueComponenFigura.get(1).getPalo().ordinal()){
-                return -1;
-            }else if (this.cartasQueComponenFigura.get(1).getPalo().ordinal() ==  b.cartasQueComponenFigura.get(1).getPalo().ordinal()){
-                
-                if (this.cartasQueNoComponenFigura.get(0).compareTo(b.cartasQueNoComponenFigura.get(0)) == -1){
-                    return -1;
-                }else{
-                    return 1;
-                }
-                
-            } else {
-                return 1;
-            }
-            
-        } else {
-            return 1;
-        }
+          if(this.valor > b.valor) return -1;
+          else if(this.valor < b.valor) return 1;
+          else return 0;
     }
 
     @Override
     public String toString() {
         return "Figura";
     }
+
+        
+    public static Figura RevisarFigura(ArrayList<Carta> mano){
+        ArrayList<Figura> figuras = Sistema.getInstancia().getFiguras();        
+        for(Figura fig : figuras){
+            if(fig.soy(mano))
+                return fig;
+        }
+        return null;
+    }
     
+    public abstract int desempatar(ArrayList<Carta> mano1, ArrayList<Carta> mano2);
+    
+    public abstract boolean soy(ArrayList<Carta> mano);
     
 }
