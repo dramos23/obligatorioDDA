@@ -49,7 +49,7 @@ public class Carta implements Comparable<Carta>{
         if(this.valor > c.valor) return -1;
         else if(this.valor < c.valor) return 1;
         else{
-            if (this.palo.ordinal() > c.palo.ordinal() ) return -1;
+            if (this.palo.ordinal() < c.palo.ordinal() ) return -1;
             else return 1;
         }
     }

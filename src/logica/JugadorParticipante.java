@@ -148,6 +148,10 @@ public class JugadorParticipante{
 
     public int compararFigurasConJugador(JugadorParticipante jp){
         
+        if (this.figura == null) return 1;
+        if (jp.figura == null) return -1;
+        if (this.figura == null && jp.getFigura() == null ) return this.devolverMasAlta().compareTo(jp.devolverMasAlta());
+               
         int resultado = this.figura.compareTo(jp.getFigura()); 
         if(resultado == 0)
         {
