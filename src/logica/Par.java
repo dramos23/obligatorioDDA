@@ -15,7 +15,7 @@ import java.util.Collection;
 public class Par extends Figura{
     
     public Par(){
-    
+        this.setValor(2);
     }
     
     @Override

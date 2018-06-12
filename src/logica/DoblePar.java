@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class DoblePar extends Figura{
     
     public DoblePar() {
+        this.setValor(1);
     }
         
     public boolean soy(ArrayList<Carta> cartas) {
@@ -73,9 +74,10 @@ public class DoblePar extends Figura{
         for(int i = 1; i < cartasNoDeFigura.size(); i++){            
                 if(cartasNoDeFigura.get(i).getValor() == ultimaCarta.getValor())
                 {
-                    cartasDeFigura.add(cartas.get(i));
+                    cartasDeFigura.add(cartasNoDeFigura.get(i));
+                    Carta aux = cartasNoDeFigura.get(i);
                     cartasNoDeFigura.remove(ultimaCarta);
-                    cartasNoDeFigura.remove(cartas.get(i));
+                    cartasNoDeFigura.remove(aux);
                     cantPares++;
                     i=0;
                     if(cantPares == 2)  return listas;                   

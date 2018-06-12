@@ -28,8 +28,8 @@ public abstract class Figura {
 
 
     public int compareTo(Figura b){
-          if(this.valor > b.valor) return -1;
-          else if(this.valor < b.valor) return 1;
+          if(this.valor < b.valor) return -1;
+          else if(this.valor > b.valor) return 1;
           else return 0;
     }
 

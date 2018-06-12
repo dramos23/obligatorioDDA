@@ -55,7 +55,7 @@ public class Partida extends Observable {
         mazo = new Mazo();
         apuesta = new Apuesta();
         agregarLuzAPozo();
-        repartirCartasPrueba2();
+        repartirCartas();
         resetearFlagsJugadores();
         cantManos++;
         avisar(Eventos.comienzaTurno);
@@ -213,7 +213,7 @@ public class Partida extends Observable {
         ArrayList<JugadorParticipante> lista = devolverJugadoresQueJueganTurno();
         JugadorParticipante ganador = lista.get(0);
         for(int i = 1; i < lista.size(); i++){
-            if(ganador.compararFigurasConJugador(lista.get(i)) == -1) ganador = lista.get(i);
+            if(ganador.compararFigurasConJugador(lista.get(i)) == 1) ganador = lista.get(i);
         }                
         darPozoAGanador(ganador);
         apuesta.setGanador(ganador);

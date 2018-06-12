@@ -26,8 +26,8 @@ public class Color extends Figura {
 
     @Override
     public int desempatar(ArrayList<Carta> mano1, ArrayList<Carta> mano2) {
-            if(mano1.get(0).getPalo().ordinal() > mano2.get(0).getPalo().ordinal()) return -1;
-            if(mano1.get(0).getPalo().ordinal() < mano2.get(0).getPalo().ordinal()) return 1;
+            if(mano1.get(0).getPalo().ordinal() < mano2.get(0).getPalo().ordinal()) return -1;
+            if(mano1.get(0).getPalo().ordinal() > mano2.get(0).getPalo().ordinal()) return 1;
             return mano1.get(4).compareTo(mano2.get(4));
     }
 
@@ -43,5 +43,6 @@ public class Color extends Figura {
         return true;
     }
     
+  
     
 }

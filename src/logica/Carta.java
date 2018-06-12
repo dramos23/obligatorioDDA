@@ -55,8 +55,8 @@ public class Carta implements Comparable<Carta>{
     }
 
      public int compareToSinPalo(Carta c) {
-        if(this.valor > c.valor) return 1;
-        if(this.valor < c.valor) return -1;
+        if(this.valor > c.valor) return -1;
+        if(this.valor < c.valor) return 1;
         return 0;
     }
 

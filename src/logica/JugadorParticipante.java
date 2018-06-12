@@ -147,7 +147,7 @@ public class JugadorParticipante{
     }
 
     public int compararFigurasConJugador(JugadorParticipante jp){
-
+        
         int resultado = this.figura.compareTo(jp.getFigura()); 
         if(resultado == 0)
         {
