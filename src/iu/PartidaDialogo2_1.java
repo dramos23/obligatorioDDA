@@ -8,6 +8,7 @@ package iu;
 import controlador.ControladorPartida;
 import controlador.VistaPartida;
 import java.awt.Component;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -583,8 +584,10 @@ public class PartidaDialogo2_1 extends javax.swing.JDialog implements VistaParti
         pnlFinMano.setVisible(true);
         lblInfoGanador.setText("Ganó " + ganador.getNombre());
         lblInfoGanador2.setText("Quieres seguir jugando?");
-        mostrarCarta(ganador.devolverMasAlta(), btnCartaGanadora);
-        lblCartaGanadora.setVisible(true);
+        Point p = this.getLocationOnScreen();
+        new ManoGanadora(null,false,ganador, p).setVisible(true);
+        //mostrarCarta(ganador.devolverMasAlta(), btnCartaGanadora);
+        //lblCartaGanadora.setVisible(true);
     }
 
     @Override
