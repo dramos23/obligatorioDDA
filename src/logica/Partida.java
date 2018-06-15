@@ -23,18 +23,20 @@ public class Partida extends Observable {
     private ArrayList<JugadorParticipante> jugadores;   
     private Mazo mazo;
     private Apuesta apuesta;
+    private int contadorTurno;
     private int pozo;
     private int luz;
     private int cantJugadores;
     private int totalApostado;
     private int cantManos;
     private String fechaHora;
+    private HiloContador hilo;
     
     
     public enum Eventos{
         jAbandonaPartida, jApuesta, jAceptaApuesta, entroJugador, comienzaPartida,
         comienzaTurno, finalizoPartida, cambiaPozo, hayGanador, 
-        todosPasaron, ultimoJugadorGanador, jPasa    
+        todosPasaron, ultimoJugadorGanador, jPasa, actualizarContador    
     }
     
     public Partida(int cantJug, int luz, SistemaPartidas sisP){
@@ -56,9 +58,19 @@ public class Partida extends Observable {
         apuesta = new Apuesta();
         agregarLuzAPozo();
         repartirCartas();
-        resetearFlagsJugadores();
         cantManos++;
+        prepararJugadoresParaTurno();
+        hilo = new HiloContador("partida", this);
+        hilo.start();
         avisar(Eventos.comienzaTurno);
+    }
+    
+    int getContador() {
+        return contadorTurno;
+    }
+    
+     void setContador(int cont) {
+         this.contadorTurno = cont;
     }
     
     public int getPozo() {
@@ -67,6 +79,10 @@ public class Partida extends Observable {
 
     public int getLuz() {
         return luz;
+    }
+
+    public HiloContador getHilo() {
+        return hilo;
     }
     
     public ArrayList<JugadorParticipante> getJugadoresParticipantes(){
@@ -217,6 +233,8 @@ public class Partida extends Observable {
         }                
         darPozoAGanador(ganador);
         apuesta.setGanador(ganador);
+        hilo.stop();
+        
         avisar(Eventos.hayGanador);
     }
     
@@ -319,6 +337,7 @@ public class Partida extends Observable {
         for(int i = 0; i < jugadores.size(); i++){
             if(jugadores.get(i).getEstado() != Estado.noApuesto) return false;
         }
+        hilo.stop();
         return true;
     }
     
@@ -329,7 +348,7 @@ public class Partida extends Observable {
         return true;
     }
         
-    private void resetearFlagsJugadores() {
+    private void prepararJugadoresParaTurno() {
         for(JugadorParticipante jp : jugadores){
             jp.setEstado(Estado.sinActuar);
         }

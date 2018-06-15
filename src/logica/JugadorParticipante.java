@@ -25,6 +25,8 @@ public class JugadorParticipante{
     private ArrayList<Carta> mano = new ArrayList();
     private Figura figura;
     private Estado miEstado;
+
+    
     int saldoInicial;
     int totalGanado = 0;
     int totalApostado = 0;
@@ -37,8 +39,6 @@ public class JugadorParticipante{
         this.miEstado = Estado.sinActuar;
     }
 
-    
-    
     public ArrayList<Carta> getMano() {
         return mano;
     }

@@ -62,5 +62,9 @@ public interface VistaPartida {
     
     public void cerrarVentana();
 
+    public void iniciaContador(String toString);
+
+    public void finalizarContador();
+
     
 }

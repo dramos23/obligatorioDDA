@@ -81,6 +81,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblCartaGanadora = new javax.swing.JLabel();
+        lblContador = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -375,6 +376,10 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
         lblCartaGanadora.setText("!!CARTA GANADORA!!");
         getContentPane().add(lblCartaGanadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, -1, -1));
 
+        lblContador.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblContador.setText("contador");
+        getContentPane().add(lblContador, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 330, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -457,6 +462,7 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCartaGanadora;
+    private javax.swing.JLabel lblContador;
     private javax.swing.JLabel lblInfoApuesta;
     private javax.swing.JLabel lblInfoGanador;
     private javax.swing.JLabel lblInfoGanador2;
@@ -640,6 +646,16 @@ public class PartidaDialogo2 extends javax.swing.JDialog implements VistaPartida
     @Override
     public void mostrarMensaje(String msg) {
             optFinPartida.showMessageDialog(null, msg);    
+    }
+
+    @Override
+    public void iniciaContador(String toString) {
+        lbl
+    }
+
+    @Override
+    public void finalizarContador() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -66,6 +66,7 @@ public class ControladorPartida implements Observer {
         {
             vista.iniciarPartida(jugador);
             vista.mostrarJugadoresMano(partida.getJugadoresParticipantesMano());            
+            vista.iniciaContador(Integer.toString(partida.getHilo().getContador()));
         }            
         if(evento.equals(Partida.Eventos.cambiaPozo) || evento.equals(Jugador.Eventos.cambioSaldo))
         {
@@ -74,10 +75,12 @@ public class ControladorPartida implements Observer {
         if(evento.equals(Partida.Eventos.hayGanador))
         {
             vista.mostrarGanador(partida.getApuesta().getGanador());
+            vista.finalizarContador();
         }
         if(evento.equals(Partida.Eventos.todosPasaron))
         {
             vista.todosPasan();
+            vista.finalizarContador();
         }
         if(evento.equals(Partida.Eventos.ultimoJugadorGanador))
         {
