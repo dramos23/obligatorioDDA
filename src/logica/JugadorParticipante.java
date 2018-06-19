@@ -87,7 +87,7 @@ public class JugadorParticipante{
    }
    
    public String getNombreCompleto(){
-       return this.jugador.nombreCompleto;
+       return this.jugador.getNombreCompleto();
    }
 
     public int getSaldoInicial() {

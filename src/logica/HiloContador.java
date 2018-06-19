@@ -13,6 +13,7 @@ public class HiloContador extends Thread{
 
     private int contador;
     private Partida partida;
+    private boolean activo = true;
     
     public HiloContador(String name, Partida p) {
         super(name);
@@ -22,19 +23,27 @@ public class HiloContador extends Thread{
     public int getContador() {
         return contador;
     }
+
+    public void detener() {
+        this.activo = false;
+    }
         
     @Override
     public void run(){
-        partida.setContador(20);
-        for(int x=1;x<=20;x++)
-        {
+        contador = 5;
+        while(contador > 0 && activo) {            
             try {
                 sleep(1000);
-            } catch (InterruptedException ex) {}
-        }
-        int contador = partida.getContador();
-        partida.setContador(contador--);
-        partida.avisar(Partida.Eventos.actualizarContador);
+                contador--;
+                if(contador == 0){
+                    partida.finalizarTurnoJugadoresInactivos();
+                }
+                partida.avisar(Partida.Eventos.actualizarContador);
+            } catch (InterruptedException ex) {
+            
+            }
+        }             
     }
+        
     
 }

@@ -23,7 +23,6 @@ public class Partida extends Observable {
     private ArrayList<JugadorParticipante> jugadores;   
     private Mazo mazo;
     private Apuesta apuesta;
-    private int contadorTurno;
     private int pozo;
     private int luz;
     private int cantJugadores;
@@ -31,12 +30,13 @@ public class Partida extends Observable {
     private int cantManos;
     private String fechaHora;
     private HiloContador hilo;
+
     
     
     public enum Eventos{
         jAbandonaPartida, jApuesta, jAceptaApuesta, entroJugador, comienzaPartida,
         comienzaTurno, finalizoPartida, cambiaPozo, hayGanador, 
-        todosPasaron, ultimoJugadorGanador, jPasa, actualizarContador    
+        todosPasaron, ultimoJugadorGanador, jPasa, actualizarContador, finTurnoPorContador    
     }
     
     public Partida(int cantJug, int luz, SistemaPartidas sisP){
@@ -60,19 +60,9 @@ public class Partida extends Observable {
         repartirCartas();
         cantManos++;
         prepararJugadoresParaTurno();
-        hilo = new HiloContador("partida", this);
-        hilo.start();
         avisar(Eventos.comienzaTurno);
     }
-    
-    int getContador() {
-        return contadorTurno;
-    }
-    
-     void setContador(int cont) {
-         this.contadorTurno = cont;
-    }
-    
+
     public int getPozo() {
         return pozo;
     }
@@ -233,14 +223,15 @@ public class Partida extends Observable {
         }                
         darPozoAGanador(ganador);
         apuesta.setGanador(ganador);
-        hilo.stop();
-        
+        hilo.detener();
         avisar(Eventos.hayGanador);
     }
     
     public void realizarApuesta(JugadorParticipante j, int dinero) throws PartidaException{                
         j.apostar(dinero);
         apuesta = new Apuesta(j, dinero);
+        hilo = new HiloContador("partida", this);
+        hilo.start();
         avisar(Eventos.jApuesta);
     } 
     
@@ -254,6 +245,17 @@ public class Partida extends Observable {
         jugador.setEstado(Estado.noApuesto);
         if(todosPasaron()) avisar(Eventos.todosPasaron);
     }
+    
+    void finalizarTurnoJugadoresInactivos() {
+        for(JugadorParticipante j : jugadores){
+            if(j.getEstado().equals(Estado.sinActuar)) {
+                j.setEstado(Estado.pasoDeApuesta);
+                avisar(Eventos.finTurnoPorContador);
+            }
+        }
+        darGanador();
+    }
+    
     
     public void verificarApuesta(int dinero) throws PartidaException{
         if (dinero <= 0) throw new PartidaException("Debe ingresar un monto mayor a cero.");
@@ -337,7 +339,7 @@ public class Partida extends Observable {
         for(int i = 0; i < jugadores.size(); i++){
             if(jugadores.get(i).getEstado() != Estado.noApuesto) return false;
         }
-        hilo.stop();
+        hilo.detener();
         return true;
     }
     

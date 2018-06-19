@@ -9,10 +9,21 @@ import java.util.Observable;
 
 public class Usuario extends Observable {
     
-        public String nombre;
-        public String pass;
-        public String nombreCompleto;
+        private int oid;
+        private String nombre;
+        private String pass;
+        private String nombreCompleto;
 
+        
+        
+            public Usuario(String nombre, String pass, String nombreCompleto) {
+        this.nombre = nombre;
+        this.pass = pass;
+        this.nombreCompleto = nombreCompleto;
+    }
+    
+        public Usuario(){}
+        
     public String getNombre() {
         return nombre;
     }
@@ -25,13 +36,27 @@ public class Usuario extends Observable {
         return nombreCompleto;
     }
 
-    public Usuario(String nombre, String pass, String nombreCompleto) {
+    public int getOid() {
+        return oid;
+    }
+
+    public void setOid(int oid) {
+        this.oid = oid;
+    }
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
     }
-        
-    //Preguntar a Dario si es importante el case sensitive de equals nombre.
+
+
     @Override
     public boolean equals(Object obj){
             if(obj == null) return false;

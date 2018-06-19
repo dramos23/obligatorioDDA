@@ -66,5 +66,7 @@ public interface VistaPartida {
 
     public void finalizarContador();
 
+    public void actualizarContador(String contador);
+
     
 }

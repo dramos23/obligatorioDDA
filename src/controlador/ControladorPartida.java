@@ -48,12 +48,12 @@ public class ControladorPartida implements Observer {
         
         if(evento.equals(Partida.Eventos.jApuesta))
         {         
-            if(!this.jugador.equals(partida.getApuesta().getApostador())) 
+            if(!this.jugador.equals(partida.getApuesta().getApostador())) {
                 vista.mostrarApuesta(partida.getApuesta());
-            else
+                vista.iniciaContador(Integer.toString(partida.getHilo().getContador()));
+            }else
                 vista.jugadorAposto();
-        }
-        
+        }        
         if(evento.equals(Partida.Eventos.jAceptaApuesta)){
             vista.cambiaDinero(jugador);           
         }
@@ -66,7 +66,6 @@ public class ControladorPartida implements Observer {
         {
             vista.iniciarPartida(jugador);
             vista.mostrarJugadoresMano(partida.getJugadoresParticipantesMano());            
-            vista.iniciaContador(Integer.toString(partida.getHilo().getContador()));
         }            
         if(evento.equals(Partida.Eventos.cambiaPozo) || evento.equals(Jugador.Eventos.cambioSaldo))
         {
@@ -75,12 +74,10 @@ public class ControladorPartida implements Observer {
         if(evento.equals(Partida.Eventos.hayGanador))
         {
             vista.mostrarGanador(partida.getApuesta().getGanador());
-            vista.finalizarContador();
         }
         if(evento.equals(Partida.Eventos.todosPasaron))
         {
             vista.todosPasan();
-            vista.finalizarContador();
         }
         if(evento.equals(Partida.Eventos.ultimoJugadorGanador))
         {
@@ -89,6 +86,13 @@ public class ControladorPartida implements Observer {
         if(evento.equals(Partida.Eventos.jPasa))
         {
             vista.mostrarJugadoresMano(partida.getJugadoresParticipantesMano());    
+        }if(evento.equals(Partida.Eventos.actualizarContador)){
+            JugadorParticipante apostador = partida.getApuesta().getApostador();
+            if(!jugador.equals(apostador) || jugador.getEstado().equals(JugadorParticipante.Estado.pasoDeApuesta)){
+                vista.actualizarContador(Integer.toString(partida.getHilo().getContador()));
+            }
+        }if(evento.equals(Partida.Eventos.finTurnoPorContador)){
+            vista.finalizarContador();
         }
 
     }
@@ -114,6 +118,7 @@ public class ControladorPartida implements Observer {
     public void aceptarApuesta() {
         Apuesta a = partida.getApuesta();     
         partida.jugadorAceptaApuesta(jugador, a.getMontoApostado()); 
+        vista.finalizarContador();
         vista.aceptarApuesta();
     }
     
@@ -142,6 +147,7 @@ public class ControladorPartida implements Observer {
         vista.esconderAndMostrarAlInicio();
         vista.mostrarJugadores(partida.getJugadoresParticipantes());
         vista.mostrarJugadoresMano(partida.getJugadoresParticipantesMano());    
+        vista.finalizarContador();
         if(comenzoPartida()) vista.iniciarPartida(jugador);
     }
     
@@ -163,6 +169,7 @@ public class ControladorPartida implements Observer {
 
     public void jugadorNoAceptaApuesta() {
         jugador.setEstado(JugadorParticipante.Estado.pasoDeApuesta);
+        vista.finalizarContador();
         partida.revisarAceptacionDeApuesta();
     }
     

@@ -24,6 +24,11 @@ public class Jugador extends Usuario{
             super(nombre, pass, nombreCompleto);
             saldo = dineroInicial;
     }
+    
+    public Jugador()
+    {
+    
+    }
 
     public int getSaldo() {
         return saldo;
