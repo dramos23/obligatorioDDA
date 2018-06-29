@@ -21,6 +21,9 @@ public class Partida extends Observable {
 //    private DateTime FechaInicio;
     
     private ArrayList<JugadorParticipante> jugadores;   
+    private ArrayList<JugadorParticipante> jugadoresAlInicio;   
+    
+    private int oid;
     private Mazo mazo;
     private Apuesta apuesta;
     private int pozo;
@@ -31,8 +34,7 @@ public class Partida extends Observable {
     private String fechaHora;
     private HiloContador hilo;
 
-    
-    
+      
     public enum Eventos{
         jAbandonaPartida, jApuesta, jAceptaApuesta, entroJugador, comienzaPartida,
         comienzaTurno, finalizoPartida, cambiaPozo, hayGanador, 
@@ -50,8 +52,14 @@ public class Partida extends Observable {
         this.cantManos = 0;
     }
 
-      
+    public int getOid() {
+        return oid;
+    }
 
+    public void setOid(int oid) {
+        this.oid = oid;
+    }
+          
     //Metodo que inicializa todas las variables necesarias para comenzar una nueva ronda.    
     public void comenzarRonda(){        
         mazo = new Mazo();
@@ -74,6 +82,16 @@ public class Partida extends Observable {
     public HiloContador getHilo() {
         return hilo;
     }
+    
+    private void guardarPartida() {
+        Sistema.getInstancia().guardarPartida(this);
+    }
+
+    public ArrayList<JugadorParticipante> getJugadoresAlInicio() {
+        return jugadoresAlInicio;
+    }
+    
+    
     
     public ArrayList<JugadorParticipante> getJugadoresParticipantes(){
         return this.jugadores;
@@ -274,8 +292,8 @@ public class Partida extends Observable {
         if(finalizada()) {
             this.jugadores.remove(jugador);        
             removerUltimoJugador();
-            Sistema.getInstancia().removerPartidaDeLista(this);
-           
+            guardarPartida();
+            Sistema.getInstancia().removerPartidaDeLista(this);           
         } else if(!this.jugadores.isEmpty()) {
             this.jugadores.remove(jugador);
             if (this.jugadores.size() > 1) terminarTurno();
@@ -371,6 +389,8 @@ public class Partida extends Observable {
     
     private void comenzarPartida(){
             fechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
+            this.jugadoresAlInicio = (ArrayList<JugadorParticipante>) this.jugadores.clone();
+    
             comenzarRonda();
     }
 

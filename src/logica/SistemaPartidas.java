@@ -8,6 +8,8 @@ package logica;
 import java.util.ArrayList;
 import java.util.Observable;
 import logica.Partida.Eventos;
+import mapeadores.MapeadorPartida;
+import persistencia2.Persistencia;
 
 /**
  *
@@ -19,6 +21,7 @@ public class SistemaPartidas extends Observable{
     private Partida proximaPartida;
     private int valorLuz;
     private int cantJugadoresPorPartida;
+
       
     public enum Eventos{
         comienzaPartida, cambiarLuz, cambiarCantJugadores, cambioEnPartida
@@ -37,8 +40,17 @@ public class SistemaPartidas extends Observable{
         return jp;
     }
 
-        //Throws exception
+    public void guardarPartida(Partida partida) {
+        MapeadorPartida mp = new MapeadorPartida(partida);
+        try{
+            Persistencia.getInstancia().guardar(mp);
+        }catch(Exception ex)
+        {
+            
+        }
+    }
 
+    
     public void setLuz(int nuevaLuz) throws PartidaException {
         if (nuevaLuz <= 0) throw new PartidaException("El valor de la luz debe ser mayor a 0");
         if(nuevaLuz == valorLuz) return;

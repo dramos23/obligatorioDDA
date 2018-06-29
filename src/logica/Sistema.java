@@ -101,6 +101,10 @@ public class Sistema{
         return figuras;
     }
 
+    void guardarPartida(Partida partida) {
+        this.sp.guardarPartida(partida);
+    }
+
     
     
 }
