@@ -44,7 +44,7 @@ public class ControladorMonitorPartidas implements Observer{
         }
         
         if(evento.equals(SistemaPartidas.Eventos.cambioEnPartida)){
-            vista.mostrarPartidasAct(s.obtenerPartidasAct());
+            vista.mostrarPartidasAct(s.obtenerTodasLasPartidas());
         }
         
     }

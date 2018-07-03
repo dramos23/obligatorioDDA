@@ -20,8 +20,8 @@ public class Partida extends Observable {
     
 //    private DateTime FechaInicio;
     
-    private ArrayList<JugadorParticipante> jugadores;   
-    private ArrayList<JugadorParticipante> jugadoresAlInicio;   
+    private ArrayList<JugadorParticipante> jugadores = new ArrayList();   
+    private ArrayList<JugadorParticipante> jugadoresAlInicio = new ArrayList();   
     
     private int oid;
     private Mazo mazo;
@@ -33,6 +33,22 @@ public class Partida extends Observable {
     private int cantManos;
     private String fechaHora;
     private HiloContador hilo;
+    private boolean terminada;
+    
+    public Partida() {
+        
+    }
+
+    public void agregarJugador(String nombreCompleto, int totalApostado, int saldoInicial, int totalGanado) {
+        Jugador j = new Jugador("", "", nombreCompleto, saldoInicial);
+        JugadorParticipante jp = new JugadorParticipante(j, this);
+        jugadores.add(jp);
+        jp.setearDatos(totalApostado, saldoInicial, totalGanado);
+    }
+
+    public void setCantJugadoresBD(int cant) {
+        this.cantJugadores = cant;
+    }
 
       
     public enum Eventos{
@@ -44,12 +60,20 @@ public class Partida extends Observable {
     public Partida(int cantJug, int luz, SistemaPartidas sisP){
         this.luz = luz;
         this.cantJugadores = cantJug;
-        this.jugadores = new ArrayList(); 
         this.mazo = new Mazo();
         this.apuesta = new Apuesta();
         this.fechaHora = "";
         this.totalApostado = 0;
         this.cantManos = 0;
+        this.terminada = false;
+    }
+
+    public boolean isTerminada() {
+        return terminada;
+    }
+
+    public void setTerminada(boolean terminada) {
+        this.terminada = terminada;
     }
 
     public int getOid() {
@@ -84,6 +108,7 @@ public class Partida extends Observable {
     }
     
     private void guardarPartida() {
+        terminada = true;
         Sistema.getInstancia().guardarPartida(this);
     }
 
@@ -105,6 +130,34 @@ public class Partida extends Observable {
             }
         }
         return lista;
+    }
+
+    public void setTotalApostado(int totalApostado) {
+        this.totalApostado = totalApostado;
+    }
+
+    public void setCantManos(int cantManos) {
+        this.cantManos = cantManos;
+    }
+
+    public void setFechaHora(String fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    public ArrayList<JugadorParticipante> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(ArrayList<JugadorParticipante> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public Mazo getMazo() {
+        return mazo;
+    }
+
+    public void setMazo(Mazo mazo) {
+        this.mazo = mazo;
     }
 
     public int getCantJugadores() {

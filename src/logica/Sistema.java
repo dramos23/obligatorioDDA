@@ -66,6 +66,10 @@ public class Sistema{
     public ArrayList<Partida> obtenerPartidasAct(){
         return this.sp.getPartidas();
     }
+    public ArrayList<Partida> obtenerTodasLasPartidas(){
+        return this.sp.getTodasLasPartidas();
+    }
+
     
     public int obtenerLuzPartida(){
         return this.sp.getValorLuz();

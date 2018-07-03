@@ -16,6 +16,12 @@ import java.util.Observable;
  */
 public class JugadorParticipante{
 
+    void setearDatos(int totalApostado, int saldoInicial, int totalGanado) {
+        this.totalApostado  = totalApostado;
+        this.saldoInicial = saldoInicial;
+        this.totalGanado = totalGanado;                
+    }
+
     public enum Estado {
         sinActuar, aposto, noApuesto, juegoProxima, pasoDeApuesta 
     }

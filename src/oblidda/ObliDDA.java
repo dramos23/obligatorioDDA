@@ -39,16 +39,18 @@ public class ObliDDA {
     
     private static void cargarDatos() throws PartidaException {
 
+        Sistema logica = Sistema.getInstancia();
+        logica.modificarLuz(50);
+        logica.modificarCantJugadores(2);
+        
         cargarJugadores();
         cargarAdmins();
         cargarPartidas();
                 
         
-        /*
-        Sistema logica = Sistema.getInstancia();
-        logica.modificarLuz(50);
-        logica.modificarCantJugadores(2);
         
+       
+        /*
         logica.agregarA(new Admin("0", "", "Jonas"));
         
         logica.agregar(new Jugador("1", "", "Pepe", 300));

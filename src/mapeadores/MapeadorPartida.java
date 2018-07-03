@@ -8,9 +8,11 @@ package mapeadores;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import logica.Jugador;
 import logica.JugadorParticipante;
 import logica.Partida;
 import persistencia2.Mapeador;
+import persistencia2.Persistencia;
 
 /**
  *
@@ -71,17 +73,18 @@ public class MapeadorPartida implements Mapeador{
         return null;
     }
 
+    //No sirve
     @Override
     public ArrayList<String> getSqlBorrar() {
         ArrayList<String> sqls = new ArrayList();
-        sqls.add("DELETE FROM partidaistradores WHERE oid = " + partida.getOid());        
-        sqls.add("DELETE FROM usuarios WHERE oid = " + partida.getOid());
+        sqls.add("DELETE FROM partida WHERE oid = " + partida.getOid());        
+        sqls.add("DELETE FROM partida WHERE oid = " + partida.getOid());        
         return sqls;
     }
 
     @Override
     public String getSqlSeleccionar() {
-        return "SELECT * FROM partidaistradores JOIN usuarios ON oid = oidUsuario";
+        return "SELECT * FROM partidas JOIN jugadoresPartida ON oid = oidPartida";
     }
 
     @Override
@@ -96,14 +99,28 @@ public class MapeadorPartida implements Mapeador{
 
     @Override
     public void leerComponente(ResultSet rs) throws SQLException {
-        
+        int oidJugador = Integer.parseInt(rs.getString("oidJugador"));
+        String nombre = rs.getString("nombreCompleto");
+        int totalApos = Integer.parseInt(rs.getString("totalApostado"));
+        int saldoIni = Integer.parseInt(rs.getString("saldoInicial"));
+        int totalG = Integer.parseInt(rs.getString("totalGanado"));
+                
+        partida.agregarJugador(
+                nombre,
+                totalApos,
+                saldoIni,
+                totalG
+        );
     }
 
     @Override
     public void leerCompuesto(ResultSet rs) throws SQLException {
-        partida.setNombre(rs.getString("nombre"));
-        partida.setPass(rs.getString("password"));
-        partida.setNombreCompleto(rs.getString("nombreCompleto"));
+        partida.setJugadores(new ArrayList());
+        partida.setFechaHora(rs.getString("fecha"));
+        partida.setCantJugadoresBD(Integer.parseInt(rs.getString("cantJugadores")));
+        partida.setTotalApostado(Integer.parseInt(rs.getString("totalApostado")));
+        partida.setCantManos(Integer.parseInt(rs.getString("cantManos")));
+        partida.setTerminada(true);
     }
     
 }

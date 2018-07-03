@@ -91,6 +91,7 @@ public class MapeadorJugador implements Mapeador{
         jug.setNombre(rs.getString("nombre"));
         jug.setPass(rs.getString("password"));
         jug.setNombreCompleto(rs.getString("nombreCompleto"));
+        jug.setSaldo(rs.getInt("saldo"));
     }
     
 }

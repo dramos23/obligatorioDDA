@@ -42,9 +42,9 @@ public class Persistencia {
         } catch (SQLException ex) {
             System.out.println("ERROR AL CALCULAR PROXIMO OID:" + ex.getMessage());
         }
-        return oid;
-                
+        return oid;                
     }
+    
     public void guardar(Mapeador m){
         if(m.getOid()==0){
             insertar(m);
@@ -104,7 +104,7 @@ public class Persistencia {
             System.out.println("Error al buscar:" + ex);
             return null;
         }
-        return lista;
+            return lista;
     }
     
 }

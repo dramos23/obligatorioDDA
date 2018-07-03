@@ -72,6 +72,12 @@ public class SistemaPartidas extends Observable{
     public ArrayList<Partida> getPartidas() {
         return partidas;
     }
+    
+    public ArrayList<Partida> getTodasLasPartidas(){
+        ArrayList<Partida> partidasTerminadas = Persistencia.getInstancia().buscar(new MapeadorPartida(), null);
+        partidasTerminadas.addAll(partidas);
+        return partidasTerminadas;
+    }
 
     public int getValorLuz() {
         return valorLuz;
@@ -91,6 +97,7 @@ public class SistemaPartidas extends Observable{
     }
 
     public Partida getPartidaAct(String f) {
+        ArrayList<Partida> partidas = getTodasLasPartidas();
         for(Partida p:partidas){
             if (p.getFechaHora().equals(f)){
                 return p;
