@@ -27,6 +27,7 @@ public class BaseDatos {
     public static BaseDatos getInstancia() {
         return instancia;
     }
+    
     private BaseDatos() {
     }
     

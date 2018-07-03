@@ -32,9 +32,10 @@ public class ObliDDA {
      * @throws logica.PartidaException
      */
     public static void main(String[] args) throws PartidaException {
-   
+           
         cargarDatos();
-        new InicioDialogo(null,false).setVisible(true);        
+    //    new InicioDialogo(null,false).setVisible(true);        
+   
     }
     
     private static void cargarDatos() throws PartidaException {
@@ -43,14 +44,14 @@ public class ObliDDA {
         logica.modificarLuz(50);
         logica.modificarCantJugadores(2);
         
-        cargarJugadores();
-        cargarAdmins();
-        cargarPartidas();
+        //cargarJugadores();
+        //cargarAdmins();
+        //cargarPartidas();
                 
         
         
        
-        /*
+        
         logica.agregarA(new Admin("0", "", "Jonas"));
         
         logica.agregar(new Jugador("1", "", "Pepe", 300));
@@ -66,11 +67,12 @@ public class ObliDDA {
         Jugador joaqui = new Jugador("Joaquina123", "123", "Joaqui", 500);
         Jugador nico = new Jugador("Nicolas123", "123", "Nico", 500);
         
-        */
+        
     }
 
     private static void cargarJugadores() {
             MapeadorJugador m = new MapeadorJugador();
+            Persistencia p = Persistencia.getInstancia();
             ArrayList lista = Persistencia.getInstancia().todos(m);
             Sistema s = Sistema.getInstancia();
             for(Object obj : lista){
