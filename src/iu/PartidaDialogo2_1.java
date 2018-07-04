@@ -537,8 +537,7 @@ public class PartidaDialogo2_1 extends javax.swing.JDialog implements VistaParti
 
     @Override
     public void mostrarEstado(String estado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     }
 
     @Override
     public void mostrarApuesta(Apuesta a) {        
