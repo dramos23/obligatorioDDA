@@ -34,7 +34,7 @@ public class ObliDDA {
     public static void main(String[] args) throws PartidaException {
            
         cargarDatos();
-    //    new InicioDialogo(null,false).setVisible(true);        
+        new InicioDialogo(null,false).setVisible(true);        
    
     }
     
